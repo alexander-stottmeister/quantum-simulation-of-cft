@@ -201,6 +201,11 @@ def write(name, parts, title, desc, width=W, height=H):
 
 # ------------------------------------------------------------------ the four figures
 
+# eps_phys is imported, not re-derived: this figure carried its own copy of the dynamics
+# term and kept the L = 1 spacing after the budget had been corrected to L = pi.
+from make_data import eps_phys  # noqa: E402
+
+
 def fig_error_budget():
     B = json.load(open(os.path.join(DATA, "budget.json")))
     M, T, d = 3, 1.0, 1
@@ -208,7 +213,7 @@ def fig_error_budget():
     Ns = list(range(M + 1, 19))
     Ic = [(2 * d) * (math.pi ** 2 / 16) * 4.0 ** -(N - M) for N in Ns]
     If = [(2 * d) * (math.pi / 4) * 2.0 ** -(N - M) for N in Ns]
-    II = [(1 / 6) * d * theta * T * 4.0 ** -N for N in Ns]
+    II = [(1 / 6) * d * theta * T * eps_phys(N) ** 2 for N in Ns]
     lo = min(min(Ic), min(II)) / 3
     hi = max(max(If), max(II)) * 3
     f = Fig("Theorem S1(i), the established k = 0 budget:  M = 3, T = 1, d_A = d_B = 1",
@@ -217,7 +222,7 @@ def fig_error_budget():
     f.line(Ns, If, 4, dash="2 3", label="term I, full algebra  ∝ 2⁻ʳ")
     f.line(Ns, Ic, 0, label="term I, chiral  ∝ 4⁻ʳ")
     f.marks(Ns, Ic, 0, 3)
-    f.line(Ns, II, 1, label="term II, dynamics  ∝ Θ_M T 4⁻ᴺ")
+    f.line(Ns, II, 1, label="term II, dynamics  ∝ Θ_M T εₙ²")
     f.marks(Ns, II, 1, 3)
     write("error-budget.svg", f.render("tr"),
           "The error budget of Theorem S1(i)",
