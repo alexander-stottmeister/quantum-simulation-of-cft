@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>H &middot; Correlator convergence &mdash; Quantum Simulation of CFT</title>
+<meta name="description" content="Figure S7 of the Supplemental Material made live: the correlator error against N and against t, computed in your browser by diagonalizing the same one-particle symbol.">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/math.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site"><div class="wrap">
+  <div class="topbar">
+    <p class="crumbs"><a href="../index.html">Quantum Simulation of CFT</a> /
+       <a href="index.html">Widgets</a> / <strong>H &middot; Correlator convergence</strong></p>
+    <button id="theme-toggle" class="btn" type="button">auto</button>
+  </div>
+  <h1>H &middot; Correlator convergence</h1>
+  <p class="lede">Everything else on this site is a bound. This is the one place where the rate is
+     <em>measured</em>: the two-point function of smeared fields evolved by
+     \(H_k^{(N)}=L_k^{(N)}+L_{-k}^{(N)}\), against a continuum reference, computed in your
+     browser. The per-step ratio goes to 4, which is \(\varepsilon_N^2=4^{-N}\); and at \(k=2\)
+     the error turns upward late in time, which is the energy shell reaching the cutoff.</p>
+</div></header>
+
+<main id="main">
+
+<section id="widget">
+  <h2>\(|C^{(N)}(t)-C(t)|\), against the scale and against time</h2>
+  <p class="src">Statement: this is the numerical check of
+     <a href="../results.html#thm-s1">Theorem&nbsp;S1(ii)</a> at the correlator level, and the
+     mechanism it makes visible is <a href="../results.html#lem-s5">Lemma&nbsp;S5</a>. It is
+     Fig.&nbsp;S7 of the supplement, recomputed. The reference implementation is
+     <code>numerics/correlator_convergence.py</code>.</p>
+  <div id="w"></div>
+  <div class="notshown">
+    <p><b>What this does not show.</b> It is <em>one</em> correlator, of one fixed pair of smeared
+       fields, in the free chiral theory, against a truncated continuum reference at momentum
+       cutoff \(2^{11}\) &mdash; not the bound of Theorem&nbsp;S1, and not a test of its
+       prefactor. A measured rate agreeing with a proved rate is corroboration, not proof.</p>
+  </div>
+  <noscript><div class="fallback">
+    <p><strong>JavaScript is off, so here is the same thing as a picture and a sentence.</strong></p>
+    <img src="../figures/correlator-convergence.svg" alt="Two panels. Left: the correlator error against the lattice scale N at fixed time 0.5, falling on a straight line of slope four per step for k equal to 0, 1 and 2. Right: the error against time at N equal to 8, bounded for k equal to 0 and 1 but rising sharply for k equal to 2 beyond t about 1.5.">
+    <p>At \(t=0.5\), \(M=3\), the error falls by a factor \(4.000\) per unit of \(N\) for
+       \(k=0,1,2\) over \(N=6\ldots10\). At \(N=8\) it stays beneath a bounded envelope for
+       \(k=0,1\), while for \(k=2\) it rises by four orders of magnitude between \(t=1.5\) and
+       \(t=2\).</p>
+  </div></noscript>
+</section>
+
+<section id="check">
+  <h2>Does this page agree with the committed data?</h2>
+  <p>The browser diagonalizes the same one-particle symbol that <code>tools/make_data.py</code>
+     hands to numpy&rsquo;s <code>eigh</code>, by a different route: the symbol connects
+     \(l\leftrightarrow l\pm k\) only, so it splits into \(k\) independent symmetric tridiagonal
+     chains, and an implicit-QL sweep carries along just the two projections the correlator needs.
+     The two agree to about twelve figures on the correlator itself, and therefore to about
+     six on the tiny difference the plot shows &mdash; which is why the tolerance below carries an
+     absolute floor as well as a relative one.</p>
+  <div id="checkhost"><p class="badge pending">checking&hellip; this one computes for a second or two</p></div>
+</section>
+
+<section id="reading">
+  <h2>What is being computed</h2>
+  <p>Modes \(l\in\mathbb Z+\tfrac12\) with \(|l|&lt;\Lambda\); at lattice scale \(N\),
+     \(\Lambda_N=2^N\), so there are \(2^{N+1}=n\) modes, one per site. The one-particle symbol
+     of the simulated generator \(H_k=L_k+L_{-k}\) is \(s=B+B^{\mathsf T}\) with</p>
+  $$B[l+k,\,l]=\varepsilon_N^{-1}\sin\bigl(\varepsilon_N(l+\tfrac k2)\bigr)\ \ \text{(lattice)},
+    \qquad B[l+k,\,l]=l+\tfrac k2\ \ \text{(continuum)}.$$
+  <p>The vacuum is the Dirac sea \(P_{&lt;}\), the projection onto \(l&lt;0\). The observables are
+     a fixed pair of coefficient vectors supported on \(|l|&lt;8\) &mdash; observation scale
+     \(M=3\) &mdash; identical at every scale, because the momentum-cutoff scaling map acts as the
+     identity on retained modes. For a number-conserving bilinear the Heisenberg evolute of a
+     field is a field, so</p>
+  $$C^{(N)}(t)=\bigl\langle\,e^{its}g\,,\ P_{&lt;}f\,\bigr\rangle
+    =\sum_j e^{-itw_j}\,a_j\,b_j,\qquad a=V^{\mathsf T}g,\quad b=V^{\mathsf T}P_{&lt;}f.$$
+  <p>Expanding \(\varepsilon^{-1}\sin(\varepsilon x)=x-\varepsilon^2x^3/6+\cdots\) shows the symbol
+     error is \(O(4^{-N})\), and the measured correlator error follows it. That expansion is the
+     whole of <a href="../results.html#lem-s1">Lemma&nbsp;S1</a>;
+     <a href="c-koo-saleur.html">widget&nbsp;C</a> draws it.</p>
+  <h3>The two features the supplement points at</h3>
+  <ul class="tight">
+    <li><strong>The per-step ratio 4.00.</strong> A least-squares fit of \(\log_2\) error against
+       \(N\) over \(N=6,\dots,10\) gives a ratio of 4.00 to three figures for each of
+       \(k=0,1,2\). Fitting from \(N=4\) instead gives about 4.02 to 4.32, because the smallest
+       lattices are not yet asymptotic &mdash; a reason to quote the range of the fit.</li>
+    <li><strong>The \(k=2\) late-time growth.</strong> At \(N=8\) the error for \(k=0,1\)
+       oscillates under a bounded envelope, while for \(k=2\) it rises by four orders of magnitude
+       around \(t\approx1.5\ldots2\). That is the energy shell \(e^{c_kt}\) of Lemma&nbsp;S5
+       reaching the lattice cutoff: once the evolved state has weight at the edge of the retained
+       band, the lattice symbol and the continuum symbol no longer agree on where the state lives.
+       <a href="i-energy-shell.html">Widget&nbsp;I</a> is about that mechanism.</li>
+  </ul>
+</section>
+
+</main>
+
+<footer class="site"><div class="wrap">
+  <p>An experimental, AI-assisted open-science project. Nothing here has been refereed.
+     Documents CC BY 4.0, code MIT.</p>
+  <p><a href="../index.html">Home</a> &middot; <a href="index.html">Widgets</a> &middot;
+     <a href="../results.html">Results</a> &middot; <a href="../notation.html">Notation</a></p>
+</div></footer>
+
+<script type="module">
+import { mount, renderCheck, loadJSON, boot } from '../assets/widget.js';
+import { plot } from '../assets/plot.js';
+import * as C from '../assets/cft.js';
+
+boot();
+
+const LAMC = 2 ** 11;          // the continuum reference cutoff of numerics_correlator.py
+const KS = [0, 1, 2];
+const NS = [4, 5, 6, 7, 8, 9, 10];
+const CONT = {}, LAT = {};
+const pending = new Set();
+let UI = null;
+
+function contOf(k) { if (!CONT[k]) CONT[k] = C.corrSpectral(LAMC, k, null); return CONT[k]; }
+function latOf(k, N) { const key = `${k}:${N}`; if (!LAT[key]) LAT[key] = C.corrSpectral(2 ** N, k, N); return LAT[key]; }
+
+/* Ask for a k.  k = 0 is a diagonal symbol and costs nothing, so it is computed at once.
+ * k = 1, 2 each need an implicit-QL sweep over a chain of a few thousand modes, about a
+ * second; those are scheduled off the paint, staggered, and the page redraws as they land. */
+function ready(k) {
+  if (CONT[k]) return true;
+  if (k === 0) { contOf(0); for (const N of NS) latOf(0, N); return true; }
+  if (!pending.has(k)) {
+    pending.add(k);
+    setTimeout(() => {
+      contOf(k);
+      for (const N of NS) latOf(k, N);
+      pending.delete(k);
+      if (UI) UI.render();
+    }, 60 * k);
+  }
+  return false;
+}
+
+const errVsN = (k) => NS.map((N) => C.cabs(C.corrAt(latOf(k, N), TA), C.corrAt(contOf(k), TA)));
+let TA = 0.5;
+
+UI = mount({
+  mount: '#w',
+  controls: [
+    { k: 'panel', label: 'panel', type: 'select', value: 'a',
+      options: [['a', '(a) error against N'], ['b', '(b) error against t']] },
+    { k: 't', label: 'time t  — panel (a)', type: 'range', min: 0.1, max: 2, step: 0.05, value: 0.5 },
+    { k: 'N', label: 'scale N — panel (b)', type: 'range', min: 5, max: 10, step: 1, value: 8 },
+  ],
+  draw(s, ui) {
+    TA = s.t;
+    const have = KS.filter((k) => ready(k));
+    const missing = KS.length - have.length;
+    const colOf = (k) => k;
+
+    if (s.panel === 'a') {
+      const series = have.map((k) => ({
+        x: NS, y: errVsN(k), label: `k = ${k}`, color: colOf(k), marker: 'open', size: 3.6, width: 1.8,
+      }));
+      if (have.length) {
+        const anchor = errVsN(have[0])[NS.indexOf(7)];
+        series.push({ x: [5.6, 10.4], y: [anchor * 4 ** (7 - 5.6), anchor * 4 ** (7 - 10.4)],
+          dash: [5, 4], width: 1.2, color: 5, label: '∝ 4⁻ᴺ' });
+      }
+      plot(ui.canvas, {
+        series, ylog: 10, xlim: [3.6, 10.4],
+        xticks: NS.map((v) => ({ v, label: String(v) })),
+        xlabel: 'lattice scale N', ylabel: '|C⁽ᴺ⁾(t) − C(t)|', legend: 'bl',
+      });
+      if (!have.length) return '<p class="muted">computing the continuum reference&hellip;</p>';
+      let html = `<p class="big">At \\(t = ${s.t}\\), \\(M = 3\\):</p><ul class="tight">`;
+      for (const k of have) {
+        const e = errVsN(k);
+        const rTail = C.fitRatio(NS.slice(2), e.slice(2));
+        const rAll = C.fitRatio(NS, e);
+        html += `<li>\\(k = ${k}\\): error ${e[NS.indexOf(6)].toExponential(3)} at \\(N=6\\) and
+          ${e[NS.length - 1].toExponential(3)} at \\(N=10\\); fitted per-step ratio
+          <strong>${rTail.toFixed(3)}</strong> over \\(N=6\\ldots10\\)
+          (${rAll.toFixed(3)} if the fit starts at \\(N=4\\)).</li>`;
+      }
+      html += '</ul>';
+      html += `<p class="muted">The supplement quotes 4.00 for this fit. Four is
+        \\(2^{2}\\): each step in \\(N\\) halves the spacing and the rate is
+        \\(\\varepsilon_N^2\\).</p>`;
+      if (missing) html += `<p class="muted">still computing ${missing} more order${missing > 1 ? 's' : ''}&hellip;</p>`;
+      return html;
+    }
+
+    /* panel (b) */
+    const N = s.N | 0;
+    const ts = [];
+    for (let i = 1; i <= 80; i++) ts.push((2.0 * i) / 80);
+    const series = have.map((k) => {
+      const cs = contOf(k), ls = latOf(k, N);
+      return { x: ts, y: ts.map((t) => C.cabs(C.corrAt(ls, t), C.corrAt(cs, t))),
+        label: `k = ${k}`, color: colOf(k), width: 1.8 };
+    });
+    plot(ui.canvas, {
+      series, ylog: 10, xlim: [0, 2.05],
+      xlabel: 't', ylabel: '|C⁽ᴺ⁾(t) − C(t)|', legend: 'tl',
+    });
+    if (!have.length) return '<p class="muted">computing the continuum reference&hellip;</p>';
+    let html = `<p class="big">At \\(N = ${N}\\) (\\(n = ${C.sites(N)}\\) sites), \\(M = 3\\):</p><ul class="tight">`;
+    for (const k of have) {
+      const cs = contOf(k), ls = latOf(k, N);
+      const at = (t) => C.cabs(C.corrAt(ls, t), C.corrAt(cs, t));
+      const growth = at(2.0) / at(0.5);
+      html += `<li>\\(k = ${k}\\): ${at(0.5).toExponential(2)} at \\(t=0.5\\),
+        ${at(1.5).toExponential(2)} at \\(t=1.5\\), ${at(2.0).toExponential(2)} at \\(t=2\\)
+        &mdash; a factor ${growth < 10 ? growth.toPrecision(2) : growth.toExponential(1)} from
+        \\(t=0.5\\) to \\(t=2\\).</li>`;
+    }
+    html += '</ul>';
+    if (have.includes(2)) {
+      html += `<p>For \\(k=0\\) and \\(k=1\\) the error stays under a bounded envelope across the
+        horizon. For \\(k=2\\) it turns upward: the shell \\(e^{c_kt}\\) of Lemma&nbsp;S5 has
+        reached the lattice cutoff, and the bound of Theorem&nbsp;S1(ii) &mdash; whose horizon
+        factor is \\(\\Lambda_k(T)=(e^{c_kT}-1)/c_k\\) &mdash; is describing exactly this.
+        At \\(k=0\\), \\(c_0=0\\) and no such thing happens: the energy shell is dynamically
+        invariant.</p>`;
+    }
+    if (missing) html += `<p class="muted">still computing ${missing} more order${missing > 1 ? 's' : ''}&hellip;</p>`;
+    return html;
+  },
+});
+
+/* --------------------------------------------------------------------- the check --- */
+(async () => {
+  const host = document.querySelector('#checkhost');
+  try {
+    const D = await loadJSON('../data/correlator.json');
+    const rows = [];
+    for (const k of KS) {
+      /* let the page paint between orders: each is about a second of arithmetic */
+      await new Promise((r) => setTimeout(r, 30));
+      const cs = contOf(k);
+      const pa = D.panel_a[String(k)];
+      for (const N of [6, 8, 10]) {
+        const got = C.cabs(C.corrAt(latOf(k, N), D.t_panel_a), C.corrAt(cs, D.t_panel_a));
+        rows.push({ name: `|C⁽ᴺ⁾−C| at k = ${k}, N = ${N}, t = ${D.t_panel_a}`,
+          got, want: pa.err[pa.N.indexOf(N)], tol: 1e-5, atol: 1e-12 });
+      }
+      rows.push({ name: `fitted per-step ratio, k = ${k}, N = 6…10`,
+        got: C.fitRatio(pa.N.slice(2), pa.N.slice(2).map((N) => C.cabs(C.corrAt(latOf(k, N), D.t_panel_a), C.corrAt(cs, D.t_panel_a)))),
+        want: pa.fit_ratio_tail, tol: 1e-6 });
+      const pb = D.panel_b[String(k)];
+      const lb = latOf(k, D.N_panel_b);
+      for (const j of [19, 59, 79]) {
+        rows.push({ name: `|C⁽ᴺ⁾−C| at k = ${k}, N = ${D.N_panel_b}, t = ${pb.t[j]}`,
+          got: C.cabs(C.corrAt(lb, pb.t[j]), C.corrAt(cs, pb.t[j])), want: pb.err[j], tol: 1e-5, atol: 1e-12 });
+      }
+    }
+    renderCheck(host, rows,
+      'Tolerance 1e-5 relative with an absolute floor of 1e-12 — and the floor is the honest '
+      + 'part. The quantity compared is a difference of two correlators of order 0.1, so the two '
+      + 'implementations agree to about 4e-13 in absolute terms (a few units in the last place '
+      + 'of the correlator) which is only about 1e-6 of the difference itself. The browser uses '
+      + 'an implicit-QL sweep on the tridiagonal chains, make_data.py uses numpy eigh on the '
+      + 'same chains; the residual is rounding from two different algorithms, not method.');
+  } catch (e) {
+    host.innerHTML = `<p class="badge bad">could not run the check: ${e.message}</p>`;
+  }
+})();
+</script>
+</body>
+</html>

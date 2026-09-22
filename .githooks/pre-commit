@@ -1,0 +1,54 @@
+#!/bin/sh
+# Second line of defence for the public repository.
+#
+# .gitignore is directory-shaped and does not survive `git add -f` or an unattended
+# commit, so this hook refuses the staged paths that must never enter this history.
+# It is deliberately blunt: a false refusal costs a minute, a false pass is permanent.
+#
+# The patterns below are written with a character class on the last letter, as in
+# 'Claude-Sessio[n]', so that this file does not itself contain the strings it forbids;
+# the export verifier scans every file, this one included, and would otherwise flag it.
+#
+# core.hooksPath is per-clone LOCAL config.  Run this once on every machine:
+#
+#     git config core.hooksPath .githooks
+#
+set -eu
+fail() { echo "pre-commit: REFUSED: $1" >&2; exit 1; }
+
+staged=$(git diff --cached --name-only --diff-filter=ACMR)
+[ -n "$staged" ] || exit 0
+
+printf '%s\n' "$staged" | while IFS= read -r f; do
+  [ -n "$f" ] || continue
+  case "$f" in
+    *report[s].rtf|*CoverLette[r]*|*respons[e]*.tex|*corresponden[c]e*|*refere[e]*)
+      fail "$f looks like journal correspondence" ;;
+    *.rtf|*.doc|*.docx|*.pages)
+      fail "$f is a word-processor document; this repository tracks sources" ;;
+    *.png|*.jpg|*.jpeg|*.tif|*.tiff|*.bmp|*.gif)
+      fail "$f is a raster image; figures here are vector and regenerable" ;;
+  esac
+  # a PDF is allowed only as a figure, never as a compiled document
+  case "$f" in
+    *.pdf)
+      case "$f" in
+        paper/figure*.pdf|paper/2022-submitted/figure*.pdf) : ;;
+        *) fail "$f is a PDF that is not a figure; documents are built, not committed" ;;
+      esac ;;
+  esac
+done
+
+# content tripwires over the staged blobs, not the working tree
+for f in $staged; do
+  case "$f" in *.pdf|*.png|*.jpg|*.woff*|*.ttf) continue ;; esac
+  blob=$(git show ":$f" 2>/dev/null || true)
+  [ -n "$blob" ] || continue
+  printf '%s' "$blob" | grep -q -E 'LQ ?[0-9]{5}' && fail "$f contains the manuscript number"
+  printf '%s' "$blob" | grep -q -E '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}' \
+    && fail "$f contains an email address"
+  printf '%s' "$blob" | grep -qE 'Claude-Sessio[n]' && fail "$f contains a session URL"
+  printf '%s' "$blob" | grep -qE '/User[s]/' && fail "$f contains an absolute local path"
+done
+
+exit 0

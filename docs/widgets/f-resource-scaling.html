@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>F &middot; Resource scaling &mdash; Quantum Simulation of CFT</title>
+<meta name="description" content="Sites and gates against target accuracy on a log-log axis: delta^-1/2 sites and delta^-3/2 gates, the near-term point starred, and the wavelet-route penalty.">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/math.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site"><div class="wrap">
+  <div class="topbar">
+    <p class="crumbs"><a href="../index.html">Quantum Simulation of CFT</a> /
+       <a href="index.html">Widgets</a> / <strong>F &middot; Resource scaling</strong></p>
+    <button id="theme-toggle" class="btn" type="button">auto</button>
+  </div>
+  <h1>F &middot; Resource scaling</h1>
+  <p class="lede">The headline number of the Letter is \(\delta^{-3/2}\), and it is a product of
+     two things that come from opposite ends of the algorithm: a Heisenberg-limited measurement
+     cost \(\delta^{-1}\) from phase estimation, and a discretization cost \(\delta^{-1/2}\) set
+     by the \(1/n^2\) convergence of the lattice approximation. This page separates them.</p>
+</div></header>
+
+<main id="main">
+
+<section id="widget">
+  <h2>Resources against target accuracy</h2>
+  <p class="src">Statement: <a href="../results.html#thm-s1">Theorem&nbsp;S1</a> for the
+     \(\delta^{-1/2}\), Table&nbsp;S1 of the supplement for the \(\delta^{-1}\);
+     see <a href="../definitions.html#algorithm">the four-step algorithm</a>.
+     This is Fig.&nbsp;S6 of the supplement, made live.</p>
+  <div id="w"></div>
+  <div class="notshown">
+    <p><b>What this does not show.</b> It does not show a gate count. Both curves are
+       <em>relative</em> to the near-term point, because the \(o(1)\) in
+       \(T^{1+o(1)}\delta^{-3/2-o(1)}\) hides the product-formula order and the gate-synthesis
+       cost, and because the site count \(n(\delta)\) is calibrated against one measured
+       one-particle bound rather than derived from a computed prefactor.</p>
+  </div>
+  <noscript><div class="fallback">
+    <p><strong>JavaScript is off, so here is the same thing as a picture and a sentence.</strong></p>
+    <img src="../figures/resource-scaling.svg" alt="Log-log plot of resources relative to the near-term point against target accuracy: lattice sites rise as delta to the minus one half, gate count as delta to the minus three halves, with the near-term point starred at delta 0.4 and dyadic lattice sizes marked.">
+    <p>Calibration: the one-particle D10 bound at observation scale \(M=3\) reaches
+       \(\delta_0\approx0.4\) at \(N=6\), i.e. \(n_0=128\) sites and 256 qubits. Then
+       \(n(\delta)=n_0(\delta_0/\delta)^{1/2}\approx81\,\delta^{-1/2}\), and the gate count at
+       \(T=1\) rises as \((\delta_0/\delta)^{3/2}\). Along the wavelet route without re-centring
+       the site count degrades to \(\delta^{-1}\) and the gate count to \(\delta^{-2}\).</p>
+  </div></noscript>
+</section>
+
+<section id="check">
+  <h2>Does this page agree with the committed data?</h2>
+  <div id="checkhost"><p class="badge pending">checking&hellip;</p></div>
+</section>
+
+<section id="reading">
+  <h2>Where each exponent comes from</h2>
+  <div class="tablewrap"><table class="data">
+    <thead><tr><th>Factor</th><th>Exponent</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td>measurement, step 4</td><td class="num">\(\delta^{-1}\)</td>
+        <td>Heisenberg-limited phase estimation: \(O(1/\delta)\) controlled-evolution calls to the
+            per-run circuit, with \(O(\log\tfrac1\delta)\) readout ancillas.</td></tr>
+      <tr><td>discretization</td><td class="num">\(\delta^{-1/2}\)</td>
+        <td>\(C\varepsilon_N^2=C4^{-N}\le\delta\) gives \(N\ge\tfrac12\log_2(C/\delta)\), hence
+            \(n=2^{N+1}\lesssim2C^{1/2}\delta^{-1/2}\). The per-run cost \((nT)^{1+o(1)}\) is
+            linear in \(n\).</td></tr>
+      <tr><td><strong>product</strong></td><td class="num"><strong>\(\delta^{-3/2}\)</strong></td>
+        <td>\(O(1/\delta)\times(T\delta^{-1/2})^{1+o(1)}=T^{1+o(1)}\delta^{-3/2-o(1)}\).</td></tr>
+      <tr><td>wavelet route, \(k\neq0\), not re-centred</td><td class="num">\(\delta^{-2}\)</td>
+        <td>The one-particle rate is \(\varepsilon_N\) rather than \(\varepsilon_N^2\), so
+            \(n\sim C_T\delta^{-1}\) and the product becomes \(\delta^{-2}\). Localization in real
+            space is paid for in qubits unless the comparison is re-centred.</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>The calibration is one measured number, and it is not a correlator bound.</strong>
+     \(\delta_0\approx0.4\) at \(N=6\), \(M=3\) is read off the one-particle, wavelet-route,
+     \(k=0\) data of Fig.&nbsp;S2. The curve drawn here is the exponent statement of the
+     momentum-cutoff route anchored at that point; the prefactor \(C_T=2C^{1/2}\) is not
+     independently computed. A reader who wants a bound with every constant should use
+     Theorem&nbsp;S1(i) directly &mdash; <a href="e-error-budget.html">widget&nbsp;E</a> evaluates
+     it &mdash; and will find a different, smaller number, because it is a different
+     quantity.</p>
+</section>
+
+</main>
+
+<footer class="site"><div class="wrap">
+  <p>An experimental, AI-assisted open-science project. Nothing here has been refereed.
+     Documents CC BY 4.0, code MIT.</p>
+  <p><a href="../index.html">Home</a> &middot; <a href="index.html">Widgets</a> &middot;
+     <a href="../results.html">Results</a> &middot; <a href="../notation.html">Notation</a></p>
+</div></footer>
+
+<script type="module">
+import { mount, renderCheck, loadJSON, boot } from '../assets/widget.js';
+import { plot, theme } from '../assets/plot.js';
+import * as C from '../assets/cft.js';
+
+boot();
+
+const grid = (() => { const a = []; for (let i = 0; i <= 200; i++) a.push(10 ** (0.1 - (3.2 * i) / 200)); return a; })();
+
+mount({
+  mount: '#w',
+  controls: [
+    { k: 'logd', label: 'target δ', type: 'range', min: -3, max: 0, step: 0.05, value: Math.log10(0.4),
+      fmt: (v) => (10 ** v).toPrecision(3) },
+    { k: 'T', label: 'horizon T', type: 'range', min: 1, max: 20, step: 1, value: 1 },
+    { k: 'route', label: 'renormalization route', type: 'select', value: 'mom',
+      options: [['mom', 'momentum cutoff'], ['both', 'both, to compare']] },
+  ],
+  draw(s, ui) {
+    const delta = 10 ** s.logd, T = s.T;
+    const series = [
+      { x: grid, y: grid.map((d) => C.gatesRel(d, T)), label: `gates ∝ δ^−3/2 (T = ${T})`, color: 1, dash: [6, 4], width: 2.2 },
+      { x: grid, y: grid.map(C.sitesOfDelta).map((n) => n / C.N_SITES0), label: 'sites n(δ) ∝ δ^−1/2', color: 0, width: 2.4 },
+    ];
+    if (s.route === 'both') {
+      series.push({ x: grid, y: grid.map((d) => C.gatesRelWavelet(d, T)), label: 'wavelet gates ∝ δ^−2', color: 3, dash: [2, 3], width: 1.8 });
+      series.push({ x: grid, y: grid.map((d) => C.sitesOfDeltaWavelet(d) / C.N_SITES0), label: 'wavelet sites ∝ δ^−1', color: 4, dash: [2, 3], width: 1.8 });
+    }
+    /* dyadic lattice sizes on the sites line */
+    const dyN = [7, 8, 9, 10];
+    series.push({ x: dyN.map(C.deltaOfN), y: dyN.map((N) => 2 ** (N - C.N0)), points: true, marker: 'open', size: 4, color: 0 });
+    /* the near-term point */
+    series.push({ x: [C.DELTA0], y: [1], points: true, marker: 'star', size: 8, color: theme().ink });
+
+    plot(ui.canvas, {
+      series,
+      xlog: 10, ylog: 10,
+      xlim: [1.3, 8e-4], ylim: [0.4, 3e4],
+      xlabel: 'target accuracy δ   (accuracy improves to the right)',
+      ylabel: 'resources ÷ near-term point',
+      legend: 'tl',
+      vlines: [{ x: delta, dash: [3, 3], width: 1.4 }],
+      notes: [
+        { x: C.DELTA0, y: 1, text: 'near-term point: 128 sites, 256 qubits, N = 6', anchor: 'left', dx: 9, dy: 12, size: 11.5 },
+        ...dyN.map((N) => ({ x: C.deltaOfN(N), y: 2 ** (N - C.N0), text: `N=${N}`, anchor: 'left', dx: 7, dy: -8, size: 10.5 })),
+      ],
+    });
+
+    const n = C.sitesOfDelta(delta);
+    const Ndy = Math.ceil(Math.log2(n) - 1);
+    const g = C.gatesRel(delta, T);
+    let html = `<p class="big">At \\(\\delta = ${delta.toPrecision(3)}\\): the exponent statement
+      asks for \\(n \\approx ${n.toFixed(0)}\\) sites, i.e. the dyadic lattice \\(N = ${Ndy}\\)
+      with \\(n = ${2 ** (Ndy + 1)}\\) sites and \\(${2 ** (Ndy + 2)}\\) qubits. Relative to the
+      near-term run at \\(T=1\\), the gate count is \\(\\times${g.toPrecision(4)}\\).</p>`;
+    html += `<p>Sites grew by a factor ${(n / C.N_SITES0).toPrecision(4)} and gates by
+      ${(g / T).toPrecision(4)} for the same change of accuracy: that ratio <em>is</em> the
+      \\(\\delta^{-3/2}\\) against \\(\\delta^{-1/2}\\), namely a cube.</p>`;
+    if (s.route === 'both') {
+      const nw = C.sitesOfDeltaWavelet(delta);
+      html += `<p class="muted">On the wavelet route without re-centring the same accuracy would
+        need \\(n \\approx ${nw.toFixed(0)}\\) sites &mdash; a factor
+        ${(nw / n).toPrecision(3)} more &mdash; and \\(\\times${(C.gatesRelWavelet(delta, T) / g).toPrecision(4)}\\)
+        the gates. That is the price of real-space localization, and
+        <a href="../results.html#lem-s1">Lemma&nbsp;S1</a> says the re-centred comparison
+        removes it.</p>`;
+    }
+    html += `<p class="muted">\\(n(\\delta) = n_0(\\delta_0/\\delta)^{1/2} \\approx
+      ${C.SITES_PREFACTOR.toFixed(2)}\\,\\delta^{-1/2}\\), calibrated at \\(\\delta_0 =
+      ${C.DELTA0}\\), \\(n_0 = ${C.N_SITES0}\\).</p>`;
+    return html;
+  },
+});
+
+(async () => {
+  try {
+    const R = await loadJSON('../data/resources.json');
+    const rows = [
+      { name: 'prefactor n₀√δ₀ in n(δ) = … δ^−1/2', got: C.SITES_PREFACTOR, want: R.sites_prefactor, tol: 1e-12 },
+    ];
+    for (const i of [0, 10, 20, 30]) {
+      const d = R.delta[i];
+      rows.push({ name: `sites ÷ near-term at δ = ${d.toPrecision(3)}`, got: C.sitesOfDelta(d) / C.N_SITES0, want: R.sites_rel[i], tol: 1e-12 });
+      rows.push({ name: `gates ÷ near-term at δ = ${d.toPrecision(3)}, T = 1`, got: C.gatesRel(d, 1), want: R.gates_rel[i], tol: 1e-12 });
+      rows.push({ name: `wavelet gates at δ = ${d.toPrecision(3)}`, got: C.gatesRelWavelet(d, 1), want: R.wavelet_gates_rel[i], tol: 1e-12 });
+    }
+    for (const row of R.dyadic) {
+      rows.push({ name: `δ certified at N = ${row.N}`, got: C.deltaOfN(row.N), want: row.delta, tol: 1e-12 });
+      rows.push({ name: `sites at N = ${row.N}`, got: C.sites(row.N), want: row.sites, tol: 0 });
+      rows.push({ name: `qubits at N = ${row.N}`, got: C.qubits(row.N), want: row.qubits, tol: 0 });
+    }
+    renderCheck('#checkhost', rows,
+      'Tolerance 1e-12, relative (exactly 0 for the integer site and qubit counts). '
+      + 'Data: docs/data/resources.json, written by tools/make_data.py.');
+  } catch (e) {
+    document.querySelector('#checkhost').innerHTML =
+      `<p class="badge bad">could not run the check: ${e.message}</p>`;
+  }
+})();
+</script>
+</body>
+</html>

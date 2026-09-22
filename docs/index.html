@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quantum Simulation of Conformal Field Theory</title>
+<meta name="description" content="Documentation index and interactive companion to the Letter &lsquo;Quantum Simulation of Conformal Field Theory&rsquo; and its Supplemental Material: the algorithm, its error budget and its cost.">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/katex/katex.min.css">
+<script defer src="assets/katex/katex.min.js"></script>
+<script defer src="assets/katex/auto-render.min.js"></script>
+<script defer src="assets/math.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site"><div class="wrap">
+  <div class="topbar">
+    <p class="crumbs"><strong>Quantum Simulation of Conformal Field Theory</strong></p>
+    <button id="theme-toggle" class="btn" type="button">auto</button>
+  </div>
+  <h1>Quantum Simulation of Conformal Field Theory</h1>
+  <p class="lede">Tobias J. Osborne and Alexander Stottmeister &mdash; Institut f&uuml;r Theoretische
+     Physik, Leibniz Universit&auml;t Hannover.</p>
+  <p class="lede">A quantum algorithm for the dynamics and the local conformal symmetries of a
+     1+1-dimensional conformal field theory, built on operator-algebraic renormalization, with
+     an error budget and a resource count. This site is the documentation index for the
+     Letter and its Supplemental Material, and it recomputes the quantitative claims in your
+     browser so that they can be checked rather than taken on trust.</p>
+</div></header>
+
+<main id="main">
+
+<section id="honesty">
+  <h2>Read this first</h2>
+  <div class="panel">
+    <p><strong>Nothing here has been refereed.</strong> The manuscript is between submissions.
+       The revision was produced by the authors working with an AI assistant, the working record
+       is published rather than discarded, and human verification is ongoing. Direction and
+       responsibility are the authors&rsquo;.</p>
+    <p><strong>The error analysis has two halves, and only one of them is established.</strong>
+       For the chiral Hamiltonian evolution, \(k=0\), the correlator bound is proved with every
+       constant in the revised companion manuscript. For the local conformal transformations,
+       \(k\neq0\), the bound is <em>assembled</em> in the Supplemental Material out of cited
+       inputs; its rate and its \(T\)- and \(m\)-dependence are what the assembly establishes,
+       and <em>the numerical value of its prefactor is not computed</em>. That assembly has not
+       been refereed and has not been independently audited.</p>
+    <p><strong>The companion manuscript is itself unrefereed.</strong> Where this site says
+       &ldquo;established&rdquo;, it means established in a cited manuscript &mdash; the published
+       article <em>Commun. Math. Phys.</em> <strong>398</strong>, 219 (2023) where the citation
+       says so, and otherwise its revised and expanded version (v5), which is a preprint.</p>
+    <p class="src">The distinction is carried through every page:
+       <a href="results.html">every numbered statement is labelled</a>, and the
+       <a href="widgets/e-error-budget.html">error-budget widget</a> draws the established part
+       and the assembled part differently.</p>
+  </div>
+</section>
+
+<section id="index">
+  <h2>Documentation index</h2>
+  <div class="cards">
+    <div class="card">
+      <h3><a href="status.html">Status</a></h3>
+      <p>What is established, what is assembled here, what is numerical and what is open.
+         Includes the two errors in the 2021 preprint that this revision corrects.</p>
+    </div>
+    <div class="card">
+      <h3><a href="notation.html">Notation</a></h3>
+      <p>Every symbol the site uses, with the convention fixed: the three scales
+         \(N,M,r\), the spacing \(\varepsilon_N\), the mode set \(\Gamma_N\), the accuracy
+         \(\delta\), and where the conventions differ between documents.</p>
+    </div>
+    <div class="card">
+      <h3><a href="definitions.html">Definitions</a></h3>
+      <p>The objects: the staggered lattice and its spin chain, the scaling maps, the
+         Koo&ndash;Saleur generators, the simulated Hermitian combination \(H_k\), the
+         correlators being compared, and the four-step algorithm.</p>
+    </div>
+    <div class="card">
+      <h3><a href="results.html">Results</a></h3>
+      <p>Theorem&nbsp;S1, Propositions&nbsp;S1 and&nbsp;S2, Lemmas&nbsp;S1&ndash;S5 &mdash; one
+         line each, each marked established or assembled, each keyed to its statement in the
+         Supplemental Material.</p>
+    </div>
+    <div class="card">
+      <h3><a href="widgets/">Widgets</a></h3>
+      <p>Nine interactive pages that recompute the quantitative claims in your browser, each
+         checked at load against the committed JSON, each saying what it does
+         <em>not</em> show.</p>
+    </div>
+  </div>
+</section>
+
+<section id="headline">
+  <h2>The four numbers</h2>
+  <p>Everything on this site hangs off these. Each is verified against the statement in the
+     Supplemental Material that it comes from; the locators are in
+     <a href="results.html#anchors">the table of anchors</a>.</p>
+  <div class="cards">
+    <div class="card">
+      <h3>\(\delta^{-3/2}\)</h3>
+      <p>The gate count, \(T^{1+o(1)}\delta^{-3/2-o(1)}\): a Heisenberg-limited measurement cost
+         \(\delta^{-1}\) times a discretization cost \(\delta^{-1/2}\).
+         <a href="widgets/f-resource-scaling.html">Widget&nbsp;F</a></p>
+    </div>
+    <div class="card">
+      <h3>\(n = 2^{N+1}\), \(2n\) qubits</h3>
+      <p>Sites at ultraviolet scale \(N\), two qubits per site under the Jordan&ndash;Wigner map.
+         <a href="widgets/b-lattice-model.html">Widget&nbsp;B</a></p>
+    </div>
+    <div class="card">
+      <h3>\(\varepsilon_N^{2}=4^{-N}\)</h3>
+      <p>The one-particle rate every leaf of the error budget carries along the momentum-cutoff
+         route, and the rate the correlators are measured to obey.
+         <a href="widgets/h-correlator.html">Widget&nbsp;H</a></p>
+    </div>
+    <div class="card">
+      <h3>128 sites, 256 qubits</h3>
+      <p>The near-term point: a D10 wavelet at accuracy \(\delta=\tfrac12\) on a lattice of 128
+         sites, i.e. \(N=6\), certified at observation scale \(M=3\).
+         <a href="widgets/g-near-term.html">Widget&nbsp;G</a></p>
+    </div>
+  </div>
+</section>
+
+<section id="widgets">
+  <h2>Widgets</h2>
+  <p>Ten were planned, A to J. Nine are built; J is deliberately a pointer rather than a
+     widget, for the reason given below.</p>
+  <div class="tablewrap"><table class="data">
+    <thead><tr><th>#</th><th>Widget</th><th>What you see</th><th>State</th></tr></thead>
+    <tbody>
+      <tr><td>A</td><td><a href="widgets/a-scales.html">The three scales</a></td>
+        <td>Why \(M &lt; N\), and that the error is governed by the depth \(r=N-M\), not by \(N\) alone</td>
+        <td><span class="tag numeric">complete</span></td></tr>
+      <tr><td>B</td><td><a href="widgets/b-lattice-model.html">The simulated model</a></td>
+        <td>The staggered lattice, the Jordan&ndash;Wigner string and the XY chain; \(2n\) qubits for \(n\) sites</td>
+        <td><span class="tag numeric">complete</span></td></tr>
+      <tr><td>C</td><td><a href="widgets/c-koo-saleur.html">Koo&ndash;Saleur symbol</a></td>
+        <td>\(\varepsilon_N^{-1}\sin(\varepsilon_N x)\) bending away from \(x\), and the \(\varepsilon_N^2x^3/6\) that is the whole rate</td>
+        <td><span class="tag numeric">complete</span></td></tr>
+      <tr><td>D</td><td><a href="widgets/d-ground-state.html">Ground-state circuit</a></td>
+        <td>\(U_{\mathrm{FT}}U_{\mathrm B}\) counted gate by gate on a concrete radix-2 network</td>
+        <td><span class="tag partial">partial</span></td></tr>
+      <tr><td>E</td><td><a href="widgets/e-error-budget.html"><strong>The error budget</strong></a></td>
+        <td>The two terms of Theorem&nbsp;S1 stacked, with the established \(k=0\) case and the assembled \(k\neq0\) case drawn differently</td>
+        <td><span class="tag numeric">complete</span></td></tr>
+      <tr><td>F</td><td><a href="widgets/f-resource-scaling.html"><strong>Resource scaling</strong></a></td>
+        <td>\(\delta^{-1/2}\) sites and \(\delta^{-3/2}\) gates, the near-term point starred, and the wavelet-route penalty</td>
+        <td><span class="tag numeric">complete</span></td></tr>
+      <tr><td>G</td><td><a href="widgets/g-near-term.html">The near-term point</a></td>
+        <td>The register drawn, and the caveat that \(2^{M}\gtrsim2K-1\) fails at \(M=3\), \(K=10\)</td>
+        <td><span class="tag numeric">complete</span></td></tr>
+      <tr><td>H</td><td><a href="widgets/h-correlator.html"><strong>Correlator convergence</strong></a></td>
+        <td>The per-step ratio approaching 4, and the \(k=2\) late-time growth when the energy shell reaches the cutoff</td>
+        <td><span class="tag numeric">complete</span></td></tr>
+      <tr><td>I</td><td><a href="widgets/i-energy-shell.html">Energy-shell confinement</a></td>
+        <td>Why the horizon enters as \(\Lambda_k(T)\), linear only at \(k=0\)</td>
+        <td><span class="tag numeric">complete</span></td></tr>
+      <tr><td>J</td><td><a href="widgets/j-one-particle.html">One-particle convergence</a></td>
+        <td>Not built here: the generating code for Figs.&nbsp;S2&ndash;S5 does not exist yet, and the
+            mathematics belongs to the companion repository</td>
+        <td><span class="tag assembled">pointer</span></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="siblings">
+  <h2>The two repositories</h2>
+  <p>This work has a companion, <em>Conformal field theory from lattice fermions</em>, and the two
+     sites divide the subject between them.</p>
+  <ul class="tight">
+    <li><strong>This site owns the algorithm and its cost:</strong> the four-step algorithm, the
+        error budget of Theorem&nbsp;S1, the resource accounting and the near-term figure.</li>
+    <li><strong>The companion site owns the mathematics of the approximation:</strong> the
+        regularity thresholds, the sharp one-particle rates, the two renormalization routes, the
+        energy bounds and the multiplicity criterion. The one-particle inputs this site's error
+        budget consumes &mdash; Lemmas&nbsp;S1, S2, S4, S5 &mdash; are all proved there.</li>
+  </ul>
+  <p>Rather than rebuild them, this site links across:
+     <a href="https://github.com/alexander-stottmeister/lattice_cft">github.com/alexander-stottmeister/lattice_cft</a>.
+     That repository has to be public before the citation to the revised companion manuscript
+     resolves, which is why the link may not yet work.</p>
+</section>
+
+<section id="reproduce">
+  <h2>Reproducing what is on this site</h2>
+  <p>Every number the widgets check themselves against is in <code>docs/data/</code>, and every
+     one of those is produced by one script:</p>
+<pre><code>python3 tools/make_data.py          # writes docs/data/*.json
+python3 tools/make_data.py --check  # recompute and diff against what is committed
+python3 tools/make_figures.py       # writes the static SVG fallbacks in docs/figures/
+node    tools/check_js.mjs          # the browser's own kernels, run outside a browser
+node    tools/check_pages.mjs       # load every page under DOM stubs, sweep every control</code></pre>
+  <p>numpy and the standard library, nothing else; matplotlib is deliberately not used, and the
+     static figures are SVG written directly. To read the site, serve the folder:</p>
+<pre><code>cd docs &amp;&amp; python3 -m http.server 8000</code></pre>
+  <p>A note on how the site was built, what was left out of it and what a reviewer should look
+     at first is <a href="README-SITE.md"><code>docs/README-SITE.md</code></a>.</p>
+  <p>The site loads <em>nothing</em> from a third-party host. KaTeX is vendored under
+     <code>docs/assets/katex/</code>, twenty woff2 faces included, so the site renders offline
+     from a plain clone.</p>
+</section>
+
+<section id="papers">
+  <h2>The documents</h2>
+  <ul class="tight">
+    <li><strong>The Letter</strong>, <em>Quantum Simulation of Conformal Field Theory</em>
+        &mdash; the algorithm, the complexity statement and the near-term figure.</li>
+    <li><strong>The Supplemental Material</strong> &mdash; the discretization error analysis
+        (Theorem&nbsp;S1, Propositions&nbsp;S1&ndash;S2, Lemmas&nbsp;S1&ndash;S5), the resource
+        accounting and the ground-state circuit, and the numerical convergence data
+        (Figs.&nbsp;S2&ndash;S7). Everything on this site is keyed to it.</li>
+    <li><strong>The published companion</strong>, T. J. Osborne and A. Stottmeister,
+        <em>Conformal field theory from lattice fermions</em>,
+        <em>Commun. Math. Phys.</em> <strong>398</strong>, 219 (2023),
+        <a href="https://doi.org/10.1007/s00220-022-04521-8">doi:10.1007/s00220-022-04521-8</a>,
+        <a href="https://arxiv.org/abs/2107.13834">arXiv:2107.13834</a>.</li>
+    <li><strong>Its revised and expanded version (v5)</strong>, cited throughout as
+        <code>[v5,&nbsp;&hellip;]</code>. This is where the one-particle rates, the energy bounds
+        and the explicit \(k=0\) correlator bound live. It is a preprint.</li>
+  </ul>
+  <p class="src">The submission history, stated plainly: the Letter was submitted to
+     <em>Physical Review Letters</em> in March 2022, referred to a topical journal, and revised
+     in 2026 in response to the referees&rsquo; points.</p>
+</section>
+
+</main>
+
+<footer class="site"><div class="wrap">
+  <p>An experimental, AI-assisted open-science project. Nothing here has been refereed; read
+     every statement as a claim under verification. Documents CC BY 4.0, code MIT.</p>
+  <p><a href="status.html">Status</a> &middot; <a href="notation.html">Notation</a> &middot;
+     <a href="definitions.html">Definitions</a> &middot; <a href="results.html">Results</a> &middot;
+     <a href="widgets/">Widgets</a></p>
+</div></footer>
+
+<script type="module">
+  import { boot } from './assets/widget.js';
+  boot();
+</script>
+</body>
+</html>

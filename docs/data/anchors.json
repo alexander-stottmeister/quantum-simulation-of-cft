@@ -1,0 +1,95 @@
+{
+ "_": "Every number this site takes from the manuscript, with its locator.  'supp' is resubmission/qscft_prl_220615_supp.tex, 'main' the Letter.",
+ "items": [
+  {
+   "id": "cost",
+   "source": "supp, Sec. 'Per-step accounting and assembled complexity', Eq. (S32) and the sentence after it; main, Introduction",
+   "text": "gate count T^{1+o(1)} delta^{-3/2-o(1)}: a Heisenberg-limited measurement cost delta^{-1} times a discretization cost delta^{-1/2}",
+   "value": "delta^{-3/2}"
+  },
+  {
+   "id": "sites",
+   "source": "supp, Sec. 'Discretization error analysis', para. 'Throughout'; main, 'Representing conformal fields on a quantum computer'",
+   "text": "number of lattice sites at ultraviolet scale N",
+   "value": "n = 2^{N+1}"
+  },
+  {
+   "id": "qubits",
+   "source": "supp, Sec. 'Resource accounting and state preparation', opening para.; main, 'Complexity'",
+   "text": "system qubits: two per site under the Jordan-Wigner map",
+   "value": "2n = 2^{N+2}"
+  },
+  {
+   "id": "rate",
+   "source": "supp, caption of Fig. S1 (the error budget)",
+   "text": "the one-particle rate every leaf of the error budget carries along the momentum-cutoff route",
+   "value": "eps_N^2 = 4^{-N}"
+  },
+  {
+   "id": "eta_full",
+   "source": "supp, Theorem S1(i) and Lemma S4",
+   "text": "lattice-vacuum rate eta_M(N) on the full two-component algebra",
+   "value": "pi/4 * 2^{-(N-M)}"
+  },
+  {
+   "id": "eta_chiral",
+   "source": "supp, Theorem S1(i) and Lemma S4",
+   "text": "lattice-vacuum rate eta_M(N) on the chiral algebra",
+   "value": "pi^2/16 * 2^{-2(N-M)}"
+  },
+  {
+   "id": "depth",
+   "source": "supp, Lemma S4, 'Source and mechanism' [v5, Remark 6.4(1)]",
+   "text": "renormalization depth; both error sources scale in r, not in N alone",
+   "value": "r = N - M"
+  },
+  {
+   "id": "nearterm",
+   "source": "supp, Sec. 'The near-term figure'; main, 'Error analysis' and abstract",
+   "text": "a D10 wavelet reaching accuracy delta = 1/2 on 128 sites, certified at observation scale M = 3 (r = 3 renormalization steps)",
+   "value": "N = 6, n = 128, 256 qubits, M = 3, delta = 1/2"
+  },
+  {
+   "id": "delta0",
+   "source": "supp, Sec. 'The near-term figure'; caption of Fig. S6 (figure11.pdf)",
+   "text": "the one-particle D10 bound on scale-3 observables at N = 6; scale-5 observables would need N ~ 10 at the same accuracy",
+   "value": "0.4"
+  },
+  {
+   "id": "localization",
+   "source": "supp, Sec. 'Reconciliation with the Letter and inversion of the rate'",
+   "text": "the localization constraint is not met at the near-term point, so those observables are wavelet details wrapped around the circle rather than strictly localized fields; the register size is unaffected",
+   "value": "2^M >= 2K - 1 fails at M = 3, K = 10"
+  },
+  {
+   "id": "horizon",
+   "source": "supp, Theorem S1(ii) and Lemma S5, Eq. (S22)",
+   "text": "the horizon factor; c_0 = 0, so the prefactor is linear in T only at k = 0",
+   "value": "Lambda_k(T) = (e^{c_k T} - 1)/c_k, Lambda_0(T) = T"
+  },
+  {
+   "id": "mpoint",
+   "source": "supp, Sec. 'Multi-point telescoping', Eq. (S27)",
+   "text": "growth of the assembled constant with the number m of points",
+   "value": "O(m^2)"
+  },
+  {
+   "id": "sobolev",
+   "source": "supp, Sec. 'Discretization error analysis', para. 'Throughout' [v5, Remark 3.13]",
+   "text": "Sobolev exponents of the Daubechies scaling functions: 2-regularity needs K >= 5, 3-regularity K >= 9",
+   "value": "sigma_K = 1.000, 1.415, 1.776, 2.098, 2.390, 2.661, 2.917, 3.165, 3.406 for K = 2..10"
+  },
+  {
+   "id": "corr_ratio",
+   "source": "supp, caption of Fig. S7 (figure10.pdf)",
+   "text": "fitted per-step decay ratio of the correlator error, i.e. 4^{-N}",
+   "value": "4.00"
+  },
+  {
+   "id": "k2_growth",
+   "source": "supp, caption of Fig. S7 (figure10.pdf)",
+   "text": "at N = 8 the k = 2 correlator error grows sharply once the evolved energy shell e^{c_k t} reaches the lattice cutoff",
+   "value": "t ~ 1.5"
+  }
+ ]
+}

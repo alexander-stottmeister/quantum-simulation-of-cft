@@ -1,0 +1,82 @@
+% Supp Fig. 4 (fig:waveleterrork): wavelet RG, c = 0, k = 0, M = 3.
+% Factorised Sobolev upper bounds Error(delta,L,0,N) * ||shat(eps_M .)||_{h^{1+delta}}
+% together with the two exact ("true") errors.
+% The legend keeps the symbol delta because the supplement caption reads
+% "$s$ (labeled $\delta$ in the legend)"; delta and s denote the same Sobolev exponent.
+% Documented in ../FIGURES.md.
+% Standalone pgfplots source; reads figure4.dat (written by ../one_particle_errors.py).
+% Compile with pdflatex in this directory -> figure4.pdf, then copy to ../figure4.pdf.
+\documentclass[border=3pt]{standalone}
+\usepackage{amssymb,amsmath}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\definecolor{spacecadet}{HTML}{0D284C}
+\definecolor{cgblue}{HTML}{007CA5}
+\definecolor{brick}{HTML}{C1462B}
+\definecolor{ochre}{HTML}{C98A12}
+\definecolor{moss}{HTML}{4F7A2A}
+\definecolor{violet}{HTML}{7B4EA3}
+\definecolor{magentaD}{HTML}{B03A7A}
+\definecolor{slate}{HTML}{4F6D7A}
+\definecolor{orangeD}{HTML}{D06A1C}
+% --- plot (series) styles ---------------------------------------------------------
+\tikzset{
+  ser/.style={line width=.5pt, mark size=1.5pt, mark options={fill opacity=.85}},
+  tru/.style={line width=.9pt, mark size=1.7pt, mark options={fill opacity=.9}},
+}
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[
+  % --- geometry and scales ---
+  width=268pt, height=196pt, scale only axis,
+  ymode=log, log basis y=10,
+  % --- labels ---
+  xlabel={$N$}, ylabel={$L^{2}$-error},
+  xlabel style={font=\footnotesize}, ylabel style={font=\footnotesize},
+  tick label style={font=\footnotesize},
+  title style={font=\footnotesize, at={(1,1)}, anchor=south east, yshift=1pt},
+  % --- legend to the right of the axis, as in the 2021/22 originals ---
+  legend style={font=\scriptsize, draw=none, fill=none, cells={anchor=west},
+                at={(1.03,1)}, anchor=north west, row sep=0.5pt},
+  legend cell align=left,
+  % --- rules ---
+  grid=both,
+  major grid style={line width=.2pt, draw=black!22},
+  minor grid style={line width=.1pt, draw=black!10},
+  axis line style={line width=.5pt},
+  tick style={line width=.4pt, black!60},
+  title={$M=3$;\, $k=0$},
+  xmin=3.8, xmax=8.2,
+  xtick={4,5,6,7,8},
+  ymin=1.5e-2, ymax=4e1,
+  ytick={0.05,0.1,0.5,1,5,10},
+  yticklabels={$0.05$,$0.10$,$0.50$,$1$,$5$,$10$},
+]
+\addplot[ser, color=spacecadet, mark=*]         table[x=N, y=sobhK4]   {figure4.dat};
+  \addlegendentry{$\delta=1/2$, $K=4$}
+\addplot[ser, color=ochre,      mark=square*]   table[x=N, y=sobhK8]   {figure4.dat};
+  \addlegendentry{$\delta=1/2$, $K=8$}
+\addplot[ser, color=moss,       mark=diamond*]  table[x=N, y=sobhK10]  {figure4.dat};
+  \addlegendentry{$\delta=1/2$, $K=10$}
+\addplot[ser, color=brick,      mark=triangle*] table[x=N, y=sob1K8]   {figure4.dat};
+  \addlegendentry{$\delta=1$, $K=8$}
+\addplot[ser, color=violet,     mark=triangle*, mark options={rotate=180, fill opacity=.85}]
+                                                table[x=N, y=sob1K10]  {figure4.dat};
+  \addlegendentry{$\delta=1$, $K=10$}
+\addplot[ser, color=orangeD,    mark=o]         table[x=N, y=sob3hK8]  {figure4.dat};
+  \addlegendentry{$\delta=3/2$, $K=8$}
+\addplot[ser, color=cgblue,     mark=square]    table[x=N, y=sob3hK10] {figure4.dat};
+  \addlegendentry{$\delta=3/2$, $K=10$}
+% NOTE: sigma_8 = 2.917 < 3, so ||shat(eps_M .)||_{h^3} diverges and this one curve is
+% truncation-dependent (see the findings in ../FIGURES.md), and the caption says so ...
+% ... so it is not plotted.  The exact K=8 error is plotted below and is unaffected.
+\addplot[tru, color=spacecadet, mark=*, dashed] table[x=N, y=trueK8]   {figure4.dat};
+  \addlegendentry{$K=8$ (true)}
+\addplot[ser, color=slate,      mark=pentagon]  table[x=N, y=sob2K10]  {figure4.dat};
+  \addlegendentry{$\delta=2$, $K=10$}
+\addplot[tru, color=brick,      mark=square*, dashed] table[x=N, y=trueK10] {figure4.dat};
+  \addlegendentry{$K=10$ (true)}
+\end{axis}
+\end{tikzpicture}
+\end{document}

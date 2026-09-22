@@ -1,0 +1,78 @@
+cff-version: 1.2.0
+message: >-
+  If you refer to this work, please cite the arXiv version (arXiv:2109.14214), which is the
+  citable form of this manuscript, and say that it has not been refereed. Cite this repository
+  by URL and commit for anything that exists only here: the numerics, the figures and their
+  generators, or the interactive presentation of a result.
+title: >-
+  Quantum simulation of conformal field theory: the revised Letter, its Supplemental
+  Material, and the numerics behind every figure
+abstract: >-
+  A quantum algorithm for simulating the dynamics of 1+1-dimensional conformal field theory,
+  including the action of local conformal transformations, built on operator-algebraic
+  renormalization and the Koo-Saleur formula. Free-fermion conformal field theories of central
+  charge c = 1/2 are treated in the Ramond and Neveu-Schwarz sectors, as the basis of Ising
+  conformal field theories and Wess-Zumino-Witten currents. This repository holds the 2026
+  revision of the manuscript, whose Supplemental Material carries a discretization error
+  analysis and an explicit resource accounting: the cost is delta^{-3/2}, the product of a
+  Heisenberg-limited measurement cost and a discretization cost, and the near-term figure is a
+  lattice of 128 sites, that is 256 logical qubits. It also holds the version submitted in
+  2022, for provenance, the scripts behind every figure, and an interactive presentation of
+  the consequential results.
+type: software
+authors:
+  - family-names: Osborne
+    given-names: Tobias J.
+    affiliation: >-
+      Institut fuer Theoretische Physik, Leibniz Universitaet Hannover, Germany
+  - family-names: Stottmeister
+    given-names: Alexander
+    affiliation: >-
+      Institut fuer Theoretische Physik, Leibniz Universitaet Hannover, Germany
+    orcid: "https://orcid.org/0000-0002-0145-0877"
+license:
+  - CC-BY-4.0
+  - MIT
+keywords:
+  - quantum simulation
+  - conformal field theory
+  - operator-algebraic renormalization
+  - Koo-Saleur formula
+  - Virasoro algebra
+  - Daubechies wavelets
+  - free fermions
+  - quantum algorithms
+repository-code: "https://github.com/alexander-stottmeister/quantum-simulation-of-cft"
+references:
+  - type: article
+    title: "Quantum Simulation of Conformal Field Theory"
+    authors:
+      - family-names: Osborne
+        given-names: Tobias J.
+      - family-names: Stottmeister
+        given-names: Alexander
+    year: 2021
+    identifiers:
+      - type: other
+        value: "arXiv:2109.14214"
+    notes: >-
+      The first public version of this manuscript. Superseded by the revision in this
+      repository, which corrects its qubit count and its complexity exponent.
+  - type: article
+    title: "Conformal Field Theory from Lattice Fermions"
+    authors:
+      - family-names: Osborne
+        given-names: Tobias J.
+      - family-names: Stottmeister
+        given-names: Alexander
+    journal: "Communications in Mathematical Physics"
+    volume: 398
+    start: 219
+    end: 289
+    year: 2023
+    doi: "10.1007/s00220-022-04521-8"
+    notes: >-
+      The companion paper. The error analysis of the Supplemental Material takes its
+      quantitative inputs from the revised version of it, cited there as [62].
+# No DOI and no version: this is an ongoing research record, not a released artifact.
+# Add version and date-released when a tag exists.

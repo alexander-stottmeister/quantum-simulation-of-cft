@@ -1,0 +1,63 @@
+% Supp Fig. 6 (fig:momrgerrork): momentum-cutoff RG, diagonal one-particle error,
+% Neveu-Schwarz sector, observation scale M = 3, generator orders k = 0, +-1, +-2.
+% Sign convention: k is the mode index of [v5], eq. (4.70), i.e. L_k lowers the momentum
+% by k.  The 2021/22 original carries the opposite labelling; see ../FIGURES.md.
+% Documented in ../FIGURES.md.
+% Standalone pgfplots source; reads figure6.dat (written by ../one_particle_errors.py).
+% Compile with pdflatex in this directory -> figure6.pdf, then copy to ../figure6.pdf.
+\documentclass[border=3pt]{standalone}
+\usepackage{amssymb,amsmath}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\definecolor{spacecadet}{HTML}{0D284C}
+\definecolor{brick}{HTML}{C1462B}
+\definecolor{ochre}{HTML}{C98A12}
+\definecolor{moss}{HTML}{4F7A2A}
+\definecolor{violet}{HTML}{7B4EA3}
+% --- plot (series) styles ---------------------------------------------------------
+\tikzset{
+  ser/.style={line width=.5pt, mark size=1.6pt, mark options={fill opacity=.85}},
+}
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[
+  % --- geometry and scales ---
+  width=308pt, height=186pt, scale only axis,
+  ymode=log, log basis y=10,
+  % --- labels ---
+  xlabel={$N$}, ylabel={$L^{2}$-error},
+  xlabel style={font=\footnotesize}, ylabel style={font=\footnotesize},
+  tick label style={font=\footnotesize},
+  title style={font=\footnotesize, at={(1,1)}, anchor=south east, yshift=1pt},
+  % --- legend to the right of the axis, as in the 2021/22 originals ---
+  legend style={font=\footnotesize, draw=none, fill=none, cells={anchor=west},
+                at={(1.03,1)}, anchor=north west, row sep=1pt},
+  legend cell align=left,
+  % --- rules ---
+  grid=both,
+  major grid style={line width=.2pt, draw=black!22},
+  minor grid style={line width=.1pt, draw=black!10},
+  axis line style={line width=.5pt},
+  tick style={line width=.4pt, black!60},
+  title={$M=3$;\, $k=0,\pm1,\pm2$},
+  xmin=4.8, xmax=10.2,
+  xtick={5,6,7,8,9,10},
+  ymin=3e-4, ymax=3e0,
+  ytick={0.001,0.01,0.1,1},
+  yticklabels={$0.001$,$0.010$,$0.100$,$1$},
+]
+\addplot[ser, color=violet,     mark=triangle*, mark options={rotate=180, fill opacity=.85}]
+                                                table[x=N, y=km2] {figure6.dat};
+  \addlegendentry{$k=-2$}
+\addplot[ser, color=moss,       mark=diamond*]  table[x=N, y=km1] {figure6.dat};
+  \addlegendentry{$k=-1$}
+\addplot[ser, color=spacecadet, mark=*]         table[x=N, y=k0]  {figure6.dat};
+  \addlegendentry{$k=0$}
+\addplot[ser, color=ochre,      mark=square*]   table[x=N, y=kp1] {figure6.dat};
+  \addlegendentry{$k=1$}
+\addplot[ser, color=brick,      mark=triangle*] table[x=N, y=kp2] {figure6.dat};
+  \addlegendentry{$k=2$}
+\end{axis}
+\end{tikzpicture}
+\end{document}

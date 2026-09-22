@@ -1,0 +1,88 @@
+name: build
+
+# Compiles the documents, regenerates every figure and every data file, checks that the
+# committed ones are reproducible, and publishes the site.  Nothing generated is tracked:
+# the PDFs a reader downloads are built here.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --upgrade pip numpy
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Regenerate data and figures
+        run: |
+          set -eux
+          [ -f tools/make_data.py ]    && python3 tools/make_data.py
+          [ -f tools/make_figures.py ] && python3 tools/make_figures.py
+          [ -f tools/make_docs.py ]    && python3 tools/make_docs.py
+          python3 numerics/one_particle_errors.py --selftest
+
+      - name: Committed data and figures must be reproducible
+        run: git diff --exit-code
+
+      - name: The widgets must agree with the Python, and every page must load
+        run: |
+          set -eux
+          node tools/check_js.mjs
+          node tools/check_pages.mjs
+
+      - uses: xu-cheng/latex-action@v3
+        with:
+          working_directory: paper
+          root_file: |
+            qscft_main.tex
+            qscft_supp.tex
+          latexmk_use_lualatex: false
+          args: -pdf -interaction=nonstopmode -halt-on-error
+
+      - name: Assemble the site
+        run: |
+          set -eux
+          mkdir -p _site/pdf
+          cp -r docs/. _site/
+          cp paper/qscft_main.pdf _site/pdf/
+          cp paper/qscft_supp.pdf _site/pdf/
+          touch _site/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pdfs
+          path: paper/*.pdf
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

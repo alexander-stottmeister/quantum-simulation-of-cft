@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Definitions &mdash; Quantum Simulation of Conformal Field Theory</title>
+<meta name="description" content="The objects: the staggered lattice and its spin chain, the scaling maps, the Koo-Saleur generators, the simulated Hermitian combination, the correlators being compared, and the four-step algorithm.">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/katex/katex.min.css">
+<script defer src="assets/katex/katex.min.js"></script>
+<script defer src="assets/katex/auto-render.min.js"></script>
+<script defer src="assets/math.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site"><div class="wrap">
+  <div class="topbar">
+    <p class="crumbs"><a href="index.html">Quantum Simulation of CFT</a> / <strong>Definitions</strong></p>
+    <button id="theme-toggle" class="btn" type="button">auto</button>
+  </div>
+  <h1>Definitions</h1>
+  <p class="lede">The objects the error analysis is about, in the order the Letter introduces
+     them. Each entry says where it is defined and which widget makes it visible.</p>
+</div></header>
+
+<main id="main">
+
+<section id="model">
+  <h2>The simulated model</h2>
+
+  <h3 id="staggered">The staggered lattice and its Hamiltonian</h3>
+  <p>A relativistic Dirac fermion on a circle of circumference \(2L\); periodic or antiperiodic
+     boundary conditions realize the Ramond or Neveu&ndash;Schwarz sector, and the real chiral
+     components of the massless theory give central charge \(c=\tfrac12\). The staggered-lattice
+     approximation is \(\Lambda_N=\varepsilon_N\{-L_N,\dots,L_N-1\}\) with
+     \(\varepsilon_NL_N=L\), carrying</p>
+  $$H^{(N)}_{0}=\tfrac{L_N}{\pi}\sum_{x\in\Lambda_N}\Bigl(\psi^{(1)\dagger}_{x+\varepsilon_N}\psi^{(2)}_{x}
+    -\psi^{(1)\dagger}_{x}\psi^{(2)}_{x}+\mathrm{h.c.}
+    +\lambda_N\bigl(\psi^{(1)\dagger}_{x}\psi^{(1)}_{x}-\psi^{(2)\dagger}_{x}\psi^{(2)}_{x}\bigr)\Bigr).$$
+  <p>The number of sites at scale \(N\) is \(n=2^{N+1}\), and the Hilbert space is a fermionic
+     Fock space of dimension \(2^{2n}\).</p>
+  <p class="src">Letter, <em>Representing conformal fields on a quantum computer</em>.
+     &mdash; <a href="widgets/b-lattice-model.html">Widget&nbsp;B</a></p>
+
+  <h3 id="jw">The Jordan&ndash;Wigner map and the spin chain</h3>
+  <p>Setting \(a_x\equiv\psi^{(1)}_x\) and \(a_{x+\varepsilon_{N+1}}\equiv\psi^{(2)\dagger}_x\)
+     puts the fermions on the halved lattice \(\Lambda_{N+1}\), and the Jordan&ndash;Wigner string
+     \(a_j\equiv\sigma^x_{-L}\cdots\sigma^x_{j-\varepsilon_{N+1}}\tfrac12(\sigma^z_j+i\sigma^y_j)\)
+     turns the Hamiltonian into an XY chain in a transverse field:</p>
+  $$H^{(N)}_{0}=\tfrac{L_N}{2\pi}\sum_{j\in\Lambda_{N+1}}
+    \bigl(\sigma^z_j\sigma^z_{j+\varepsilon_{N+1}}-\sigma^y_j\sigma^y_{j+\varepsilon_{N+1}}
+    +\lambda_N\sigma^x_j\bigr)+B_N,$$
+  <p>where \(B_N\) carries the toroidal boundary conditions. <strong>This is where the factor of
+     two in the qubit count comes from:</strong> \(n\) sites, two components each, \(2n\)
+     qubits.</p>
+  <p class="src">Letter, same paragraph. The Letter notes that more sophisticated encodings would
+     improve the requirements.
+     &mdash; <a href="widgets/b-lattice-model.html">Widget&nbsp;B</a></p>
+</section>
+
+<section id="oar">
+  <h2>Operator-algebraic renormalization</h2>
+  <dl class="defs">
+    <dt>The family \(\{\mathfrak A_N,\mathcal H_N,H^{(N)}_0\}_N\)</dt>
+    <dd>A quantum lattice system at every resolution \(\varepsilon=2^{-N}\): an algebra of
+       observables \(\mathfrak A_N\) on a Hilbert space \(\mathcal H_N\) with a Hamiltonian.</dd>
+    <dt>Coarse-graining \(\mathcal E^{N_2}_{N_1}\) and the scaling map \(\alpha^{N_1}_{N_2}\)</dt>
+    <dd>The Schr&ouml;dinger-picture coarse-graining between states at different scales, and its
+       dual on observables. Unital and completely positive, so probability is preserved and
+       partition functions of initial and renormalized states agree.</dd>
+    <dt>\(\rho^{(N)}_r=\mathcal E^{N+r}_N(\rho^{(N+r)}_0)\), the \(r\)th renormalization</dt>
+    <dd>The state on \(\mathfrak A_N\) obtained by coarse-graining an initial state from the finer
+       scale \(N+r\). <strong>The subscript \(r\) counts renormalization steps &mdash; it is not a
+       scale</strong> &mdash; while the superscript \(N\) is the fixed scale at which one
+       observes.</dd>
+    <dt>The exact correlator as a scaling limit</dt>
+    <dd>The renormalized observables \(\widetilde A,\widetilde B\) live on \(\mathfrak A_M\) and
+       are embedded into the simulated scale-\(N\) lattice by \(\alpha^M_N\); the exact correlator
+       is the scaling limit at fixed observation scale \(M\) as \(N\to\infty\), equivalently as
+       the number \(r=N-M\) of renormalization steps \(\to\infty\). The accuracy \(\delta\) bounds
+       the deviation of the finite-\(N\) approximant from that limit.</dd>
+  </dl>
+  <p class="src">Letter, <em>Discretised representations and renormalization</em> and
+     <em>Complexity</em>. &mdash; <a href="widgets/a-scales.html">Widget&nbsp;A</a></p>
+</section>
+
+<section id="ks">
+  <h2>Koo&ndash;Saleur generators</h2>
+  <p>The Virasoro algebra is spanned by the \(L_k\) with
+     \([L_k,L_l]=\tfrac L\pi(k-l)L_{k+l}+\tfrac c{12}\bigl((\tfrac L\pi k)^3-\tfrac L\pi k\bigr)\delta_{k+l,0}\);
+     the CFT Hamiltonian is \(H^{\mathrm{CFT}}=\tfrac\pi L(L_0+\overline L_0-\tfrac c{12})\) and
+     the momentum \(P^{\mathrm{CFT}}=\tfrac\pi L(L_0-\overline L_0)\).</p>
+  <p>Writing \(H^{(N)}_k=\varepsilon_N\tfrac L\pi\sum_x e^{ikx}h^{(N)}_x\) for the Fourier modes of
+     the lattice Hamiltonian density, the Koo&ndash;Saleur ansatz is</p>
+  $$L^{(N)}_k=\tfrac12\Bigl(H^{(N)}_k+\tfrac{\pi\frac12\varepsilon_N}{L\sin(\frac12\varepsilon_Nk)}
+    \bigl[H^{(N)}_k,H^{(N)}_0\bigr]\Bigr),$$
+  <p>with an analogous formula for \(\overline L^{(N)}_k\). Depending on the representation this
+     realizes \(c=0\), \(\tfrac12\) or \(1\). The crucial feature for simulation is that the
+     \(L^{(N)}_k\) are <em>sums of densities</em>, \((2k+1)\)-local in the momentum
+     representation, so standard local-Hamiltonian simulation applies.</p>
+  <h3 id="symbol">The one-particle symbol</h3>
+  <p>In the plane-wave basis the matrix elements are explicit, and the whole discretization rate
+     comes from one expansion:</p>
+  $$\varepsilon_N^{-1}\sin\bigl(\varepsilon_N(l\mp\tfrac k2)\bigr)-\bigl(l\mp\tfrac k2\bigr)
+    \;=\;O\bigl(\varepsilon_N^{2}\,|l\mp\tfrac k2|^{3}\bigr).$$
+  <p class="src">Letter, <em>Discretised Virasoro generators</em> and <em>Simulating dynamics</em>;
+     supp., Lem.&nbsp;S1. &mdash; <a href="widgets/c-koo-saleur.html">Widget&nbsp;C</a></p>
+</section>
+
+<section id="simulated">
+  <h2>What is actually simulated</h2>
+  <div class="panel">
+    <p>In a unitary positive-energy representation \(L_k^*=L_{-k}\), so \(L_k\) is <strong>not
+       self-adjoint for \(k\neq0\)</strong> and generates no unitary group. The simulated dynamics
+       is generated by the self-adjoint Hermitian combination</p>
+    $$H_k:=L_k+L_{-k},\qquad H^{(N)}_k:=L^{(N)}_k+L^{(N)}_{-k},$$
+    <p>essentially self-adjoint on every core for \(\mathbf 1+L_0\) by Nelson&rsquo;s commutator
+       theorem, so that \(U_t=e^{itH_k}\) and \(U^{(N)}_t=e^{itH^{(N)}_k}\) are genuine unitary
+       groups. The Heisenberg evolutes are \(B_t=U_tBU_t^*\) and \(\widetilde B_t=U^{(N)}_t
+       \widetilde BU^{(N)*}_t\).</p>
+    <p class="src">supp., &sect;<em>Setup</em> and &sect;<em>Well-posedness of the flows</em>;
+       Letter, <em>Simulating dynamics</em> and its footnote.</p>
+  </div>
+</section>
+
+<section id="correlators">
+  <h2>The two correlators being compared</h2>
+  $$C^{(N)}_t=\langle\Omega_N|\,\widetilde A\,\widetilde B_t\,|\Omega_N\rangle,
+    \qquad C_t=\langle\Omega|\,A\,B_t\,|\Omega\rangle,$$
+  <p>with the analogous \(m\)-point objects. The accuracy statement of the Letter is
+     \(|C^{(N)}_t-C_t|\le\delta\). The intermediate object of the master decomposition,</p>
+  $$\widetilde C^{(N)}_t=\langle\Omega|\,A\,\bigl(\widetilde U^{(N)}_tB\widetilde U^{(N)*}_t\bigr)\,|\Omega\rangle,$$
+  <p>uses the <em>continuum</em> vacuum and continuum fields but the <em>lattice-pushed</em>
+     approximating dynamics, and splitting at it separates the static error from the dynamical
+     one.</p>
+  <p class="src">supp., Prop.&nbsp;S1. &mdash; <a href="widgets/e-error-budget.html">Widget&nbsp;E</a></p>
+  <h3>The four atomic errors</h3>
+  <ul class="tight">
+    <li><strong>field</strong> &mdash; \(\widetilde A-A\), \(\widetilde B-B\)</li>
+    <li><strong>vacuum</strong> &mdash; \(\Omega_N\to\Omega\)</li>
+    <li><strong>generator</strong> &mdash; \(\widetilde H^{(N)}_k-H_k\)</li>
+    <li><strong>propagation</strong> &mdash; of the generator error through the flow \(U_t\) over
+        \([0,T]\)</li>
+  </ul>
+</section>
+
+<section id="algorithm">
+  <h2>The algorithm, in four steps</h2>
+  <div class="tablewrap"><table class="data">
+    <thead><tr><th>Step</th><th>Primitive</th><th>Two-qubit gates</th><th>Ancillas / depth</th></tr></thead>
+    <tbody>
+      <tr><td>1. Ground state \(|\Omega_N\rangle\)</td>
+        <td>\(U_{\mathrm{FT}}U_{\mathrm B}\), after Verstraete&ndash;Cirac&ndash;Latorre</td>
+        <td class="num">\(O(n\log n)\)</td><td>0 ancillas; depth \(O(\log^2 n)\)</td></tr>
+      <tr><td>2. Field insertion (\(\times m\))</td>
+        <td>Jordan&ndash;Wigner string conjugated by \(U_{\mathrm{FT}}\), postselected</td>
+        <td class="num">\(O(m\,n\log n)\)</td><td>1 reusable ancilla; \(O(1)\) repetitions</td></tr>
+      <tr><td>3. Evolution to \(t\le T\)</td>
+        <td>product formula on \(H^{(N)}_k\), after Childs&ndash;Su</td>
+        <td class="num">\((nT)^{1+o(1)}\)</td><td>0 ancillas</td></tr>
+      <tr><td>4. Readout to precision \(\delta\)</td>
+        <td>phase estimation, Heisenberg-limited</td>
+        <td class="num">\(O(1/\delta)\times\)(per run)</td><td>\(r=O(\log\tfrac1\delta)\) ancillas</td></tr>
+      <tr><td><strong>Full estimate</strong></td><td>step 4 &times; per run</td>
+        <td class="num"><strong>\(T^{1+o(1)}\delta^{-3/2-o(1)}\)</strong></td>
+        <td>\(2^{N+2}+1+r\) qubits</td></tr>
+    </tbody>
+  </table></div>
+  <p class="src">supp., Table&nbsp;S1. Every primitive is standard and used as a black box; what
+     the supplement contributes is the explicit assembly and the reconciliation with
+     \(\delta^{-3/2}\). &mdash; <a href="widgets/d-ground-state.html">Widget&nbsp;D</a>,
+     <a href="widgets/f-resource-scaling.html">Widget&nbsp;F</a></p>
+
+  <h3 id="gsprep">The ground-state circuit, in detail</h3>
+  <p>The lattice vacuum is Gaussian, so</p>
+  $$|\Omega_N\rangle=U_{\mathrm{FT}}\,U_{\mathrm B}\!\!\bigotimes_{k\in\Gamma_{N+1}}\!\!|{\leftarrow}\rangle_k .$$
+  <ul class="tight">
+    <li><strong>\(U_{\mathrm B}\):</strong> after the fermionic Fourier transform the modes
+        decouple into Nambu pairs \((k,-k)\), so \(U_{\mathrm B}\) is a product of \(O(n)\)
+        two-mode Bogoliubov (Givens) rotations on <em>disjoint</em> qubit pairs &mdash; hence
+        \(O(n)\) gates in depth \(O(1)\), no ancillas. The angles \(\theta_k\) come from a
+        classical \(2\times2\) eigenproblem, \(O(n)\) arithmetic, once and for all.</li>
+    <li><strong>\(U_{\mathrm{FT}}\):</strong> the fermionic fast Fourier transform, radix-2
+        butterflies built from matchgates: \(O(n\log n)\) two-qubit gates in depth
+        \(O(\log^2 n)\). Without translation invariance the fallback is a Givens network at
+        \(O(n^2)\) gates and depth \(O(n)\).</li>
+    <li><strong>Exactness:</strong> the preparation is exact at the level of the Gaussian state;
+        the only approximation is gate synthesis, \(O(\log(1/\delta_{\mathrm{syn}}))\) per gate,
+        which is not the dominant cost.</li>
+  </ul>
+  <p class="src">supp., &sect;<em>The ground-state-preparation circuit</em>; Letter,
+     <em>Preparing the initial state</em>.</p>
+</section>
+
+<section id="routes">
+  <h2>The two renormalization routes</h2>
+  <div class="tablewrap"><table class="data">
+    <thead><tr><th></th><th>Momentum-cutoff RG</th><th>Wavelet RG</th></tr></thead>
+    <tbody>
+      <tr><td>one-particle rate, \(k=0\)</td><td class="num">\(\varepsilon_N^2\)</td>
+        <td class="num">\(\varepsilon_N^2\), once \(s\) is 3-regular (\(K\ge9\); from D10 on)</td></tr>
+      <tr><td>one-particle rate, \(k\neq0\)</td>
+        <td class="num">\(\varepsilon_N^{\min\{\delta_s,2\}}\), sharp</td>
+        <td class="num">\(\varepsilon_N\) &mdash; unless the comparison is re-centred</td></tr>
+      <tr><td>resulting site count</td><td class="num">\(n\sim C_T\delta^{-1/2}\)</td>
+        <td class="num">\(n\sim C_T\delta^{-1}\) for \(k\neq0\) without re-centring</td></tr>
+      <tr><td>what it buys</td><td>the sharp rate for every order</td>
+        <td>localization in real space</td></tr>
+      <tr><td>what it costs</td><td>modes, not positions</td>
+        <td>qubits, unless one re-centres</td></tr>
+    </tbody>
+  </table></div>
+  <p class="src">supp., Thm.&nbsp;S1 and &sect;<em>Reconciliation with the Letter</em>
+     [v5, Rmks.&nbsp;3.5, 4.8, 4.32, 6.4(4)]. The near-term figure is a <em>wavelet-route,
+     \(k=0\), one-particle</em> statement; the resource scaling is momentum-cutoff.
+     &mdash; <a href="widgets/f-resource-scaling.html">Widget&nbsp;F</a></p>
+</section>
+
+</main>
+
+<footer class="site"><div class="wrap">
+  <p>An experimental, AI-assisted open-science project. Nothing here has been refereed; read
+     every statement as a claim under verification. Documents CC BY 4.0, code MIT.</p>
+  <p><a href="index.html">Home</a> &middot; <a href="status.html">Status</a> &middot;
+     <a href="notation.html">Notation</a> &middot; <a href="results.html">Results</a>
+     &middot; <a href="widgets/">Widgets</a></p>
+</div></footer>
+
+<script type="module">
+  import { boot } from './assets/widget.js';
+  boot();
+</script>
+</body>
+</html>

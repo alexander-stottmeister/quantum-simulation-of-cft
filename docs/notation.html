@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notation &mdash; Quantum Simulation of Conformal Field Theory</title>
+<meta name="description" content="Every symbol the site uses, with the convention fixed, and the places where conventions differ between the documents.">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/katex/katex.min.css">
+<script defer src="assets/katex/katex.min.js"></script>
+<script defer src="assets/katex/auto-render.min.js"></script>
+<script defer src="assets/math.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site"><div class="wrap">
+  <div class="topbar">
+    <p class="crumbs"><a href="index.html">Quantum Simulation of CFT</a> / <strong>Notation</strong></p>
+    <button id="theme-toggle" class="btn" type="button">auto</button>
+  </div>
+  <h1>Notation</h1>
+  <p class="lede">The symbols, as the Supplemental Material fixes them, plus the two places where
+     this site has to choose a convention that the manuscript leaves implicit. Those two are
+     flagged, because a widget that computes a number under an unstated convention is worse than
+     no widget.</p>
+</div></header>
+
+<main id="main">
+
+<section id="scales">
+  <h2>The three scales</h2>
+  <dl class="defs">
+    <dt>\(N\) &mdash; the ultraviolet lattice cutoff scale</dt>
+    <dd>The negative logarithm of the lattice spacing. The lattice at scale \(N\) has
+       \(n=2^{N+1}\) sites and is simulated on \(2n=2^{N+2}\) qubits.</dd>
+    <dd class="src">supp., &sect;<em>Discretization error analysis</em>, &ldquo;Throughout&rdquo;</dd>
+
+    <dt>\(M\) &mdash; the observation, or localization, scale</dt>
+    <dd>The spatial or momentum localization of the observables whose correlator is wanted.
+       Always \(M&lt;N\). The Letter&rsquo;s <em>Complexity</em> paragraph takes \(M=N-1\), which
+       fixes the <em>maximal</em> observation scale the register can host, not the accuracy.</dd>
+    <dd class="src">supp., &sect;<em>The near-term figure</em>, closing parenthesis; Letter,
+       <em>Complexity</em></dd>
+
+    <dt>\(r=N-M\) &mdash; the renormalization depth</dt>
+    <dd>The number of renormalization steps between the observation scale and the simulated
+       scale. <strong>Both error sources of the master decomposition scale in \(r\), not in
+       \(N\) alone.</strong></dd>
+    <dd class="src">supp., Lem.&nbsp;S4, <em>Source and mechanism</em> [v5, Rmk.&nbsp;6.4(1)]</dd>
+  </dl>
+</section>
+
+<section id="lattice">
+  <h2>Lattice and register</h2>
+  <div class="tablewrap"><table class="data">
+    <thead><tr><th>Symbol</th><th>Meaning</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td>\(\varepsilon_N\)</td><td>lattice spacing at scale \(N\)</td><td>\(2^{-N}\)</td></tr>
+      <tr><td>\(n\)</td><td>lattice sites at scale \(N\)</td><td>\(2^{N+1}\)</td></tr>
+      <tr><td>\(2n\)</td><td>system qubits: two per site under Jordan&ndash;Wigner</td><td>\(2^{N+2}\)</td></tr>
+      <tr><td>\(\Lambda_N\)</td><td>the staggered lattice, \(\varepsilon_N\{-L_N,\dots,L_N-1\}\) with \(\varepsilon_NL_N=L\)</td><td></td></tr>
+      <tr><td>\(2L\)</td><td>circumference of the circle the theory lives on</td><td></td></tr>
+      <tr><td>\(\Gamma_{N+1}\)</td><td>the momentum set of the lattice \(\Lambda_{N+1}\); the ground state is a product over its Nambu pairs</td><td>\(|\Gamma_{N+1}|=2n\)</td></tr>
+      <tr><td>\(\lambda_N\)</td><td>lattice mass coupling constant</td><td></td></tr>
+      <tr><td>\(\mathfrak A_M\)</td><td>the observation algebra at scale \(M\); \(A,B\in\mathfrak A_M\) are <em>bounded</em> smeared fields</td><td></td></tr>
+      <tr><td>\(\alpha^M_N\)</td><td>the scaling map embedding scale-\(M\) observables into the scale-\(N\) lattice</td><td></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="generators">
+  <h2>Generators, states, correlators</h2>
+  <div class="tablewrap"><table class="data">
+    <thead><tr><th>Symbol</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td>\(k\)</td><td>the order of the (smeared) Virasoro generator. \(k=0\) is the CFT Hamiltonian; \(k=0,\pm1\) are the M&ouml;bius generators</td></tr>
+      <tr><td>\(L_k\), \(L_k^{(N)}\)</td><td>the continuum Virasoro generator and its Koo&ndash;Saleur approximant at scale \(N\); both are second quantizations \(\mathrm d\Gamma_S\) of one-particle operators \(\ell_k\), \(\ell_k^{(N)}\)</td></tr>
+      <tr><td>\(H_k=L_k+L_{-k}\)</td><td>the self-adjoint Hermitian combination that is actually simulated. \(L_k^*=L_{-k}\), so \(L_k\) is <em>not</em> self-adjoint for \(k\neq0\) and generates no unitary group</td></tr>
+      <tr><td>\(U_t=e^{itH_k}\), \(U^{(N)}_t\)</td><td>the continuum and lattice flows; \(\widetilde U^{(N)}_t\) is the lattice flow pushed to the continuum one-particle space</td></tr>
+      <tr><td>\(\Omega\), \(\Omega_N\)</td><td>the continuum vacuum and the lattice vacuum (the GNS vector of the lattice quasi-free state)</td></tr>
+      <tr><td>\(\widetilde A\), \(\widetilde B\)</td><td>the discretized, lattice-pushed counterparts of \(A,B\)</td></tr>
+      <tr><td>\(C^{(N)}_t\), \(C_t\)</td><td>the simulated and continuum two-point correlators; \(C_{t_1,\dots,t_m}\) the \(m\)-point objects</td></tr>
+      <tr><td>\(\mathcal N=\mathbf 1+L_0\)</td><td>the energy, used as the reference operator in the energy bounds and in Nelson&rsquo;s commutator theorem</td></tr>
+      <tr><td>\(m\)</td><td>the number of points in the correlator; the assembled constant grows as \(O(m^2)\)</td></tr>
+      <tr><td>\(d_A,d_B\)</td><td>degrees of \(A,B\) as monomials in the lattice fermions</td></tr>
+      <tr><td>\(T\)</td><td>the time horizon; \(0\le t\le T\)</td></tr>
+      <tr><td>\(\delta\)</td><td><strong>the target accuracy.</strong> Not a regularity exponent &mdash; see the warning below</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="rates">
+  <h2>Rates and constants</h2>
+  <div class="tablewrap"><table class="data">
+    <thead><tr><th>Symbol</th><th>Meaning</th><th>Value or bound</th></tr></thead>
+    <tbody>
+      <tr><td>\(\varepsilon_N^2\)</td><td>the one-particle rate along the momentum-cutoff route</td><td>\(4^{-N}\)</td></tr>
+      <tr><td>\(\eta_M(N)\)</td><td>the lattice-vacuum rate, \(\max_{l\in\Gamma_M}\lVert S^{(N)}_0(l)-S(l)\rVert\)</td>
+        <td>\(\le\tfrac\pi4 2^{-r}\) (full algebra), \(\le\tfrac{\pi^2}{16}4^{-r}\) (chiral)</td></tr>
+      <tr><td>\(\Theta_M\)</td><td>the weight in the \(k=0\) dynamics term</td>
+        <td>\(\bigl(\sum_{l\in\Gamma_M}\theta(\pm l)|l|^6\bigr)^{1/2}\)</td></tr>
+      <tr><td>\(\Lambda_{k,p}(t)\)</td><td>the horizon factor from the energy growth</td>
+        <td>\(\dfrac{e^{pc_k|t|}-1}{pc_k}\), and \(=|t|\) at \(k=0\)</td></tr>
+      <tr><td>\(c_k\)</td><td>the energy-growth constant; \(c_0=0\) because \([L_0,H_0]=0\). For \(k=\pm1\), \([L_0,L_{\pm1}]=\mp L_{\pm1}\neq0\), so \(c_{\pm1}\neq0\)</td>
+        <td>one-particle bound \(c_{\sigma,k}\le C_L\,\sigma|k|\langle k\rangle^{\sigma+2}\); \(C_L\) not given</td></tr>
+      <tr><td>\(b_k\)</td><td>the linear energy-bound constant, independent of \(N\)</td><td>not given numerically</td></tr>
+      <tr><td>\(C_1(k,L)\), \(C_2(k)\), \(C_3(k,L)\)</td><td>the one-particle, Hilbert&ndash;Schmidt and Fock-lift constants</td><td>named, not evaluated</td></tr>
+      <tr><td>\(C_0(M,k,L,K)\)</td><td>the prefactor of the assembled \(k\neq0\) bound</td>
+        <td><strong>not computed</strong></td></tr>
+      <tr><td>\(C_T=2C^{1/2}\)</td><td>the prefactor in \(n(\delta,T)\sim C_T\delta^{-1/2}\)</td><td></td></tr>
+      <tr><td>\(\varkappa_N\)</td><td>the relative bound on the generator difference feeding the Duhamel estimate</td>
+        <td>\(\le C_1(k,L)\varepsilon_N^2\) for 2-regular smearing</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="wavelets">
+  <h2>Wavelets and regularity</h2>
+  <dl class="defs">
+    <dt>\(K\), written D\(K\) in the figures</dt>
+    <dd>The number of vanishing moments of the Daubechies scaling function \(s={}_Ks\).</dd>
+    <dt>\(\sigma_K=\sup\{\sigma:\ s\in H^{\sigma}(\mathbb R)\}\)</dt>
+    <dd>Its Sobolev exponent; \(s\) is <em>\(\rho\)-regular</em> if \(\sigma_K&gt;\rho\).
+       Numerically \(\sigma_K = 1.000,\ 1.415,\ 1.776,\ 2.098,\ 2.390,\ 2.661,\ 2.917,\ 3.165,\
+       3.406\) for \(K=2,\dots,10\), so <strong>2-regularity needs \(K\ge5\) and 3-regularity
+       \(K\ge9\)</strong>.</dd>
+    <dd class="src">supp., &sect;<em>Discretization error analysis</em>, &ldquo;Throughout&rdquo;
+       [v5, Def.&nbsp;3.12, Rmk.&nbsp;3.13]</dd>
+    <dt>\(\delta_{\!s}\)</dt>
+    <dd>The regularity of the smeared observables, which is what the one-particle rate
+       \(\varepsilon_N^{\min\{\delta_s,2\}}\) saturates. Two-regular smearing gives
+       \(\delta_s=2\).</dd>
+  </dl>
+  <div class="notshown">
+    <p><b>A collision to watch.</b> In the published companion article the regularity exponent is
+       itself written \(\delta\). The supplement avoids this, because there \(\delta\) is the
+       <em>accuracy</em>; and the legend of Fig.&nbsp;S3 still labels a Sobolev exponent
+       \(\delta\), which the caption relabels \(s\). On this site \(\delta\) is <em>always</em>
+       the accuracy.</p>
+  </div>
+</section>
+
+<section id="conventions">
+  <h2>Two conventions this site has to fix</h2>
+  <div class="panel">
+    <h3>The mode set \(\Gamma_N\)</h3>
+    <p>The supplement writes \(\Gamma_M\) in \(\Theta_M\) and in \(\eta_M(N)\) without spelling
+       out the normalization. This site uses the convention of the manuscript&rsquo;s own
+       numerics script, <code>numerics_correlator.py</code>:</p>
+    $$\Gamma_N=\{\,l\in\mathbb Z+\tfrac12\ :\ |l|&lt;2^{N}\,\},\qquad
+      |\Gamma_N| = 2^{N+1}=n,\qquad \varepsilon_N=2^{-N},$$
+    <p>i.e. half-integer (Neveu&ndash;Schwarz) modes, one per lattice site. This makes
+       \(\varepsilon_N^2=4^{-N}\), which is what the supplement writes. <strong>The
+       <em>absolute</em> value of \(\Theta_M\) depends on this choice</strong> &mdash; it is a sum
+       over \(\Gamma_M\) of \(|l|^6\) &mdash; so the number that
+       <a href="widgets/e-error-budget.html">widget&nbsp;E</a> prints for \(\Theta_M\) is
+       convention-dependent even though the \(4^{-N}\) rate is not. The widget says so.</p>
+    <p class="src">A different convention is in use in the companion repository, where
+       \(\varepsilon=\pi 2^{-N}\) and \(|l|&lt;\pi/\varepsilon\). The rates agree; the constants
+       do not. Do not carry a constant across without converting.</p>
+
+    <h3>The two renormalization routes</h3>
+    <p>&ldquo;Momentum-cutoff&rdquo; and &ldquo;wavelet&rdquo; are two renormalization groups, not
+       two approximations of one. They give different rates for \(k\neq0\)
+       (\(\varepsilon_N^2\) versus \(\varepsilon_N\), unless the comparison is re-centred) and
+       hence different resource exponents (\(\delta^{-1/2}\) versus \(\delta^{-1}\) sites).
+       Every widget states which route it is on; the near-term figure is on the
+       <em>wavelet</em> route at \(k=0\), while the resource scaling is on the
+       <em>momentum-cutoff</em> route.</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="site"><div class="wrap">
+  <p>An experimental, AI-assisted open-science project. Nothing here has been refereed; read
+     every statement as a claim under verification. Documents CC BY 4.0, code MIT.</p>
+  <p><a href="index.html">Home</a> &middot; <a href="status.html">Status</a> &middot;
+     <a href="definitions.html">Definitions</a> &middot; <a href="results.html">Results</a>
+     &middot; <a href="widgets/">Widgets</a></p>
+</div></footer>
+
+<script type="module">
+  import { boot } from './assets/widget.js';
+  boot();
+</script>
+</body>
+</html>

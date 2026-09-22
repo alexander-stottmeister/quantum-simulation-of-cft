@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 420" width="820" height="420" role="img" aria-labelledby="t d">
+<title id="t">The vacuum bound against the ultraviolet scale, for five observation scales</title>
+<desc id="d">The lattice-vacuum bound eta against the ultraviolet scale N for observation scales M = 1 to 5: five parallel lines on a logarithmic axis, shifted by exactly one decade per two steps of M, which collapse onto a single line when plotted against the depth r = N - M.</desc>
+<style>
+  .bg   { fill: #ffffff; }
+  .grid { stroke: #d8dee4; stroke-width: 1; fill: none; }
+  .axis { stroke: #8c959f; stroke-width: 1.2; fill: none; }
+  .tick, .lab { fill: #57606a; font: 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+  .ttl  { fill: #1f2328; font: 600 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+  .note { fill: #1f2328; font: 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+  .s0 { stroke: #0969da; } .s1 { stroke: #cf222e; } .s2 { stroke: #1a7f37; }
+  .s3 { stroke: #9a6700; } .s4 { stroke: #8250df; } .s5 { stroke: #57606a; }
+  .f0 { fill: #0969da; } .f1 { fill: #cf222e; } .f2 { fill: #1a7f37; }
+  .f3 { fill: #9a6700; } .f4 { fill: #8250df; } .f5 { fill: #57606a; }
+  .ln { fill: none; stroke-width: 2.1; stroke-linejoin: round; stroke-linecap: round; }
+  .mk { stroke-width: 1.4; }
+@media (prefers-color-scheme: dark) {
+  .bg   { fill: #0d1117; }
+  .grid { stroke: #30363d; }
+  .axis { stroke: #6e7681; }
+  .tick, .lab { fill: #9198a1; }
+  .ttl, .note { fill: #e6edf3; }
+  .s0 { stroke: #4493f8; } .s1 { stroke: #ff7b72; } .s2 { stroke: #3fb950; }
+  .s3 { stroke: #d29922; } .s4 { stroke: #ab7df8; } .s5 { stroke: #8b949e; }
+  .f0 { fill: #4493f8; } .f1 { fill: #ff7b72; } .f2 { fill: #3fb950; }
+  .f3 { fill: #d29922; } .f4 { fill: #ab7df8; } .f5 { fill: #8b949e; }
+}
+</style>
+<rect class="bg" x="0" y="0" width="820" height="420"/>
+<line class="grid" x1="126.8" y1="24" x2="126.8" y2="364"/>
+<text class="tick" x="126.8" y="381" text-anchor="middle">2.5</text>
+<line class="grid" x1="267.8" y1="24" x2="267.8" y2="364"/>
+<text class="tick" x="267.8" y="381" text-anchor="middle">5</text>
+<line class="grid" x1="408.8" y1="24" x2="408.8" y2="364"/>
+<text class="tick" x="408.8" y="381" text-anchor="middle">7.5</text>
+<line class="grid" x1="549.8" y1="24" x2="549.8" y2="364"/>
+<text class="tick" x="549.8" y="381" text-anchor="middle">10</text>
+<line class="grid" x1="690.8" y1="24" x2="690.8" y2="364"/>
+<text class="tick" x="690.8" y="381" text-anchor="middle">12.5</text>
+<line class="grid" x1="76" y1="344.1" x2="798" y2="344.1"/>
+<text class="tick" x="68" y="348.1" text-anchor="end">10⁻⁸</text>
+<line class="grid" x1="76" y1="305.4" x2="798" y2="305.4"/>
+<text class="tick" x="68" y="309.4" text-anchor="end">10⁻⁷</text>
+<line class="grid" x1="76" y1="266.7" x2="798" y2="266.7"/>
+<text class="tick" x="68" y="270.7" text-anchor="end">10⁻⁶</text>
+<line class="grid" x1="76" y1="227.9" x2="798" y2="227.9"/>
+<text class="tick" x="68" y="231.9" text-anchor="end">10⁻⁵</text>
+<line class="grid" x1="76" y1="189.2" x2="798" y2="189.2"/>
+<text class="tick" x="68" y="193.2" text-anchor="end">10⁻⁴</text>
+<line class="grid" x1="76" y1="150.5" x2="798" y2="150.5"/>
+<text class="tick" x="68" y="154.5" text-anchor="end">10⁻³</text>
+<line class="grid" x1="76" y1="111.8" x2="798" y2="111.8"/>
+<text class="tick" x="68" y="115.8" text-anchor="end">10⁻²</text>
+<line class="grid" x1="76" y1="73.1" x2="798" y2="73.1"/>
+<text class="tick" x="68" y="77.1" text-anchor="end">10⁻¹</text>
+<line class="grid" x1="76" y1="34.3" x2="798" y2="34.3"/>
+<text class="tick" x="68" y="38.3" text-anchor="end">10⁰</text>
+<rect class="axis" x="76" y="24" width="722" height="340"/>
+<polyline class="ln s0" points="98.6,65.8 155.0,89.1 211.4,112.4 267.8,135.7 324.2,159.0 380.6,182.3 437.0,205.7 493.4,229.0 549.8,252.3 606.2,275.6 662.6,298.9 719.0,322.2 775.4,345.5" stroke-width="2.1"/>
+<circle cx="98.6" cy="65.8" r="3" class="bg mk s0" stroke-width="1.5"/>
+<circle cx="155.0" cy="89.1" r="3" class="bg mk s0" stroke-width="1.5"/>
+<circle cx="211.4" cy="112.4" r="3" class="bg mk s0" stroke-width="1.5"/>
+<circle cx="267.8" cy="135.7" r="3" class="bg mk s0" stroke-width="1.5"/>
+<circle cx="324.2" cy="159.0" r="3" class="bg mk s0" stroke-width="1.5"/>
+<circle cx="380.6" cy="182.3" r="3" class="bg mk s0" stroke-width="1.5"/>
+<circle cx="437.0" cy="205.7" r="3" class="bg mk s0" stroke-width="1.5"/>
+<circle cx="493.4" cy="229.0" r="3" class="bg mk s0" stroke-width="1.5"/>
+<circle cx="549.8" cy="252.3" r="3" class="bg mk s0" stroke-width="1.5"/>
+<circle cx="606.2" cy="275.6" r="3" class="bg mk s0" stroke-width="1.5"/>
+<circle cx="662.6" cy="298.9" r="3" class="bg mk s0" stroke-width="1.5"/>
+<circle cx="719.0" cy="322.2" r="3" class="bg mk s0" stroke-width="1.5"/>
+<circle cx="775.4" cy="345.5" r="3" class="bg mk s0" stroke-width="1.5"/>
+<polyline class="ln s1" points="155.0,65.8 211.4,89.1 267.8,112.4 324.2,135.7 380.6,159.0 437.0,182.3 493.4,205.7 549.8,229.0 606.2,252.3 662.6,275.6 719.0,298.9 775.4,322.2" stroke-width="2.1"/>
+<circle cx="155.0" cy="65.8" r="3" class="bg mk s1" stroke-width="1.5"/>
+<circle cx="211.4" cy="89.1" r="3" class="bg mk s1" stroke-width="1.5"/>
+<circle cx="267.8" cy="112.4" r="3" class="bg mk s1" stroke-width="1.5"/>
+<circle cx="324.2" cy="135.7" r="3" class="bg mk s1" stroke-width="1.5"/>
+<circle cx="380.6" cy="159.0" r="3" class="bg mk s1" stroke-width="1.5"/>
+<circle cx="437.0" cy="182.3" r="3" class="bg mk s1" stroke-width="1.5"/>
+<circle cx="493.4" cy="205.7" r="3" class="bg mk s1" stroke-width="1.5"/>
+<circle cx="549.8" cy="229.0" r="3" class="bg mk s1" stroke-width="1.5"/>
+<circle cx="606.2" cy="252.3" r="3" class="bg mk s1" stroke-width="1.5"/>
+<circle cx="662.6" cy="275.6" r="3" class="bg mk s1" stroke-width="1.5"/>
+<circle cx="719.0" cy="298.9" r="3" class="bg mk s1" stroke-width="1.5"/>
+<circle cx="775.4" cy="322.2" r="3" class="bg mk s1" stroke-width="1.5"/>
+<polyline class="ln s2" points="211.4,65.8 267.8,89.1 324.2,112.4 380.6,135.7 437.0,159.0 493.4,182.3 549.8,205.7 606.2,229.0 662.6,252.3 719.0,275.6 775.4,298.9" stroke-width="2.1"/>
+<circle cx="211.4" cy="65.8" r="3" class="bg mk s2" stroke-width="1.5"/>
+<circle cx="267.8" cy="89.1" r="3" class="bg mk s2" stroke-width="1.5"/>
+<circle cx="324.2" cy="112.4" r="3" class="bg mk s2" stroke-width="1.5"/>
+<circle cx="380.6" cy="135.7" r="3" class="bg mk s2" stroke-width="1.5"/>
+<circle cx="437.0" cy="159.0" r="3" class="bg mk s2" stroke-width="1.5"/>
+<circle cx="493.4" cy="182.3" r="3" class="bg mk s2" stroke-width="1.5"/>
+<circle cx="549.8" cy="205.7" r="3" class="bg mk s2" stroke-width="1.5"/>
+<circle cx="606.2" cy="229.0" r="3" class="bg mk s2" stroke-width="1.5"/>
+<circle cx="662.6" cy="252.3" r="3" class="bg mk s2" stroke-width="1.5"/>
+<circle cx="719.0" cy="275.6" r="3" class="bg mk s2" stroke-width="1.5"/>
+<circle cx="775.4" cy="298.9" r="3" class="bg mk s2" stroke-width="1.5"/>
+<polyline class="ln s3" points="267.8,65.8 324.2,89.1 380.6,112.4 437.0,135.7 493.4,159.0 549.8,182.3 606.2,205.7 662.6,229.0 719.0,252.3 775.4,275.6" stroke-width="2.1"/>
+<circle cx="267.8" cy="65.8" r="3" class="bg mk s3" stroke-width="1.5"/>
+<circle cx="324.2" cy="89.1" r="3" class="bg mk s3" stroke-width="1.5"/>
+<circle cx="380.6" cy="112.4" r="3" class="bg mk s3" stroke-width="1.5"/>
+<circle cx="437.0" cy="135.7" r="3" class="bg mk s3" stroke-width="1.5"/>
+<circle cx="493.4" cy="159.0" r="3" class="bg mk s3" stroke-width="1.5"/>
+<circle cx="549.8" cy="182.3" r="3" class="bg mk s3" stroke-width="1.5"/>
+<circle cx="606.2" cy="205.7" r="3" class="bg mk s3" stroke-width="1.5"/>
+<circle cx="662.6" cy="229.0" r="3" class="bg mk s3" stroke-width="1.5"/>
+<circle cx="719.0" cy="252.3" r="3" class="bg mk s3" stroke-width="1.5"/>
+<circle cx="775.4" cy="275.6" r="3" class="bg mk s3" stroke-width="1.5"/>
+<polyline class="ln s4" points="324.2,65.8 380.6,89.1 437.0,112.4 493.4,135.7 549.8,159.0 606.2,182.3 662.6,205.7 719.0,229.0 775.4,252.3" stroke-width="2.1"/>
+<circle cx="324.2" cy="65.8" r="3" class="bg mk s4" stroke-width="1.5"/>
+<circle cx="380.6" cy="89.1" r="3" class="bg mk s4" stroke-width="1.5"/>
+<circle cx="437.0" cy="112.4" r="3" class="bg mk s4" stroke-width="1.5"/>
+<circle cx="493.4" cy="135.7" r="3" class="bg mk s4" stroke-width="1.5"/>
+<circle cx="549.8" cy="159.0" r="3" class="bg mk s4" stroke-width="1.5"/>
+<circle cx="606.2" cy="182.3" r="3" class="bg mk s4" stroke-width="1.5"/>
+<circle cx="662.6" cy="205.7" r="3" class="bg mk s4" stroke-width="1.5"/>
+<circle cx="719.0" cy="229.0" r="3" class="bg mk s4" stroke-width="1.5"/>
+<circle cx="775.4" cy="252.3" r="3" class="bg mk s4" stroke-width="1.5"/>
+<text class="ttl" x="76" y="16">The lattice-vacuum bound depends on the depth r = N − M, not on N alone</text>
+<text class="lab" x="437" y="406" text-anchor="middle">ultraviolet scale N</text>
+<text class="lab" transform="translate(24,194) rotate(-90)" text-anchor="middle">η (chiral algebra), upper bound</text>
+<rect class="bg" x="706" y="36" width="80" height="100" opacity="0.9"/>
+<rect class="grid" x="706" y="36" width="80" height="100" fill="none"/>
+<line class="ln s0" x1="714" y1="48" x2="734" y2="48" stroke-width="2.4"/>
+<text class="note" x="740" y="52">M = 1</text>
+<line class="ln s1" x1="714" y1="66" x2="734" y2="66" stroke-width="2.4"/>
+<text class="note" x="740" y="70">M = 2</text>
+<line class="ln s2" x1="714" y1="84" x2="734" y2="84" stroke-width="2.4"/>
+<text class="note" x="740" y="88">M = 3</text>
+<line class="ln s3" x1="714" y1="102" x2="734" y2="102" stroke-width="2.4"/>
+<text class="note" x="740" y="106">M = 4</text>
+<line class="ln s4" x1="714" y1="120" x2="734" y2="120" stroke-width="2.4"/>
+<text class="note" x="740" y="124">M = 5</text>
+</svg>

@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 420" width="820" height="420" role="img" aria-labelledby="t d">
+<title id="t">The error budget of Theorem S1(i)</title>
+<desc id="d">The static vacuum term and the dynamics term of Theorem S1(i) against the ultraviolet scale N at M = 3, T = 1, d = 1. On the chiral algebra both fall as 4 to the minus N and stay parallel, so their ratio is fixed by M, T and the degrees. On the full two-component algebra the static term falls only as 2 to the minus r, half the slope, and overtakes the dynamics term.</desc>
+<style>
+  .bg   { fill: #ffffff; }
+  .grid { stroke: #d8dee4; stroke-width: 1; fill: none; }
+  .axis { stroke: #8c959f; stroke-width: 1.2; fill: none; }
+  .tick, .lab { fill: #57606a; font: 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+  .ttl  { fill: #1f2328; font: 600 13px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+  .note { fill: #1f2328; font: 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+  .s0 { stroke: #0969da; } .s1 { stroke: #cf222e; } .s2 { stroke: #1a7f37; }
+  .s3 { stroke: #9a6700; } .s4 { stroke: #8250df; } .s5 { stroke: #57606a; }
+  .f0 { fill: #0969da; } .f1 { fill: #cf222e; } .f2 { fill: #1a7f37; }
+  .f3 { fill: #9a6700; } .f4 { fill: #8250df; } .f5 { fill: #57606a; }
+  .ln { fill: none; stroke-width: 2.1; stroke-linejoin: round; stroke-linecap: round; }
+  .mk { stroke-width: 1.4; }
+@media (prefers-color-scheme: dark) {
+  .bg   { fill: #0d1117; }
+  .grid { stroke: #30363d; }
+  .axis { stroke: #6e7681; }
+  .tick, .lab { fill: #9198a1; }
+  .ttl, .note { fill: #e6edf3; }
+  .s0 { stroke: #4493f8; } .s1 { stroke: #ff7b72; } .s2 { stroke: #3fb950; }
+  .s3 { stroke: #d29922; } .s4 { stroke: #ab7df8; } .s5 { stroke: #8b949e; }
+  .f0 { fill: #4493f8; } .f1 { fill: #ff7b72; } .f2 { fill: #3fb950; }
+  .f3 { fill: #d29922; } .f4 { fill: #ab7df8; } .f5 { fill: #8b949e; }
+}
+</style>
+<rect class="bg" x="0" y="0" width="820" height="420"/>
+<line class="grid" x1="140.3" y1="24" x2="140.3" y2="364"/>
+<text class="tick" x="140.3" y="381" text-anchor="middle">5</text>
+<line class="grid" x1="263.9" y1="24" x2="263.9" y2="364"/>
+<text class="tick" x="263.9" y="381" text-anchor="middle">7.5</text>
+<line class="grid" x1="387.5" y1="24" x2="387.5" y2="364"/>
+<text class="tick" x="387.5" y="381" text-anchor="middle">10</text>
+<line class="grid" x1="511.2" y1="24" x2="511.2" y2="364"/>
+<text class="tick" x="511.2" y="381" text-anchor="middle">12.5</text>
+<line class="grid" x1="634.8" y1="24" x2="634.8" y2="364"/>
+<text class="tick" x="634.8" y="381" text-anchor="middle">15</text>
+<line class="grid" x1="758.4" y1="24" x2="758.4" y2="364"/>
+<text class="tick" x="758.4" y="381" text-anchor="middle">17.5</text>
+<line class="grid" x1="76" y1="349.5" x2="798" y2="349.5"/>
+<text class="tick" x="68" y="353.5" text-anchor="end">10⁻⁹</text>
+<line class="grid" x1="76" y1="314.8" x2="798" y2="314.8"/>
+<text class="tick" x="68" y="318.8" text-anchor="end">10⁻⁸</text>
+<line class="grid" x1="76" y1="280.1" x2="798" y2="280.1"/>
+<text class="tick" x="68" y="284.1" text-anchor="end">10⁻⁷</text>
+<line class="grid" x1="76" y1="245.3" x2="798" y2="245.3"/>
+<text class="tick" x="68" y="249.3" text-anchor="end">10⁻⁶</text>
+<line class="grid" x1="76" y1="210.6" x2="798" y2="210.6"/>
+<text class="tick" x="68" y="214.6" text-anchor="end">10⁻⁵</text>
+<line class="grid" x1="76" y1="175.9" x2="798" y2="175.9"/>
+<text class="tick" x="68" y="179.9" text-anchor="end">10⁻⁴</text>
+<line class="grid" x1="76" y1="141.1" x2="798" y2="141.1"/>
+<text class="tick" x="68" y="145.1" text-anchor="end">10⁻³</text>
+<line class="grid" x1="76" y1="106.4" x2="798" y2="106.4"/>
+<text class="tick" x="68" y="110.4" text-anchor="end">10⁻²</text>
+<line class="grid" x1="76" y1="71.7" x2="798" y2="71.7"/>
+<text class="tick" x="68" y="75.7" text-anchor="end">10⁻¹</text>
+<line class="grid" x1="76" y1="36.9" x2="798" y2="36.9"/>
+<text class="tick" x="68" y="40.9" text-anchor="end">10⁰</text>
+<rect class="axis" x="76" y="24" width="722" height="340"/>
+<polyline class="ln s4" points="90.8,40.6 140.3,51.0 189.7,61.5 239.2,71.9 288.6,82.4 338.1,92.8 387.5,103.3 437.0,113.8 486.5,124.2 535.9,134.7 585.4,145.1 634.8,155.6 684.3,166.0 733.7,176.5 783.2,187.0" stroke-width="2.1" stroke-dasharray="2 3"/>
+<polyline class="ln s0" points="90.8,54.7 140.3,75.6 189.7,96.5 239.2,117.4 288.6,138.3 338.1,159.2 387.5,180.1 437.0,201.0 486.5,222.0 535.9,242.9 585.4,263.8 634.8,284.7 684.3,305.6 733.7,326.5 783.2,347.4" stroke-width="2.1"/>
+<circle cx="90.8" cy="54.7" r="3" class="bg mk s0" stroke-width="1.5"/>
+<circle cx="140.3" cy="75.6" r="3" class="bg mk s0" stroke-width="1.5"/>
+<circle cx="189.7" cy="96.5" r="3" class="bg mk s0" stroke-width="1.5"/>
+<circle cx="239.2" cy="117.4" r="3" class="bg mk s0" stroke-width="1.5"/>
+<circle cx="288.6" cy="138.3" r="3" class="bg mk s0" stroke-width="1.5"/>
+<circle cx="338.1" cy="159.2" r="3" class="bg mk s0" stroke-width="1.5"/>
+<circle cx="387.5" cy="180.1" r="3" class="bg mk s0" stroke-width="1.5"/>
+<circle cx="437.0" cy="201.0" r="3" class="bg mk s0" stroke-width="1.5"/>
+<circle cx="486.5" cy="222.0" r="3" class="bg mk s0" stroke-width="1.5"/>
+<circle cx="535.9" cy="242.9" r="3" class="bg mk s0" stroke-width="1.5"/>
+<circle cx="585.4" cy="263.8" r="3" class="bg mk s0" stroke-width="1.5"/>
+<circle cx="634.8" cy="284.7" r="3" class="bg mk s0" stroke-width="1.5"/>
+<circle cx="684.3" cy="305.6" r="3" class="bg mk s0" stroke-width="1.5"/>
+<circle cx="733.7" cy="326.5" r="3" class="bg mk s0" stroke-width="1.5"/>
+<circle cx="783.2" cy="347.4" r="3" class="bg mk s0" stroke-width="1.5"/>
+<polyline class="ln s1" points="90.8,52.7 140.3,73.6 189.7,94.5 239.2,115.4 288.6,136.3 338.1,157.3 387.5,178.2 437.0,199.1 486.5,220.0 535.9,240.9 585.4,261.8 634.8,282.7 684.3,303.6 733.7,324.5 783.2,345.5" stroke-width="2.1"/>
+<circle cx="90.8" cy="52.7" r="3" class="bg mk s1" stroke-width="1.5"/>
+<circle cx="140.3" cy="73.6" r="3" class="bg mk s1" stroke-width="1.5"/>
+<circle cx="189.7" cy="94.5" r="3" class="bg mk s1" stroke-width="1.5"/>
+<circle cx="239.2" cy="115.4" r="3" class="bg mk s1" stroke-width="1.5"/>
+<circle cx="288.6" cy="136.3" r="3" class="bg mk s1" stroke-width="1.5"/>
+<circle cx="338.1" cy="157.3" r="3" class="bg mk s1" stroke-width="1.5"/>
+<circle cx="387.5" cy="178.2" r="3" class="bg mk s1" stroke-width="1.5"/>
+<circle cx="437.0" cy="199.1" r="3" class="bg mk s1" stroke-width="1.5"/>
+<circle cx="486.5" cy="220.0" r="3" class="bg mk s1" stroke-width="1.5"/>
+<circle cx="535.9" cy="240.9" r="3" class="bg mk s1" stroke-width="1.5"/>
+<circle cx="585.4" cy="261.8" r="3" class="bg mk s1" stroke-width="1.5"/>
+<circle cx="634.8" cy="282.7" r="3" class="bg mk s1" stroke-width="1.5"/>
+<circle cx="684.3" cy="303.6" r="3" class="bg mk s1" stroke-width="1.5"/>
+<circle cx="733.7" cy="324.5" r="3" class="bg mk s1" stroke-width="1.5"/>
+<circle cx="783.2" cy="345.5" r="3" class="bg mk s1" stroke-width="1.5"/>
+<text class="ttl" x="76" y="16">Theorem S1(i), the established k = 0 budget:  M = 3, T = 1, d_A = d_B = 1</text>
+<text class="lab" x="437" y="406" text-anchor="middle">ultraviolet scale N     (depth r = N − M)</text>
+<text class="lab" transform="translate(24,194) rotate(-90)" text-anchor="middle">bound on |C⁽ᴺ⁾ − C|</text>
+<rect class="bg" x="523" y="36" width="263" height="64" opacity="0.9"/>
+<rect class="grid" x="523" y="36" width="263" height="64" fill="none"/>
+<line class="ln s4" x1="531" y1="48" x2="551" y2="48" stroke-width="2.4" stroke-dasharray="2 3"/>
+<text class="note" x="557" y="52">term I, full algebra  ∝ 2⁻ʳ</text>
+<line class="ln s0" x1="531" y1="66" x2="551" y2="66" stroke-width="2.4"/>
+<text class="note" x="557" y="70">term I, chiral  ∝ 4⁻ʳ</text>
+<line class="ln s1" x1="531" y1="84" x2="551" y2="84" stroke-width="2.4"/>
+<text class="note" x="557" y="88">term II, dynamics  ∝ Θ_M T 4⁻ᴺ</text>
+</svg>

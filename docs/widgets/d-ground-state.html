@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>D &middot; Ground-state circuit &mdash; Quantum Simulation of CFT</title>
+<meta name="description" content="The circuit U_FT U_B that prepares the lattice vacuum from a product state, with a concrete radix-2 network counted gate by gate.">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/math.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site"><div class="wrap">
+  <div class="topbar">
+    <p class="crumbs"><a href="../index.html">Quantum Simulation of CFT</a> /
+       <a href="index.html">Widgets</a> / <strong>D &middot; Ground-state circuit</strong></p>
+    <button id="theme-toggle" class="btn" type="button">auto</button>
+  </div>
+  <h1>D &middot; The ground-state circuit</h1>
+  <p class="lede">The lattice vacuum is Gaussian, so it comes out of a product state exactly, with
+     no ancillas and no variational loop: \(|\Omega_N\rangle=U_{\mathrm{FT}}U_{\mathrm B}
+     \bigotimes_k|{\leftarrow}\rangle_k\). It is the cheapest of the four steps, and this page
+     counts it.</p>
+</div></header>
+
+<main id="main">
+
+<section id="widget">
+  <h2>\(U_{\mathrm{FT}}U_{\mathrm B}\) on \(2n\) modes</h2>
+  <p class="src">Statement: <a href="../results.html#unnumbered">Table&nbsp;S1</a>, step 1, and the
+     supplement&rsquo;s &sect;<em>The ground-state-preparation circuit</em>; see
+     <a href="../definitions.html#gsprep">Definitions</a>. The primitive is
+     Verstraete&ndash;Cirac&ndash;Latorre and is used as a black box.</p>
+  <div id="w"></div>
+  <div class="notshown">
+    <p><b>What this does not show.</b> <strong>The exact counts on this page are not in the
+       manuscript.</strong> The supplement quotes only \(O(n\log n)\) gates, depth
+       \(O(\log^2 n)\) and zero ancillas; the numbers here are this site&rsquo;s arithmetic for
+       one concrete radix-2 network, with each butterfly taken as a single two-qubit matchgate and
+       the fermionic-swap routing counted as the \(O(\log^2)\) depth rather than as gates. A
+       different network gives different constants and the same scaling. Gate synthesis into a
+       native set &mdash; \(O(\log(1/\delta_{\mathrm{syn}}))\) per gate &mdash; is not counted at
+       all.</p>
+  </div>
+  <noscript><div class="fallback">
+    <p><strong>JavaScript is off.</strong> \(U_{\mathrm B}\) is one two-mode Bogoliubov rotation
+       per Nambu pair \((k,-k)\): \(n\) rotations on \(2n\) qubits, acting on disjoint pairs and
+       therefore in depth 1, no ancillas. \(U_{\mathrm{FT}}\) is a radix-2 fermionic FFT:
+       \(\tfrac{2n}{2}\log_2(2n)\) butterflies in \(\log_2(2n)\) stages, depth
+       \(O(\log^2(2n))\). At the near-term point \(N=6\): 256 qubits, 8 stages, 1024 butterflies,
+       128 Bogoliubov rotations, 1152 two-qubit gates, no ancillas.</p>
+  </div></noscript>
+</section>
+
+<section id="check">
+  <h2>Does this page agree with the committed data?</h2>
+  <div id="checkhost"><p class="badge pending">checking&hellip;</p></div>
+</section>
+
+<section id="reading">
+  <h2>Why it is this cheap</h2>
+  <ul class="tight">
+    <li><strong>The state is Gaussian.</strong> \(H^{(N)}_0\) is quadratic, so its ground state is
+       quasi-free and factorizes after a Fourier transform and a Bogoliubov rotation:
+       \(H^{(N)}_0=U_{\mathrm{FT}}U_{\mathrm B}D^{(N)}_0U^\dagger_{\mathrm B}U^\dagger_{\mathrm{FT}}\).</li>
+    <li><strong>\(U_{\mathrm B}\) is depth 1.</strong> After the transform the modes decouple into
+       Nambu pairs \((k,-k)\), and the only correlations left in the vacuum are inside each pair.
+       Disjoint pairs commute, so all the rotations go in parallel. The angles are a classical
+       \(2\times2\) eigenproblem, \(O(n)\) arithmetic, computed once.</li>
+    <li><strong>\(U_{\mathrm{FT}}\) is the fermionic FFT.</strong> Radix-2 butterflies built from
+       matchgates, \(O(n\log n)\) gates in depth \(O(\log^2 n)\). Without translation invariance
+       the fallback is a Givens network at \(O(n^2)\) gates and depth \(O(n)\) &mdash; a real
+       difference, and the reason the homogeneous bulk is the case analysed.</li>
+    <li><strong>It is not the dominant cost.</strong> Against the evolution&rsquo;s
+       \((nT)^{1+o(1)}\) and the measurement&rsquo;s \(O(1/\delta)\) repetitions, \(O(n\log n)\)
+       once is nothing. State preparation is the step that <em>does not</em> appear in
+       \(\delta^{-3/2}\).</li>
+  </ul>
+</section>
+
+</main>
+
+<footer class="site"><div class="wrap">
+  <p>An experimental, AI-assisted open-science project. Nothing here has been refereed.
+     Documents CC BY 4.0, code MIT.</p>
+  <p><a href="../index.html">Home</a> &middot; <a href="index.html">Widgets</a> &middot;
+     <a href="../results.html">Results</a> &middot; <a href="../notation.html">Notation</a></p>
+</div></footer>
+
+<script type="module">
+import { mount, renderCheck, loadJSON, boot } from '../assets/widget.js';
+import { plot, scene } from '../assets/plot.js';
+import * as C from '../assets/cft.js';
+
+boot();
+
+mount({
+  mount: '#w',
+  controls: [
+    { k: 'N', label: 'scale N', type: 'range', min: 1, max: 10, step: 1, value: 2 },
+    { k: 'view', label: 'view', type: 'select', value: 'net',
+      options: [['net', 'the network'], ['counts', 'counts against N']] },
+  ],
+  draw(s, ui) {
+    const N = s.N | 0, c = C.circuit(N);
+
+    if (s.view === 'counts') {
+      const Ns = [];
+      for (let n = 1; n <= 12; n++) Ns.push(n);
+      plot(ui.canvas, {
+        series: [
+          { x: Ns, y: Ns.map((n) => C.circuit(n).twoQubitGates), label: 'two-qubit gates', color: 0, marker: 'open', size: 3.4, width: 2 },
+          { x: Ns, y: Ns.map((n) => C.circuit(n).butterflies), label: 'FFT butterflies', color: 1, dash: [5, 4], width: 1.8 },
+          { x: Ns, y: Ns.map((n) => C.circuit(n).bogoliubov), label: 'Bogoliubov rotations', color: 2, dash: [2, 3], width: 1.8 },
+          { x: Ns, y: Ns.map((n) => C.circuit(n).ftDepthBound), label: 'depth bound, log²(2n)', color: 3, width: 1.6 },
+          { x: [N], y: [c.twoQubitGates], points: true, marker: 'star', size: 7, color: 0 },
+        ],
+        ylog: 10, xlabel: 'scale N', ylabel: 'count', legend: 'tl',
+        xticks: Ns.map((v) => ({ v, label: String(v) })),
+      });
+    } else {
+      const q = Math.min(c.q, 16);
+      scene(ui.canvas, (g, W, H, T, FONT) => {
+        const stages = Math.log2(q);
+        const pad = 16, x0 = pad + 46, x1 = W - pad - 14;
+        const y0 = 34, y1 = H - 34;
+        const dy = (y1 - y0) / (q - 1);
+        const dxs = (x1 - x0) / (stages + 1.4);
+        g.textBaseline = 'middle';
+        /* wires */
+        g.strokeStyle = T.line; g.lineWidth = 1;
+        for (let i = 0; i < q; i++) {
+          const Y = y0 + dy * i;
+          g.beginPath(); g.moveTo(x0, Y); g.lineTo(x1, Y); g.stroke();
+          if (q <= 16) {
+            g.fillStyle = T.mute; g.font = FONT(10); g.textAlign = 'right';
+            g.fillText(`|←⟩`, x0 - 8, Y);
+          }
+        }
+        /* U_B: one rotation per Nambu pair (i, q-1-i) — disjoint, one layer */
+        const xb = x0 + dxs * 0.6;
+        for (let i = 0; i < q / 2; i++) {
+          const ya = y0 + dy * i, yb = y0 + dy * (q - 1 - i);
+          g.strokeStyle = T.series[2]; g.lineWidth = 1.7;
+          g.beginPath(); g.moveTo(xb, ya); g.lineTo(xb, yb); g.stroke();
+          g.fillStyle = T.series[2];
+          g.beginPath(); g.arc(xb, ya, 3.6, 0, 7); g.fill();
+          g.beginPath(); g.arc(xb, yb, 3.6, 0, 7); g.fill();
+        }
+        g.fillStyle = T.series[2]; g.font = FONT(11); g.textAlign = 'center';
+        g.fillText('U_B', xb, y0 - 18);
+        /* U_FT: radix-2 butterflies */
+        for (let st = 0; st < stages; st++) {
+          const X = x0 + dxs * (1.5 + st);
+          const span = 2 ** (stages - 1 - st);
+          for (let i = 0; i < q; i++) {
+            if ((i & span) !== 0) continue;
+            const jj = i | span;
+            const ya = y0 + dy * i, yb = y0 + dy * jj;
+            g.strokeStyle = T.series[0]; g.lineWidth = 1.5;
+            g.beginPath(); g.moveTo(X, ya); g.lineTo(X, yb); g.stroke();
+            g.fillStyle = T.series[0];
+            g.fillRect(X - 3.2, ya - 3.2, 6.4, 6.4);
+            g.fillRect(X - 3.2, yb - 3.2, 6.4, 6.4);
+          }
+          g.fillStyle = T.mute; g.font = FONT(10); g.textAlign = 'center';
+          g.fillText(`${st + 1}`, X, y1 + 16);
+        }
+        g.fillStyle = T.series[0]; g.font = FONT(11); g.textAlign = 'center';
+        g.fillText(`U_FT — ${stages} butterfly stages`, x0 + dxs * (1.5 + (stages - 1) / 2), y0 - 18);
+        if (c.q > 16) {
+          g.fillStyle = T.mute; g.font = FONT(11.5); g.textAlign = 'center';
+          g.fillText(`drawn for 16 of the ${c.q} modes at N = ${N}`, (x0 + x1) / 2, y1 + 30);
+        }
+        g.textBaseline = 'alphabetic';
+      });
+    }
+
+    return `<p class="big">\\(N = ${N}\\): \\(n = ${c.n}\\) sites, \\(2n = ${c.q}\\) qubits,
+      \\(\\log_2 2n = ${c.stages}\\) butterfly stages.
+      <strong>${c.butterflies.toLocaleString()} butterflies + ${c.bogoliubov.toLocaleString()}
+      Bogoliubov rotations = ${c.twoQubitGates.toLocaleString()} two-qubit gates</strong>, and
+      <strong>${c.ancillas} ancillas</strong>.</p>
+      <p>\\(U_{\\mathrm B}\\) has depth ${c.bogoliubovDepth}: the ${c.bogoliubov} rotations act on
+      disjoint Nambu pairs. \\(U_{\\mathrm{FT}}\\) has ${c.ftDepthStages} butterfly stages and a
+      depth bound \\(\\log_2^2(2n) = ${c.ftDepthBound}\\) once the fermionic-swap routing inside
+      each stage is counted.</p>
+      <p class="muted">Against the evolution step this is nothing: at \\(N = 6\\) the ground state
+      costs ${C.circuit(6).twoQubitGates.toLocaleString()} two-qubit gates once, while the
+      measurement alone repeats the whole run \\(O(1/\\delta)\\) times.</p>`;
+  },
+});
+
+(async () => {
+  try {
+    const K = await loadJSON('../data/circuit.json');
+    const rows = [];
+    for (const row of K.rows) {
+      const c = C.circuit(row.N);
+      rows.push({ name: `butterflies at N = ${row.N}`, got: c.butterflies, want: row.butterflies, tol: 0 });
+      rows.push({ name: `Bogoliubov rotations at N = ${row.N}`, got: c.bogoliubov, want: row.bogoliubov, tol: 0 });
+      rows.push({ name: `two-qubit gates at N = ${row.N}`, got: c.twoQubitGates, want: row.two_qubit_gates, tol: 0 });
+      rows.push({ name: `depth bound log²(2n) at N = ${row.N}`, got: c.ftDepthBound, want: row.ft_depth_bound, tol: 0 });
+    }
+    renderCheck('#checkhost', rows,
+      'Tolerance exactly 0: integer counts. Note what this check does and does not establish — '
+      + 'it shows the browser and make_data.py count the same network, not that the network is '
+      + 'the one the manuscript has in mind. The manuscript gives only the big-O.');
+  } catch (e) {
+    document.querySelector('#checkhost').innerHTML =
+      `<p class="badge bad">could not run the check: ${e.message}</p>`;
+  }
+})();
+</script>
+</body>
+</html>

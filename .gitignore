@@ -1,0 +1,31 @@
+# Nothing generated is tracked: the documents, their build artifacts and the site's
+# PDF copies are produced by tools/ and by the CI workflow.
+
+# --- LaTeX build artifacts ---
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bbl
+*.blg
+
+# --- compiled documents (built from the .tex beside them) ---
+paper/qscft_main.pdf
+paper/qscft_supp.pdf
+paper/2022-submitted/qscft_2022_main.pdf
+paper/2022-submitted/qscft_2022_supp.pdf
+paper/figures_src/*.pdf
+
+# --- the site's copies of the built documents ---
+docs/pdf/
+
+# --- caches ---
+__pycache__/
+.DS_Store
+Icon[
+]
+paper/*Notes.bib
+paper/2022-submitted/*Notes.bib

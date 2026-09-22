@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>B &middot; The simulated model &mdash; Quantum Simulation of CFT</title>
+<meta name="description" content="The staggered lattice, the Jordan-Wigner string and the resulting XY chain: where the factor of two in the qubit count comes from.">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/math.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site"><div class="wrap">
+  <div class="topbar">
+    <p class="crumbs"><a href="../index.html">Quantum Simulation of CFT</a> /
+       <a href="index.html">Widgets</a> / <strong>B &middot; The simulated model</strong></p>
+    <button id="theme-toggle" class="btn" type="button">auto</button>
+  </div>
+  <h1>B &middot; The simulated model</h1>
+  <p class="lede">\(n\) sites, \(2n\) qubits. The factor of two is not an accounting detail: it is
+     the two Dirac components per staggered site, and it is exactly the correction the revision
+     makes to the 2022 abstract, which promised 128 sites on 128 qubits.</p>
+</div></header>
+
+<main id="main">
+
+<section id="widget">
+  <h2>From the staggered lattice to the qubit register</h2>
+  <p class="src">Statement: Letter, <em>Representing conformal fields on a quantum computer</em>;
+     see <a href="../definitions.html#staggered">Definitions</a>. The qubit count is the
+     <a href="../results.html#anchors">anchor</a> \(2n=2^{N+2}\).</p>
+  <div id="w"></div>
+  <div class="notshown">
+    <p><b>What this does not show.</b> The boundary term \(B_N\) is drawn as a link, not as an
+       operator: whether it is sector dependent, and which of the four sign choices realizes the
+       Ramond or the Neveu&ndash;Schwarz sector, is not settled on this page. Nor does it show the
+       <em>better</em> encodings the Letter says exist &mdash; the \(2n\) here is what
+       Jordan&ndash;Wigner costs, not a lower bound.</p>
+  </div>
+  <noscript><div class="fallback">
+    <p><strong>JavaScript is off.</strong> The staggered lattice \(\Lambda_N\) has
+       \(n=2^{N+1}\) sites carrying two Dirac components \(\psi^{(1)}_x,\psi^{(2)}_x\) each.
+       Relabelling \(a_x\equiv\psi^{(1)}_x\), \(a_{x+\varepsilon_{N+1}}\equiv\psi^{(2)\dagger}_x\)
+       puts \(2n\) fermion modes on the halved lattice \(\Lambda_{N+1}\), and
+       Jordan&ndash;Wigner turns them into \(2n=2^{N+2}\) qubits carrying an XY chain in a
+       transverse field, plus a boundary term.</p>
+  </div></noscript>
+</section>
+
+<section id="check">
+  <h2>Does this page agree with the committed data?</h2>
+  <div id="checkhost"><p class="badge pending">checking&hellip;</p></div>
+</section>
+
+<section id="reading">
+  <h2>The three layers</h2>
+  <ol class="tight">
+    <li><strong>The staggered lattice.</strong>
+      \(\Lambda_N=\varepsilon_N\{-L_N,\dots,L_N-1\}\) with \(\varepsilon_NL_N=L\), carrying the
+      two-component Dirac fermion \(\psi^{(1)},\psi^{(2)}\) and the hopping Hamiltonian with mass
+      coupling \(\lambda_N\). Number of sites: \(n=2^{N+1}\).</li>
+    <li><strong>The halved lattice.</strong> Setting \(a_x\equiv\psi^{(1)}_x\) and
+      \(a_{x+\varepsilon_{N+1}}\equiv\psi^{(2)\dagger}_x\) spreads the two components over
+      \(\Lambda_{N+1}\), which has half the spacing and \(2n\) sites &mdash; one fermion mode
+      each.</li>
+    <li><strong>The qubit chain.</strong> Jordan&ndash;Wigner,
+      \(a_j\equiv\sigma^x_{-L}\cdots\sigma^x_{j-\varepsilon_{N+1}}\tfrac12(\sigma^z_j+i\sigma^y_j)\),
+      makes the Hamiltonian an XY chain in a transverse field on \(2n\) qubits:</li>
+  </ol>
+  $$H^{(N)}_{0}=\tfrac{L_N}{2\pi}\sum_{j\in\Lambda_{N+1}}
+    \bigl(\sigma^z_j\sigma^z_{j+\varepsilon_{N+1}}-\sigma^y_j\sigma^y_{j+\varepsilon_{N+1}}
+    +\lambda_N\sigma^x_j\bigr)+B_N .$$
+  <p>Periodic or antiperiodic boundary conditions pick the Ramond or the Neveu&ndash;Schwarz
+     sector; the real chiral components of the massless theory give \(c=\tfrac12\), and the
+     complex chiral component gives \(c=1\). The Koo&ndash;Saleur construction on top of this
+     model realizes \(c=0,\tfrac12,1\) depending on the representation.</p>
+  <p class="src">The Letter notes that there is &ldquo;considerable room for optimization
+     here&rdquo; and that more sophisticated fermion encodings would improve the requirement.
+     The \(2n\) drawn here is the cost of the encoding actually analysed.</p>
+</section>
+
+</main>
+
+<footer class="site"><div class="wrap">
+  <p>An experimental, AI-assisted open-science project. Nothing here has been refereed.
+     Documents CC BY 4.0, code MIT.</p>
+  <p><a href="../index.html">Home</a> &middot; <a href="index.html">Widgets</a> &middot;
+     <a href="../results.html">Results</a> &middot; <a href="../notation.html">Notation</a></p>
+</div></footer>
+
+<script type="module">
+import { mount, renderCheck, loadJSON, boot } from '../assets/widget.js';
+import { scene } from '../assets/plot.js';
+import * as C from '../assets/cft.js';
+
+boot();
+
+mount({
+  mount: '#w',
+  controls: [
+    { k: 'N', label: 'scale N', type: 'range', min: 1, max: 4, step: 1, value: 2 },
+    { k: 'j', label: 'Jordan–Wigner string up to qubit', type: 'range', min: 0, max: 31, step: 1, value: 5 },
+    { k: 'sector', label: 'sector', type: 'select', value: 'ns',
+      options: [['ns', 'Neveu–Schwarz (antiperiodic)'], ['r', 'Ramond (periodic)']] },
+  ],
+  draw(s, ui) {
+    const N = s.N | 0, n = C.sites(N), q = C.qubits(N);
+    const j = Math.min(s.j | 0, q - 1);
+    scene(ui.canvas, (g, W, H, T, FONT) => {
+      const pad = 16, x0 = pad + 78, x1 = W - pad - 10;
+      const dx = (x1 - x0) / (q - 1);
+      const yA = H * 0.15, yB = H * 0.45, yC = H * 0.74;
+      const BW = Math.min(20, H * 0.055);
+      g.textBaseline = 'middle';
+
+      const label = (y, txt, sub) => {
+        g.fillStyle = T.ink; g.font = FONT(12); g.textAlign = 'right';
+        g.fillText(txt, x0 - 12, y - 7);
+        g.fillStyle = T.mute; g.font = FONT(10.5);
+        g.fillText(sub, x0 - 12, y + 8);
+      };
+
+      /* --- layer 1: the staggered lattice, n sites, two components each --- */
+      label(yA, `Λ_${N}`, `${n} sites × 2`);
+      for (let i = 0; i < n; i++) {
+        const X = x0 + dx * (2 * i + 0.5);
+        g.strokeStyle = T.line; g.lineWidth = 1;
+        g.beginPath(); g.moveTo(X - dx * 0.75, yA + 16); g.lineTo(X + dx * 0.75, yA + 16); g.stroke();
+        g.fillStyle = T.series[0];
+        g.beginPath(); g.arc(X - dx * 0.34, yA, 5, 0, 7); g.fill();
+        g.fillStyle = T.series[1];
+        g.beginPath(); g.arc(X + dx * 0.34, yA, 5, 0, 7); g.fill();
+        if (n <= 8) {
+          g.fillStyle = T.mute; g.font = FONT(9.5); g.textAlign = 'center';
+          g.fillText('ψ¹', X - dx * 0.34, yA - 13);
+          g.fillText('ψ²', X + dx * 0.34, yA - 13);
+        }
+      }
+
+      /* --- layer 2: the halved lattice, 2n fermion modes --- */
+      label(yB, `Λ_${N + 1}`, `${q} modes a_j`);
+      g.strokeStyle = T.line; g.lineWidth = 1;
+      g.beginPath(); g.moveTo(x0, yB); g.lineTo(x1, yB); g.stroke();
+      for (let i = 0; i < q; i++) {
+        const X = x0 + dx * i;
+        g.fillStyle = i % 2 === 0 ? T.series[0] : T.series[1];
+        g.beginPath(); g.arc(X, yB, 5, 0, 7); g.fill();
+      }
+
+      /* --- layer 3: the qubits, with the Jordan-Wigner string --- */
+      label(yC, `${q} qubits`, 'σ-string shown');
+      for (let i = 0; i < q; i++) {
+        const X = x0 + dx * i;
+        const inString = i < j;
+        g.strokeStyle = inString ? T.series[3] : T.line;
+        g.lineWidth = inString ? 2.2 : 1;
+        g.fillStyle = i === j ? T.series[2] : (inString ? T.series[3] : T.bg);
+        g.beginPath(); g.arc(X, yC, 7, 0, 7); g.fill();
+        g.beginPath(); g.arc(X, yC, 7, 0, 7); g.stroke();
+        if (q <= 16) {
+          g.fillStyle = inString ? T.series[3] : (i === j ? T.series[2] : T.mute);
+          g.font = FONT(9.5); g.textAlign = 'center';
+          g.fillText(inString ? 'σˣ' : (i === j ? '½(σᶻ+iσʸ)' : ''), X, yC + 0.8 * BW);
+        }
+      }
+      g.strokeStyle = T.series[3]; g.lineWidth = 2.2;
+      if (j > 0) { g.beginPath(); g.moveTo(x0, yC - 13); g.lineTo(x0 + dx * (j - 1), yC - 13); g.stroke(); }
+
+      /* boundary link */
+      g.strokeStyle = T.series[4]; g.lineWidth = 1.6; g.setLineDash([4, 3]);
+      g.beginPath();
+      g.moveTo(x0, yC + BW); g.bezierCurveTo(x0, yC + 2.2 * BW, x1, yC + 2.2 * BW, x1, yC + BW);
+      g.stroke(); g.setLineDash([]);
+      g.fillStyle = T.series[4]; g.font = FONT(10.5); g.textAlign = 'center';
+      g.fillText(`B_N — ${s.sector === 'ns' ? 'antiperiodic (NS)' : 'periodic (R)'}`, (x0 + x1) / 2, yC + 2.4 * BW);
+      g.textBaseline = 'alphabetic';
+    });
+
+    return `<p class="big">\\(N = ${N}\\): \\(n = 2^{N+1} = ${n}\\) staggered sites, two Dirac
+      components each, hence \\(2n = 2^{N+2} = ${q}\\) fermion modes on \\(\\Lambda_{N+1}\\) and
+      <strong>\\(${q}\\) qubits</strong>. The fermionic Fock space has dimension
+      \\(2^{2n} = 2^{${q}}\\).</p>
+      <p>The Jordan&ndash;Wigner operator for mode \\(${j}\\) is a string of ${j}
+      \\(\\sigma^x\\) factors followed by \\(\\tfrac12(\\sigma^z_{${j}}+i\\sigma^y_{${j}})\\).
+      The string is why a single fermion operator is non-local in the spin picture, and why the
+      Koo&ndash;Saleur generators are simulated in the <em>momentum</em> representation, where
+      they are \\((2k{+}1)\\)-local, rather than in position.</p>
+      <p class="muted">At the near-term point of the Letter, \\(N = 6\\): 128 sites and
+      <strong>256</strong> qubits. The 2022 version of the abstract said 128 qubits.</p>`;
+  },
+});
+
+(async () => {
+  try {
+    const K = await loadJSON('../data/circuit.json');
+    const rows = [];
+    for (const row of K.rows) {
+      rows.push({ name: `sites n at N = ${row.N}`, got: C.sites(row.N), want: row.sites, tol: 0 });
+      rows.push({ name: `qubits 2n at N = ${row.N}`, got: C.qubits(row.N), want: row.qubits, tol: 0 });
+    }
+    renderCheck('#checkhost', rows,
+      'Tolerance exactly 0: these are integer powers of two, and a rounding difference would '
+      + 'mean one side is doing floating-point arithmetic where it should not. '
+      + 'Data: docs/data/circuit.json.');
+  } catch (e) {
+    document.querySelector('#checkhost').innerHTML =
+      `<p class="badge bad">could not run the check: ${e.message}</p>`;
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+% Supp Fig. 5 (fig:momrgerrorM): momentum-cutoff RG, diagonal one-particle error,
+% c = 1/2 and 1 (Neveu-Schwarz sector), k = 0, observation scales M = 3, 4, 5.
+% Documented in ../FIGURES.md.
+% Standalone pgfplots source; reads figure5.dat (written by ../one_particle_errors.py).
+% Compile with pdflatex in this directory -> figure5.pdf, then copy to ../figure5.pdf.
+\documentclass[border=3pt]{standalone}
+\usepackage{amssymb,amsmath}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\definecolor{spacecadet}{HTML}{0D284C}
+\definecolor{ochre}{HTML}{C98A12}
+\definecolor{moss}{HTML}{4F7A2A}
+% --- plot (series) styles ---------------------------------------------------------
+\tikzset{
+  ser/.style={line width=.5pt, mark size=1.6pt, mark options={fill opacity=.85}},
+}
+\begin{document}
+\begin{tikzpicture}
+\begin{axis}[
+  % --- geometry and scales ---
+  width=308pt, height=186pt, scale only axis,
+  ymode=log, log basis y=10,
+  % --- labels ---
+  xlabel={$N$}, ylabel={$L^{2}$-error},
+  xlabel style={font=\footnotesize}, ylabel style={font=\footnotesize},
+  tick label style={font=\footnotesize},
+  title style={font=\footnotesize, at={(1,1)}, anchor=south east, yshift=1pt},
+  % --- legend to the right of the axis, as in the 2021/22 originals ---
+  legend style={font=\footnotesize, draw=none, fill=none, cells={anchor=west},
+                at={(1.03,1)}, anchor=north west, row sep=1pt},
+  legend cell align=left,
+  % --- rules ---
+  grid=both,
+  major grid style={line width=.2pt, draw=black!22},
+  minor grid style={line width=.1pt, draw=black!10},
+  axis line style={line width=.5pt},
+  tick style={line width=.4pt, black!60},
+  title={$k=0$},
+  xmin=4.8, xmax=10.2,
+  xtick={5,6,7,8,9,10},
+  ymin=4e-4, ymax=3e2,
+  ytick={0.001,0.01,0.1,1,10,100},
+  yticklabels={$0.001$,$0.010$,$0.100$,$1$,$10$,$100$},
+]
+\addplot[ser, color=moss,       mark=diamond*]  table[x=N, y=M5] {figure5.dat};
+  \addlegendentry{$M=5$}
+\addplot[ser, color=ochre,      mark=square*]   table[x=N, y=M4] {figure5.dat};
+  \addlegendentry{$M=4$}
+\addplot[ser, color=spacecadet, mark=*]         table[x=N, y=M3] {figure5.dat};
+  \addlegendentry{$M=3$}
+\end{axis}
+\end{tikzpicture}
+\end{document}

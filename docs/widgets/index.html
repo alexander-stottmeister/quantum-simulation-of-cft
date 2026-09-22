@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Widgets &mdash; Quantum Simulation of Conformal Field Theory</title>
+<meta name="description" content="Nine interactive pages that recompute the quantitative claims of the Letter and its Supplemental Material in the browser, each checked at load against committed JSON.">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/math.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site"><div class="wrap">
+  <div class="topbar">
+    <p class="crumbs"><a href="../index.html">Quantum Simulation of CFT</a> / <strong>Widgets</strong></p>
+    <button id="theme-toggle" class="btn" type="button">auto</button>
+  </div>
+  <h1>Widgets</h1>
+  <p class="lede">Each page recomputes one thing in your browser and says what it does
+     <em>not</em> show. Each compares its own arithmetic against the JSON that
+     <code>tools/make_data.py</code> wrote with numpy, and shows the comparison as a table with a
+     pass or fail badge and the tolerance written out. Nothing is a stored picture, and no
+     third-party script is loaded.</p>
+</div></header>
+
+<main id="main">
+
+<section id="priority">
+  <h2>Start here</h2>
+  <div class="cards">
+    <div class="card">
+      <span class="tag established">Theorem S1</span>
+      <h3><a href="e-error-budget.html">E &middot; The error budget</a></h3>
+      <p>The two terms of the bound, evaluated. The established \(k=0\) case with every constant,
+         and the assembled \(k\neq0\) case whose prefactor is not computed &mdash; drawn
+         differently, because they are not the same kind of statement.</p>
+    </div>
+    <div class="card">
+      <span class="tag cited">Table S1</span>
+      <h3><a href="f-resource-scaling.html">F &middot; Resource scaling</a></h3>
+      <p>\(\delta^{-3/2}\) split into the Heisenberg-limited \(\delta^{-1}\) and the
+         discretization \(\delta^{-1/2}\), with the near-term point starred and the wavelet-route
+         penalty available for comparison.</p>
+    </div>
+    <div class="card">
+      <span class="tag numeric">Fig. S7</span>
+      <h3><a href="h-correlator.html">H &middot; Correlator convergence</a></h3>
+      <p>The one place where a rate is <em>measured</em> rather than bounded: the per-step ratio
+         going to 4, and the \(k=2\) error turning upward when the energy shell reaches the
+         cutoff.</p>
+    </div>
+    <div class="card">
+      <span class="tag established">Lemma S4</span>
+      <h3><a href="a-scales.html">A &middot; The three scales</a></h3>
+      <p>\(N\), \(M\) and the depth \(r=N-M\): the lattice refining under one observation cell,
+         and why the vacuum bound depends on \(r\) and on nothing else.</p>
+    </div>
+  </div>
+</section>
+
+<section id="rest">
+  <h2>The rest</h2>
+  <div class="cards">
+    <div class="card">
+      <h3><a href="b-lattice-model.html">B &middot; The simulated model</a></h3>
+      <p>Staggered lattice, Jordan&ndash;Wigner string, XY chain. Where the factor of two in
+         \(2n\) qubits comes from &mdash; and the 2022 abstract that got it wrong.</p>
+    </div>
+    <div class="card">
+      <h3><a href="c-koo-saleur.html">C &middot; Koo&ndash;Saleur symbol</a></h3>
+      <p>\(\varepsilon_N^{-1}\sin(\varepsilon_Nx)\) against \(x\). One Taylor expansion, and every
+         rate on this site descends from it.</p>
+    </div>
+    <div class="card">
+      <h3><a href="d-ground-state.html">D &middot; Ground-state circuit</a></h3>
+      <p>\(U_{\mathrm{FT}}U_{\mathrm B}\) drawn and counted on a concrete radix-2 network. The
+         cheapest of the four steps, and the one that does not appear in \(\delta^{-3/2}\).</p>
+    </div>
+    <div class="card">
+      <h3><a href="g-near-term.html">G &middot; The near-term point</a></h3>
+      <p>128 sites, 256 qubits, \(N=6\), \(M=3\), D10 &mdash; one condition met exactly, one
+         condition not met at all.</p>
+    </div>
+    <div class="card">
+      <h3><a href="i-energy-shell.html">I &middot; Energy-shell confinement</a></h3>
+      <p>Why the horizon enters as \(\Lambda_k(T)=(e^{c_kT}-1)/c_k\), and why that is linear in
+         \(T\) only at \(k=0\).</p>
+    </div>
+    <div class="card">
+      <span class="tag assembled">pointer, not a widget</span>
+      <h3><a href="j-one-particle.html">J &middot; One-particle convergence</a></h3>
+      <p>Deliberately not built: the generating code for Figs.&nbsp;S2&ndash;S6 is missing, and
+         the mathematics belongs to the companion repository. The page says so.</p>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <h2>How the checks work</h2>
+  <p>Every widget computes what it draws from the formulas of the Supplemental Material, in
+     <code>docs/assets/cft.js</code>. The same formulas are implemented independently in
+     <code>tools/make_data.py</code>, with numpy, and their output is committed as
+     <code>docs/data/*.json</code>. At load each page evaluates both and prints a table:
+     <em>in your browser</em>, <em>from make_data.py</em>, the relative difference, and the
+     tolerance being applied.</p>
+  <ul class="tight">
+    <li>Closed-form quantities are checked at \(10^{-12}\) relative, or exactly 0 for integer
+        counts.</li>
+    <li>The correlator (widget&nbsp;H) is checked at \(10^{-5}\) relative <em>with an absolute
+        floor of</em> \(10^{-12}\), and the floor is the honest part. The browser uses an
+        implicit-QL sweep on the tridiagonal chains where numpy uses <code>eigh</code>; the two
+        agree to about \(4\times10^{-13}\) on the correlator, which is a few units in its last
+        place &mdash; but the quantity plotted is a <em>difference</em> of two correlators of
+        order \(0.1\), so that same agreement is only about \(10^{-6}\) of the difference. A
+        relative tolerance alone would be dishonest in one direction or vacuous in the
+        other.</li>
+    <li>The deviation in widget&nbsp;C is checked at \(10^{-9}\), because it is a difference of
+        two nearly equal numbers and loses digits to cancellation.</li>
+    <li>Some rows are marked as <em>transcription</em> checks rather than computations &mdash;
+        the Sobolev exponents in widget&nbsp;G, for instance, are quoted from the supplement on
+        both sides. The page says which is which, because a check that cannot fail is worse than
+        no check.</li>
+  </ul>
+  <p>The same comparisons run outside a browser:</p>
+<pre><code>node tools/check_js.mjs      # the numbers
+node tools/check_pages.mjs   # every page loads and every control sweeps</code></pre>
+  <p class="src">Controls are real <code>&lt;input&gt;</code> and <code>&lt;select&gt;</code>
+     elements, so Tab and the arrow keys reach everything. Control settings are written into the
+     URL fragment, so a particular configuration can be linked to. Animated widgets start paused
+     when your system asks for reduced motion. Every widget page carries a fallback inside
+     <code>&lt;noscript&gt;</code>: the four priority widgets with a static SVG built by
+     <code>tools/make_figures.py</code> from the same JSON, the rest with a sentence that states
+     the conclusion in words.</p>
+</section>
+
+</main>
+
+<footer class="site"><div class="wrap">
+  <p>An experimental, AI-assisted open-science project. Nothing here has been refereed; read
+     every statement as a claim under verification. Documents CC BY 4.0, code MIT.</p>
+  <p><a href="../index.html">Home</a> &middot; <a href="../status.html">Status</a> &middot;
+     <a href="../notation.html">Notation</a> &middot; <a href="../definitions.html">Definitions</a>
+     &middot; <a href="../results.html">Results</a></p>
+</div></footer>
+
+<script type="module">
+  import { boot } from '../assets/widget.js';
+  boot();
+</script>
+</body>
+</html>

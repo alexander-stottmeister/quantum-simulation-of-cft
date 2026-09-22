@@ -1,0 +1,195 @@
+/* site.css — one stylesheet for the whole site.  Light and dark are both first-class:
+ * the tokens below are redefined under prefers-color-scheme and again under an explicit
+ * data-theme, so the switch in the header wins over the system setting. */
+
+:root {
+  --bg: #ffffff; --fg: #1f2328; --mute: #57606a; --line: #d8dee4; --soft: #f6f8fa;
+  --link: #0969da; --ok: #1a7f37; --bad: #cf222e; --warn: #9a6700;
+  --estab: #1a7f37; --assem: #9a6700;
+  --maxw: 1180px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1117; --fg: #e6edf3; --mute: #9198a1; --line: #30363d; --soft: #161b22;
+    --link: #4493f8; --ok: #3fb950; --bad: #ff7b72; --warn: #d29922;
+    --estab: #3fb950; --assem: #d29922;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d1117; --fg: #e6edf3; --mute: #9198a1; --line: #30363d; --soft: #161b22;
+  --link: #4493f8; --ok: #3fb950; --bad: #ff7b72; --warn: #d29922;
+  --estab: #3fb950; --assem: #d29922;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg); line-height: 1.55;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+}
+a { color: var(--link); }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible {
+  outline: 2px solid var(--link); outline-offset: 2px; border-radius: 3px;
+}
+h1, h2, h3 { line-height: 1.25; }
+p, li { max-width: 78ch; }
+
+.skip { position: absolute; left: -9999px; top: 0; background: var(--bg); padding: 10px 14px; z-index: 10; }
+.skip:focus { left: 8px; top: 8px; border: 1px solid var(--line); border-radius: 6px; }
+
+/* ------------------------------------------------------------------ header and footer */
+
+header.site { border-bottom: 1px solid var(--line); padding: 18px 20px 14px; }
+header.site .wrap { max-width: var(--maxw); margin: 0 auto; }
+.topbar { display: flex; gap: 14px; align-items: baseline; flex-wrap: wrap; justify-content: space-between; }
+.crumbs { font-size: .86rem; color: var(--mute); margin: 0; }
+.crumbs a { text-decoration: none; }
+.crumbs a:hover { text-decoration: underline; }
+header.site h1 { margin: 8px 0 4px; font-size: 1.5rem; }
+header.site .lede { margin: 4px 0; color: var(--mute); }
+.btn {
+  font: inherit; font-size: .82rem; padding: 4px 11px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--soft); color: var(--fg); cursor: pointer;
+}
+.btn:hover { border-color: var(--link); }
+
+footer.site {
+  border-top: 1px solid var(--line); margin-top: 40px; padding: 18px 20px 48px;
+  color: var(--mute); font-size: .88rem;
+}
+footer.site .wrap { max-width: var(--maxw); margin: 0 auto; }
+
+main { max-width: var(--maxw); margin: 0 auto; padding: 22px 20px 0; }
+
+/* -------------------------------------------------------------------------- sections */
+
+section { margin: 0 0 34px; }
+section > h2 { font-size: 1.18rem; margin: 0 0 8px; padding-bottom: 5px; border-bottom: 1px solid var(--line); }
+section > h3 { font-size: 1.02rem; margin: 22px 0 6px; }
+
+.panel { border: 1px solid var(--line); border-radius: 8px; padding: 16px 18px; background: var(--soft); }
+.panel.plain { background: var(--bg); }
+
+.cards { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(268px, 1fr)); }
+.card {
+  border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; background: var(--bg);
+  display: flex; flex-direction: column; gap: 6px;
+}
+.card h3 { margin: 0; font-size: 1rem; }
+.card h3 a { text-decoration: none; }
+.card h3 a:hover { text-decoration: underline; }
+.card p { margin: 0; font-size: .9rem; color: var(--mute); max-width: none; }
+.card .tag { align-self: flex-start; }
+
+.tag {
+  display: inline-block; font-size: .72rem; letter-spacing: .05em; text-transform: uppercase;
+  padding: 2px 8px; border-radius: 999px; border: 1px solid currentColor; white-space: nowrap;
+}
+.tag.established { color: var(--estab); }
+.tag.assembled { color: var(--assem); }
+.tag.cited { color: var(--mute); }
+.tag.partial { color: var(--mute); }
+.tag.numeric { color: var(--link); }
+
+/* ------------------------------------------------------------------ tables and lists */
+
+table.data, table.check {
+  border-collapse: collapse; width: 100%; font-size: .88rem; margin: 12px 0 0;
+}
+table.data th, table.data td, table.check th, table.check td {
+  text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--line); vertical-align: top;
+}
+table.data th, table.check th { color: var(--mute); font-weight: 600; font-size: .82rem; }
+table.data td.num, table.check td:not(:first-child) { font-variant-numeric: tabular-nums; }
+table.check tr.bad td { color: var(--bad); }
+.tablewrap { overflow-x: auto; }
+
+dl.defs { margin: 0; }
+dl.defs dt { font-weight: 600; margin: 16px 0 2px; }
+dl.defs dd { margin: 0 0 2px; color: var(--fg); }
+dl.defs dd.src { color: var(--mute); font-size: .86rem; }
+
+ul.tight li { margin: 4px 0; }
+
+/* --------------------------------------------------------------------------- widgets */
+
+.controls {
+  display: flex; flex-wrap: wrap; gap: 12px 22px; margin: 0 0 12px;
+  padding: 11px 13px; background: var(--soft); border: 1px solid var(--line); border-radius: 6px;
+}
+.control { display: flex; align-items: center; gap: 8px; font-size: .88rem; }
+.clabel { color: var(--mute); }
+.cvalue { min-width: 3.1em; font-variant-numeric: tabular-nums; }
+input[type=range] { width: 148px; accent-color: var(--link); }
+select { font: inherit; font-size: .86rem; padding: 2px 6px; background: var(--bg); color: var(--fg);
+  border: 1px solid var(--line); border-radius: 5px; }
+
+figure.figure { margin: 0; }
+canvas.plot { width: 100%; height: 360px; display: block; }
+canvas.plot.tall { height: 420px; }
+canvas.plot.short { height: 260px; }
+
+.animrow { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+.animnote { color: var(--mute); font-size: .84rem; }
+
+.readout { margin: 12px 0 0; padding-top: 11px; border-top: 1px solid var(--line); font-size: .93rem; }
+.readout p { margin: 5px 0; }
+.readout .big { font-size: 1.04rem; }
+
+.notshown {
+  margin: 16px 0 0; padding: 10px 13px; border-left: 3px solid var(--warn);
+  background: var(--soft); font-size: .9rem;
+}
+.notshown b { color: var(--warn); }
+
+.badge {
+  display: inline-block; padding: 5px 12px; border-radius: 999px; font-size: .86rem;
+  border: 1px solid currentColor; margin: 0;
+}
+.badge.ok { color: var(--ok); } .badge.bad { color: var(--bad); }
+.badge.pending { color: var(--mute); }
+.checknote { color: var(--mute); font-size: .84rem; margin: 8px 0 0; }
+
+code, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .9em; }
+code { background: var(--soft); padding: 1px 5px; border-radius: 4px; }
+pre { background: var(--soft); border: 1px solid var(--line); border-radius: 6px;
+  padding: 11px 13px; overflow-x: auto; font-size: .85rem; }
+pre code { background: none; padding: 0; }
+
+.err { color: var(--bad); }
+.muted { color: var(--mute); }
+.src { color: var(--mute); font-size: .86rem; }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+noscript .fallback {
+  border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; background: var(--soft);
+}
+noscript svg { max-width: 100%; height: auto; }
+
+/* The KaTeX faces are vendored; if the script is missing, keep the source legible. */
+.katex { font-size: 1.04em; }
+.katex-display { overflow-x: auto; overflow-y: hidden; padding: 2px 0; }
+
+/* ------------------------------------------------------------------------- narrow */
+
+@media (max-width: 620px) {
+  body { font-size: 15px; }
+  main { padding: 16px 14px 0; }
+  header.site, footer.site { padding-left: 14px; padding-right: 14px; }
+  header.site h1 { font-size: 1.24rem; }
+  canvas.plot { height: 300px; }
+  canvas.plot.tall { height: 340px; }
+  .controls { gap: 10px 14px; }
+  input[type=range] { width: 120px; }
+  table.data, table.check { font-size: .82rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+}

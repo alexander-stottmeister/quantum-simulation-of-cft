@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Status &mdash; Quantum Simulation of Conformal Field Theory</title>
+<meta name="description" content="What is established, what is assembled in the Supplemental Material and unaudited, what rests on a computation, and what is open.">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/katex/katex.min.css">
+<script defer src="assets/katex/katex.min.js"></script>
+<script defer src="assets/katex/auto-render.min.js"></script>
+<script defer src="assets/math.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site"><div class="wrap">
+  <div class="topbar">
+    <p class="crumbs"><a href="index.html">Quantum Simulation of CFT</a> / <strong>Status</strong></p>
+    <button id="theme-toggle" class="btn" type="button">auto</button>
+  </div>
+  <h1>Status</h1>
+  <p class="lede">What is settled, what is assembled here, what rests on a computation, and what
+     is open. Nothing on this site has been refereed; read every statement as a claim under
+     verification. The manuscript is between submissions and the revision is recent.</p>
+</div></header>
+
+<main id="main">
+
+<section id="established">
+  <h2>Established, and where</h2>
+  <p>These are the inputs the error analysis consumes. All are cited; most are cited to the
+     <em>revised and expanded version</em> of the companion paper, written <code>[v5, &hellip;]</code>,
+     which is <strong>a preprint, not a refereed article</strong>. The published article is
+     <em>Commun. Math. Phys.</em> <strong>398</strong>, 219 (2023).</p>
+  <ul class="tight">
+    <li>Strong, hence strong-resolvent, convergence of the Koo&ndash;Saleur approximants
+        \(L^{(N)}_k\to L_k\) and uniform-on-compact-time convergence of the correlators.
+        <span class="tag established">[CMP&nbsp;398, Thms.&nbsp;4.6, 4.11, 4.16, 6.1, 6.3];
+        [v5, Thms.&nbsp;4.16, 4.25, 6.1, 6.5]</span></li>
+    <li>A <em>sharp</em> one-particle rate \(\varepsilon_N^{\min\{\delta_s,2\}}\) for
+        <em>all</em> orders \(k\) along the momentum-cutoff renormalization group.
+        <span class="tag established">[v5, Lem.&nbsp;4.15, Thm.&nbsp;4.16]</span></li>
+    <li>The wavelet-route rates: \(\varepsilon_N^2\) for \(k=0\), only \(\varepsilon_N\) for
+        \(k\neq0\), with the quadratic rate restored by a re-centred comparison.
+        <span class="tag established">[v5, Rmks.&nbsp;4.8, 4.32, 3.5]</span></li>
+    <li>An explicit lattice-vacuum rate.
+        <span class="tag established">[v5, Prop.&nbsp;6.3]</span></li>
+    <li>\(N\)-uniform linear energy bounds for the lattice generators.
+        <span class="tag established">[v5, Lem.&nbsp;4.17, Prop.&nbsp;6.6]</span></li>
+    <li>Energy growth and Duhamel estimates with explicit time dependence.
+        <span class="tag established">[v5, Lems.&nbsp;4.12, 4.19]</span></li>
+    <li>For the chiral Hamiltonian evolution \(k=0\) along the momentum-cutoff route, an explicit
+        correlator-level bound <em>with all constants</em>, and the resulting qubit budget.
+        <span class="tag established">[v5, Prop.&nbsp;6.3, Rmk.&nbsp;6.4]</span></li>
+  </ul>
+</section>
+
+<section id="assembled">
+  <h2>Assembled here, and therefore the thing to attack</h2>
+  <div class="panel">
+    <p>What the Supplemental Material adds on its own account is <strong>the propagation of the
+       one-particle rate to the full \(m\)-point correlator for the local conformal
+       transformations, \(k\neq0\)</strong>: through second quantization, the lattice vacuum, the
+       unbounded Heisenberg dynamics on \([0,T]\), and the multi-point telescoping. The constant is
+       left in factored form.</p>
+    <p>Three things follow, and they should be read exactly as written:</p>
+    <ul class="tight">
+      <li>What the assembly <em>establishes</em> is the <strong>rate</strong> \(\varepsilon_N^2\)
+          &mdash; equivalently the exponent \(\tfrac12\) in \(n(\delta,T)\sim
+          C_T\delta^{-1/2}\) &mdash; together with the explicit \(T\)- and \(m\)-dependence.</li>
+      <li>The <strong>numerical value of the prefactor \(C_0\) for \(k\neq0\) is not
+          computed</strong>. Nothing on this site turns it into a number, and the
+          <a href="widgets/e-error-budget.html">error-budget widget</a> draws that branch as a
+          shape with the prefactor divided out, not as an error bar.</li>
+      <li>The strong-resolvent convergence <strong>carries no rate</strong>, and no rate is at any
+          point extracted from it. The Trotter&ndash;Kato argument appears in the supplement only
+          as a qualitative cross-check.</li>
+    </ul>
+    <p>For \(k=0\), <em>nothing is assembled</em>: the bound is [v5, Prop.&nbsp;6.3] with all
+       constants.</p>
+  </div>
+</section>
+
+<section id="corrections">
+  <h2>Corrections the revision makes</h2>
+  <p>The published companion article and the 2022 submitted version of this Letter each contain
+     statements that do not survive. They are listed rather than quietly dropped.</p>
+
+  <h3>In the published companion article</h3>
+  <ul class="tight">
+    <li>The published one-particle error estimates, [CMP&nbsp;398, eqs.&nbsp;(204)&ndash;(210)],
+        <strong>rest on a domination step that does not hold as stated</strong>. The published
+        rate is established for the Hamiltonian \(k=0\) only; an \(N\)-uniform majorant replaces
+        the step. <span class="tag established">[v5, Lem.&nbsp;4.7, Rmks.&nbsp;4.32&ndash;4.33;
+        Lem.&nbsp;3.14, Cor.&nbsp;3.15]</span></li>
+    <li>The M&ouml;bius simplification [CMP&nbsp;398, Rmk.&nbsp;4.14] &mdash; that for
+        \(k=0,\pm1\) the wavelet route alone suffices &mdash; <strong>does not follow from its
+        proof</strong>, because the Hardy projections do not preserve the wavelet space. Only the
+        weaker statement is used: the Hilbert&ndash;Schmidt part vanishes.
+        <span class="tag established">[v5, Rmk.&nbsp;4.22]</span></li>
+    <li>The \(N\)-uniform energy bound underlying the Virasoro correlation functions had been
+        <strong>asserted</strong> in the proof of [CMP&nbsp;398, Thm.&nbsp;6.3]. It is now proved.
+        <span class="tag established">[v5, Lem.&nbsp;4.17, Prop.&nbsp;6.6]</span></li>
+    <li>Essential self-adjointness of the smeared generators had gone through analytic vectors of
+        the finite-particle core, [CMP&nbsp;398, Cor.&nbsp;4.3], which <strong>does not close as
+        stated</strong> because the pair-creation terms raise the particle number. It now comes
+        from Nelson&rsquo;s commutator theorem.
+        <span class="tag established">[v5, Cor.&nbsp;4.18]</span></li>
+  </ul>
+
+  <h3>In the 2022 submitted version of this Letter</h3>
+  <ul class="tight">
+    <li>The 2022 abstract promised &ldquo;promising results &hellip; already with \(128\) logical
+        qubits&rdquo;, and the introduction &ldquo;as few as \(N=128\) logical qubits&rdquo;.
+        <strong>128 <em>sites</em> need 256 logical qubits</strong>, because the
+        Jordan&ndash;Wigner map uses two qubits per site; and \(N\) is the scale, which is 6, not a
+        qubit count. Both are corrected in the revision.
+        <span class="tag numeric">verifiable against
+        <code>Final/qscft_prl_0322_main.tex</code></span></li>
+    <li>The 2022 introduction quoted the complexity as \(\delta^{-1}\). It is
+        <strong>\(\delta^{-3/2}\)</strong>: a Heisenberg-limited measurement cost \(\delta^{-1}\)
+        times a discretization cost \(\delta^{-1/2}\) set by the \(1/n^2\) convergence.
+        <span class="tag numeric">verifiable against
+        <code>Final/qscft_prl_0322_main.tex</code></span></li>
+  </ul>
+  <p class="src">Both of these have stood in the public 2021 preprint since September 2021, which
+     is why the plan for this repository puts an arXiv replacement before the repository
+     itself.</p>
+</section>
+
+<section id="numerical">
+  <h2>Resting on a computation</h2>
+  <ul class="tight">
+    <li><strong>The correlator-level convergence</strong> of Fig.&nbsp;S7: the two-point function
+        of smeared fields evolved by \(H_k\) converges at \(4^{-N}\) uniformly over the plotted
+        horizon, and at \(k=2\) it grows late in time. This is reproducible from
+        <code>numerics/correlator_convergence.py</code> and is recomputed in your browser by
+        <a href="widgets/h-correlator.html">widget&nbsp;H</a>, which reproduces the numpy values
+        to about ten significant figures.</li>
+    <li><strong>The near-term figure</strong>: \(\delta_0\approx0.4\) at \(N=6\), \(M=3\), for a
+        D10 wavelet. This number is read off Fig.&nbsp;S2 of the supplement &mdash; a
+        <em>one-particle, wavelet-route, \(k=0\)</em> quantity. It is <em>not</em> a correlator
+        bound, and this site does not present it as one.</li>
+    <li><strong>The resource curves</strong> of Fig.&nbsp;S6: a calibration of the exponent
+        statement against that one point. Reproducible from
+        <code>numerics/resource_scaling.py</code>;
+        <a href="widgets/f-resource-scaling.html">widget&nbsp;F</a> recomputes it.</li>
+  </ul>
+</section>
+
+<section id="open">
+  <h2>Open</h2>
+  <ul class="tight">
+    <li><strong>The prefactor \(C_0\) for \(k\neq0\) is not computed.</strong> Until it is, the
+        \(k\neq0\) branch of Theorem&nbsp;S1 fixes an exponent and a shape, not a lattice size for
+        a given accuracy. Only \(k=0\) does that.</li>
+    <li><strong>The assembly has not been audited.</strong> The companion project was audited
+        adversarially and several of its own repairs turned out to be wrong; this one has had no
+        such pass.</li>
+    <li><strong>Figures&nbsp;S2&ndash;S6 have no generating code in the repository.</strong> They
+        are the one-particle convergence data from 2021 and arrive as opaque PDFs. Until they are
+        regenerated, the claim that this repository is reproducible end to end is false, and
+        <a href="widgets/j-one-particle.html">widget&nbsp;J</a> is a pointer rather than a
+        widget.</li>
+    <li><strong>The localization constraint is not met at the near-term point.</strong>
+        \(2^M\gtrsim2K-1\) reads \(8\ge19\) at \(M=3\), \(K=10\), and fails. The supplement says
+        so: those observables are wavelet details wrapped around the circle rather than strictly
+        localized fields. The register size is unaffected, but the word &ldquo;localized&rdquo; is
+        not earned there.</li>
+    <li><strong>The disposition of the manuscript is not decided.</strong></li>
+  </ul>
+</section>
+
+<section id="ai">
+  <h2>On the AI assistance</h2>
+  <p>The revision was produced by the authors working with Anthropic&rsquo;s Claude as an
+     interactive assistant. The working record is published rather than discarded. Nothing here
+     has been refereed, human verification is ongoing, and direction and responsibility are the
+     authors&rsquo;. This site was built the same way, which is a reason to check it rather than
+     to trust it &mdash; hence the check badges on every widget, and the numbers table in
+     <a href="results.html#anchors">Results</a>.</p>
+  <p class="src">Dated 22 September 2026.</p>
+</section>
+
+</main>
+
+<footer class="site"><div class="wrap">
+  <p>An experimental, AI-assisted open-science project. Nothing here has been refereed; read
+     every statement as a claim under verification. Documents CC BY 4.0, code MIT.</p>
+  <p><a href="index.html">Home</a> &middot; <a href="notation.html">Notation</a> &middot;
+     <a href="definitions.html">Definitions</a> &middot; <a href="results.html">Results</a>
+     &middot; <a href="widgets/">Widgets</a></p>
+</div></footer>
+
+<script type="module">
+  import { boot } from './assets/widget.js';
+  boot();
+</script>
+</body>
+</html>

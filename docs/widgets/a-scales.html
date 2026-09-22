@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A &middot; The three scales &mdash; Quantum Simulation of CFT</title>
+<meta name="description" content="N, M and the renormalization depth r = N - M: the lattice refining under the observation window, and why the discretization error is governed by r rather than by N alone.">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/math.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site"><div class="wrap">
+  <div class="topbar">
+    <p class="crumbs"><a href="../index.html">Quantum Simulation of CFT</a> /
+       <a href="index.html">Widgets</a> / <strong>A &middot; The three scales</strong></p>
+    <button id="theme-toggle" class="btn" type="button">auto</button>
+  </div>
+  <h1>A &middot; The three scales</h1>
+  <p class="lede">A CFT has no mass gap and therefore no length scale of its own. The scale of the
+     simulation problem is set instead by <em>the reader&rsquo;s</em> choice: \(M\), how well
+     localized the observables have to be, and \(N\), how fine the simulated lattice is. The
+     error depends on neither alone but on the distance between them, the renormalization depth
+     \(r=N-M\).</p>
+</div></header>
+
+<main id="main">
+
+<section id="widget">
+  <h2>The lattice refining under one observation cell</h2>
+  <p class="src">Statement: <a href="../results.html#lem-s4">Lemma&nbsp;S4</a>, whose closing
+     remark is the whole content of this page &mdash; &ldquo;both error sources of the master
+     decomposition therefore scale in the renormalization depth \(r=N-M\) rather than in \(N\)
+     alone&rdquo;. See also <a href="../definitions.html#oar">operator-algebraic
+     renormalization</a>.</p>
+  <div id="w"></div>
+  <div class="notshown">
+    <p><b>What this does not show.</b> The lattice picture is a schematic of the scale hierarchy,
+       not of the staggered lattice itself: the two Dirac components per site, the
+       Jordan&ndash;Wigner string and the boundary term are all in
+       <a href="b-lattice-model.html">widget&nbsp;B</a>. The \(\eta\) curves are
+       <em>upper bounds</em> from Lemma&nbsp;S4, not measured deviations.</p>
+  </div>
+  <noscript><div class="fallback">
+    <p><strong>JavaScript is off, so here is the same thing as a picture and a sentence.</strong></p>
+    <img src="../figures/scales.svg" alt="The lattice-vacuum bound eta against the ultraviolet scale N for observation scales M = 1 to 5: five parallel lines on a logarithmic axis, which collapse onto a single line when plotted against the depth r = N - M.">
+    <p>One observation cell at scale \(M\) contains \(2^{\,r}\) lattice sites at scale
+       \(N=M+r\). The lattice-vacuum bound is \(\eta_M(N)\le\tfrac\pi4 2^{-r}\) on the full
+       two-component algebra and \(\le\tfrac{\pi^2}{16}4^{-r}\) on the chiral algebra: a function
+       of \(r\) alone. Raising \(N\) at fixed \(M\) buys accuracy; raising \(N\) and \(M\)
+       together buys resolution but not accuracy.</p>
+  </div></noscript>
+</section>
+
+<section id="check">
+  <h2>Does this page agree with the committed data?</h2>
+  <div id="checkhost"><p class="badge pending">checking&hellip;</p></div>
+</section>
+
+<section id="reading">
+  <h2>What each scale is for</h2>
+  <dl class="defs">
+    <dt>\(N\), the ultraviolet cutoff</dt>
+    <dd>What the quantum computer actually holds: \(n=2^{N+1}\) sites on \(2n=2^{N+2}\) qubits.
+       Everything in the resource count is a function of \(n\).</dd>
+    <dt>\(M\), the observation scale</dt>
+    <dd>Where the observables live. \(\mathfrak A_M\) is the algebra the correlator is taken in,
+       and \(\alpha^M_N\) embeds it into the simulated lattice. The Letter&rsquo;s
+       <em>Complexity</em> paragraph takes \(M=N-1\), which fixes the <em>largest</em> observation
+       scale the register can host &mdash; not the accuracy.</dd>
+    <dt>\(r=N-M\), the depth</dt>
+    <dd>The number of renormalization steps between the two. The exact correlator is the limit
+       \(r\to\infty\) at fixed \(M\); \(\delta\) bounds how far the finite-\(r\) approximant is
+       from it.</dd>
+  </dl>
+  <p><strong>Why the error is a function of \(r\).</strong> The lattice and continuum vacua are
+     both quasi-free, so the vacuum error is a polynomial in matrix elements of the one-particle
+     symbols, and along the momentum-cutoff route the deviation is a sine of the ratio
+     \(\varepsilon_N/\varepsilon_M=2^{-(N-M)}\) &mdash; first order on the full two-component
+     algebra, second order on the chiral algebra, because there the chiral entanglement of the
+     finite-scale vacuum is the obstruction.</p>
+  <p class="src">The <em>dynamics</em> term is not a function of \(r\) alone: it is
+     \(\tfrac16 d_B\Theta_M|t|\,4^{-N}\), and \(\Theta_M\) grows with the observation scale
+     roughly like \(2^{3.5M}\). So climbing \(M\) at fixed depth costs accuracy through the
+     dynamics term even while the vacuum term stays put &mdash; which is why the near-term figure
+     says scale-5 observables would need \(N\approx10\) where scale-3 observables need \(N=6\).
+     <a href="e-error-budget.html">Widget&nbsp;E</a> shows both terms together.</p>
+</section>
+
+</main>
+
+<footer class="site"><div class="wrap">
+  <p>An experimental, AI-assisted open-science project. Nothing here has been refereed.
+     Documents CC BY 4.0, code MIT.</p>
+  <p><a href="../index.html">Home</a> &middot; <a href="index.html">Widgets</a> &middot;
+     <a href="../results.html">Results</a> &middot; <a href="../notation.html">Notation</a></p>
+</div></footer>
+
+<script type="module">
+import { mount, renderCheck, loadJSON, boot } from '../assets/widget.js';
+import { plot, scene } from '../assets/plot.js';
+import * as C from '../assets/cft.js';
+
+boot();
+
+mount({
+  mount: '#w',
+  controls: [
+    { k: 'N', label: 'ultraviolet scale N', type: 'range', min: 2, max: 12, step: 1, value: 6 },
+    { k: 'M', label: 'observation scale M', type: 'range', min: 1, max: 9, step: 1, value: 3 },
+    { k: 'view', label: 'view', type: 'select', value: 'ladder',
+      options: [['ladder', 'the lattice refining'], ['vsN', 'bound against N'], ['vsR', 'bound against r']] },
+  ],
+  draw(s, ui) {
+    let N = s.N | 0, M = s.M | 0;
+    const clash = M >= N;
+    if (clash) M = Math.max(1, N - 1);
+    const r = N - M;
+
+    if (s.view === 'ladder') {
+      scene(ui.canvas, (g, W, H, T, FONT) => {
+        const pad = 14, narrow = W < 520;
+        const x0 = pad + (narrow ? 52 : 74), x1 = W - pad - (narrow ? 58 : 104);
+        const rows = Math.min(r + 1, 9);
+        const step = Math.min(30, (H - 58) / rows);
+        const top = 30;
+        /* the observation cell */
+        g.fillStyle = T.series[0];
+        g.globalAlpha = 0.10;
+        g.fillRect(x0, top - 14, x1 - x0, rows * step + 6);
+        g.globalAlpha = 1;
+        g.strokeStyle = T.series[0]; g.lineWidth = 1.3; g.setLineDash([4, 3]);
+        g.strokeRect(x0, top - 14, x1 - x0, rows * step + 6);
+        g.setLineDash([]);
+        g.fillStyle = T.series[0]; g.font = FONT(11.5); g.textAlign = 'left'; g.textBaseline = 'alphabetic';
+        g.fillText(`one observation cell at scale M = ${M}`, x0 + 6, top - 19);
+
+        for (let i = 0; i < rows; i++) {
+          const sc = M + i, y = top + i * step + step / 2;
+          const inside = 2 ** (sc - M);
+          g.strokeStyle = T.axis; g.lineWidth = 1;
+          g.beginPath(); g.moveTo(x0, y); g.lineTo(x1, y); g.stroke();
+          g.fillStyle = i === rows - 1 && rows === r + 1 ? T.series[2] : T.mute;
+          if (inside <= 256) {
+            for (let j = 0; j <= inside; j++) {
+              const X = x0 + ((x1 - x0) * j) / inside;
+              g.fillRect(X - 0.7, y - (inside <= 64 ? 6 : 3.5), 1.5, inside <= 64 ? 12 : 7);
+            }
+          } else {
+            g.globalAlpha = 0.5; g.fillRect(x0, y - 4, x1 - x0, 8); g.globalAlpha = 1;
+          }
+          g.fillStyle = T.ink; g.font = FONT(11.5); g.textAlign = 'right'; g.textBaseline = 'middle';
+          g.fillText(`scale ${sc}`, x0 - 10, y);
+          g.fillStyle = T.mute; g.textAlign = 'left'; g.font = FONT(narrow ? 10.5 : 11.5);
+          g.fillText(narrow ? `${inside}` : `${inside} site${inside === 1 ? '' : 's'}`, x1 + 9, y);
+        }
+        if (rows < r + 1) {
+          g.fillStyle = T.mute; g.textAlign = 'center'; g.font = FONT(12);
+          g.fillText(`… ${r + 1 - rows} finer scale${r + 1 - rows === 1 ? '' : 's'} not drawn, down to N = ${N}`,
+            (x0 + x1) / 2, top + rows * step + 20);
+        }
+        g.textBaseline = 'alphabetic';
+      });
+    } else {
+      const againstR = s.view === 'vsR';
+      const Ms = [1, 2, 3, 4, 5];
+      const series = [];
+      for (const mm of Ms) {
+        const xs = [], ys = [];
+        for (let nn = mm + 1; nn <= 14; nn++) { xs.push(againstR ? nn - mm : nn); ys.push(C.etaChiral(nn - mm)); }
+        series.push({ x: xs, y: ys, label: `M = ${mm}`, color: Ms.indexOf(mm), width: 1.9,
+          marker: 'open', size: 3 });
+      }
+      plot(ui.canvas, {
+        series, ylog: 10,
+        xlabel: againstR ? 'renormalization depth r = N − M' : 'ultraviolet scale N',
+        ylabel: 'η (chiral algebra), upper bound',
+        legend: 'tr',
+      });
+    }
+
+    const ef = C.etaFull(r), ec = C.etaChiral(r);
+    let html = '';
+    if (clash) html += `<p class="err">\\(M\\) must be smaller than \\(N\\); using \\(M = ${M}\\).</p>`;
+    html += `<p class="big">\\(N = ${N}\\), \\(M = ${M}\\), depth \\(r = ${r}\\). The register holds
+      \\(n = 2^{N+1} = ${C.sites(N)}\\) sites on \\(2n = ${C.qubits(N)}\\) qubits;
+      <strong>\\(2^{r} = ${2 ** r}\\) lattice sites sit inside one observation cell</strong>.</p>`;
+    html += `<p>Lemma&nbsp;S4 bounds the lattice-vacuum error by
+      \\(\\eta_M(N) \\le \\tfrac\\pi4 2^{-r} = ${ef.toExponential(4)}\\) on the full two-component
+      algebra and \\(\\le \\tfrac{\\pi^2}{16}4^{-r} = ${ec.toExponential(4)}\\) on the chiral
+      algebra. Neither expression mentions \\(N\\) or \\(M\\) separately.</p>`;
+    html += `<p class="muted">Keeping \\(r\\) fixed and raising both scales together
+      (\\(N,M \\to N{+}1,M{+}1\\)) doubles the register and leaves this bound exactly where it
+      was. Raising \\(N\\) alone by one step divides it by 4 on the chiral algebra, and by 2 on
+      the full algebra.</p>`;
+    return html;
+  },
+});
+
+(async () => {
+  try {
+    const B = await loadJSON('../data/budget.json');
+    const rows = [];
+    for (const r of ['0', '1', '3', '6', '9', '12']) {
+      rows.push({ name: `η full algebra, r = ${r}`, got: C.etaFull(+r), want: B.eta[r].full, tol: 1e-12 });
+      rows.push({ name: `η chiral algebra, r = ${r}`, got: C.etaChiral(+r), want: B.eta[r].chiral, tol: 1e-12 });
+    }
+    const R = await loadJSON('../data/resources.json');
+    for (const row of R.dyadic) {
+      rows.push({ name: `sites at N = ${row.N}`, got: C.sites(row.N), want: row.sites, tol: 0 });
+      rows.push({ name: `qubits at N = ${row.N}`, got: C.qubits(row.N), want: row.qubits, tol: 0 });
+    }
+    renderCheck('#checkhost', rows,
+      'Tolerance 1e-12, relative (0 for the integer counts). Data: docs/data/budget.json and '
+      + 'docs/data/resources.json.');
+  } catch (e) {
+    document.querySelector('#checkhost').innerHTML =
+      `<p class="badge bad">could not run the check: ${e.message}</p>`;
+  }
+})();
+</script>
+</body>
+</html>

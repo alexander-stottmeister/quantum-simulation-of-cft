@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>E &middot; The error budget &mdash; Quantum Simulation of CFT</title>
+<meta name="description" content="The two terms of Theorem S1 of the Supplemental Material, computed live: the established k=0 budget with every constant, and the assembled k!=0 shape whose prefactor is not computed.">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/math.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site"><div class="wrap">
+  <div class="topbar">
+    <p class="crumbs"><a href="../index.html">Quantum Simulation of CFT</a> /
+       <a href="index.html">Widgets</a> / <strong>E &middot; The error budget</strong></p>
+    <button id="theme-toggle" class="btn" type="button">auto</button>
+  </div>
+  <h1>E &middot; The error budget</h1>
+  <p class="lede">Theorem&nbsp;S1 has two halves and they are not the same kind of statement. For
+     the chiral Hamiltonian evolution, \(k=0\), the bound is proved with every constant, and this
+     page evaluates it. For the local conformal transformations, \(k\neq0\), the bound is
+     assembled in the supplement and <strong>its prefactor is not computed</strong> &mdash; so
+     that branch is drawn as a shape with \(C_0\) set to 1, which is not its value.</p>
+</div></header>
+
+<main id="main">
+
+<section id="widget">
+  <h2>The two terms, against the ultraviolet scale</h2>
+  <p class="src">Statement: <a href="../results.html#thm-s1">Theorem&nbsp;S1</a>, built on
+     <a href="../results.html#prop-s1">Proposition&nbsp;S1</a> (the split),
+     <a href="../results.html#lem-s4">Lemma&nbsp;S4</a> (the vacuum term) and
+     <a href="../results.html#lem-s5">Lemma&nbsp;S5</a> (the horizon factor).</p>
+  <div id="w"></div>
+  <div class="notshown">
+    <p><b>What this does not show.</b> It does not show the true error &mdash; only the upper
+       bound of Theorem&nbsp;S1, and for \(k\neq0\) only the <em>shape</em> of that bound, since
+       \(C_0\) is not computed anywhere in the manuscript.</p>
+  </div>
+  <noscript><div class="fallback">
+    <p><strong>JavaScript is off, so here is the same thing as a picture and a sentence.</strong></p>
+    <img src="../figures/error-budget.svg" alt="The two terms of Theorem S1(i) against the ultraviolet scale N at M = 3, T = 1, d = 1. On the chiral algebra both fall as four to the minus N and stay parallel; on the full two-component algebra the static term falls only as two to the minus r, half the slope, and dominates.">
+    <p>At \(M=3\), \(T=1\), \(d_A=d_B=1\): the static term is \((d_A+d_B)\,\eta_M(N)\)
+       and the dynamics term is \(\tfrac16 d_B\Theta_M T\,4^{-N}\) with
+       \(\Theta_3=539.885\). <strong>On the chiral algebra both carry \(4^{-N}\)</strong>, so
+       they are parallel and their ratio is fixed by \(M\), \(T\) and the degrees alone.
+       <strong>On the full two-component algebra the static term carries only \(2^{-r}\)</strong>
+       &mdash; half the slope &mdash; and overtakes the dynamics term, which is why the chiral
+       algebra is the interesting case. \(\Theta_M\) grows roughly like \(2^{3.5M}\), so
+       raising the observation scale at fixed depth costs accuracy through the dynamics term while
+       the vacuum term stays where it is.</p>
+  </div></noscript>
+</section>
+
+<section id="check">
+  <h2>Does this page agree with the committed data?</h2>
+  <p>The browser recomputes \(\Theta_M\), \(\eta_M(N)\), both terms of Theorem&nbsp;S1(i) and the
+     horizon factor from the formulas; <code>tools/make_data.py</code> computed the same things
+     with numpy into <code>docs/data/budget.json</code>. These are the two put side by side.</p>
+  <div id="checkhost"><p class="badge pending">checking&hellip;</p></div>
+</section>
+
+<section id="reading">
+  <h2>What is on the axes</h2>
+  <p><strong>Term&nbsp;(I), static &mdash; vacuum and field.</strong> Lemma&nbsp;S4 gives
+     \((d_A+d_B)\,\eta_M(N)\) with</p>
+  $$\eta_M(N)\le\begin{cases}\tfrac{\pi}{4}\,2^{-(N-M)} & \text{on the full algebra},\\[2pt]
+    \tfrac{\pi^{2}}{16}\,2^{-2(N-M)} & \text{on the chiral algebra}.\end{cases}$$
+  <p>It is a function of the <em>depth</em> \(r=N-M\) alone. On the full two-component algebra it
+     is only first order, and it then dominates everything: this is why the chiral algebra is the
+     interesting case.</p>
+  <p><strong>Term&nbsp;(II), dynamics.</strong> \(\tfrac16 d_B\Theta_M|t|\varepsilon_N^2\) with
+     \(\Theta_M=(\sum_{l\in\Gamma_M}\theta(\pm l)|l|^6)^{1/2}\). It is linear in the horizon
+     &mdash; which holds <em>only</em> at \(k=0\), where \([L_0,H_0]=0\) makes the energy shell
+     dynamically invariant &mdash; and it carries the observation scale through \(\Theta_M\).</p>
+  <p><strong>The \(k\neq0\) branch.</strong> Proposition&nbsp;S2 assembles
+     \(C\,\varepsilon_N^2\) with \(C\sim C_0(M,k,L,K)\,m^2\,\Lambda_k(T)\) and
+     \(\Lambda_k(T)=(e^{c_kT}-1)/c_k\). Two things change at \(k\neq0\): the horizon factor stops
+     being linear in \(T\), and \(C_0\) becomes an object that the supplement names but does not
+     evaluate. The \(m^2\) comes from the telescoping &mdash; \(m\) terms, each already carrying
+     one factor of \(m\) through the slot count of Lemma&nbsp;S3.</p>
+  <p><strong>Inverting.</strong> \(C\,4^{-N}\le\delta\) gives
+     \(N\ge\tfrac12\log_2(C/\delta)\) and \(n\lesssim2C^{1/2}\delta^{-1/2}\). At \(k=0\) that
+     inversion produces a number, and the readout prints it. At \(k\neq0\) it does not, because
+     \(C_0\) is missing; the readout says so rather than inventing one.</p>
+  <p class="src">\(c_k\) is a <em>control</em> on this page, not a prediction. The supplement gives
+     only a one-particle bound, \(c_{\sigma,k}\le C_L\sigma|k|\langle k\rangle^{\sigma+2}\), and
+     does not evaluate \(C_L\). What is certain is \(c_0=0\), and that \(c_{\pm1}\neq0\) because
+     \([L_0,L_{\pm1}]=\mp L_{\pm1}\neq0\).</p>
+</section>
+
+</main>
+
+<footer class="site"><div class="wrap">
+  <p>An experimental, AI-assisted open-science project. Nothing here has been refereed.
+     Documents CC BY 4.0, code MIT.</p>
+  <p><a href="../index.html">Home</a> &middot; <a href="index.html">Widgets</a> &middot;
+     <a href="../results.html">Results</a> &middot; <a href="../notation.html">Notation</a></p>
+</div></footer>
+
+<script type="module">
+import { mount, renderCheck, loadJSON, boot } from '../assets/widget.js';
+import { plot } from '../assets/plot.js';
+import * as C from '../assets/cft.js';
+
+boot();
+
+const NMAX = 18;
+const PI_ = Math.PI;
+
+const ui = mount({
+  mount: '#w',
+  controls: [
+    { k: 'M', label: 'observation scale M', type: 'range', min: 1, max: 8, step: 1, value: 3 },
+    { k: 'T', label: 'horizon T', type: 'range', min: 0.25, max: 8, step: 0.25, value: 1 },
+    { k: 'd', label: 'degrees dA = dB', type: 'range', min: 1, max: 4, step: 1, value: 1 },
+    { k: 'delta', label: 'target δ', type: 'range', min: -6, max: 0, step: 0.25, value: -1,
+      fmt: (v) => (10 ** v).toPrecision(2) },
+    { k: 'k', label: 'order k', type: 'select', value: '0',
+      options: [['0', '0 — established'], ['1', '1 — assembled'], ['2', '2 — assembled'], ['3', '3 — assembled']] },
+    { k: 'ck', label: 'energy growth c_k', type: 'range', min: 0, max: 1, step: 0.05, value: 0.4 },
+    { k: 'm', label: 'points m', type: 'range', min: 2, max: 8, step: 1, value: 2 },
+    { k: 'alg', label: 'algebra', type: 'select', value: 'chiral',
+      options: [['chiral', 'chiral'], ['full', 'full two-component']] },
+  ],
+  draw(s, ui) {
+    const M = s.M | 0, k = parseInt(s.k, 10), chiral = s.alg === 'chiral';
+    const delta = 10 ** s.delta;
+    const Ns = [];
+    for (let N = M + 1; N <= NMAX; N++) Ns.push(N);
+    const I = Ns.map((N) => C.budgetK0({ N, M, dA: s.d, dB: s.d, T: s.T, chiral }).I);
+    const II = Ns.map((N) => C.budgetK0({ N, M, dA: s.d, dB: s.d, T: s.T, chiral }).II);
+    const tot = I.map((v, i) => v + II[i]);
+
+    const ck = k === 0 ? 0 : s.ck;
+    const lam = C.horizon(ck, s.T);
+    const shape = Ns.map((N) => C.budgetKnonzero({ N, m: s.m, cK: ck, T: s.T }).shape);
+
+    const only0 = k === 0 ? '' : ' (k = 0 only)';
+    const series = [
+      { x: Ns, y: I, label: `term I · vacuum + field${only0}`, color: 0, marker: 'open', size: 3 },
+      { x: Ns, y: II, label: `term II · dynamics${only0}`, color: 1, marker: 'open', size: 3 },
+      { x: Ns, y: tot, label: `total, Theorem S1(i)${only0}`, color: 2, width: 2.6 },
+    ];
+    if (k !== 0) {
+      series.push({ x: Ns, y: shape, color: 3, dash: [6, 4], width: 2.2,
+        label: `k≠0 shape, C₀ = 1 (not its value)` });
+    }
+
+    const all = tot.concat(k !== 0 ? shape : []).concat([delta]);
+    const lo = Math.min(...all.filter((v) => v > 0)) / 3;
+    const hi = Math.max(...all) * 3;
+
+    plot(ui.canvas, {
+      series,
+      ylog: 10, ylim: [lo, hi], xlim: [M + 0.7, NMAX + 0.3],
+      xlabel: 'ultraviolet scale N   (depth r = N − M)',
+      ylabel: 'bound on |C⁽ᴺ⁾ − C|',
+      legend: 'tr',
+      hlines: [{ y: delta, color: undefined, dash: [3, 3], width: 1.4 }],
+      notes: [{ x: M + 1.2, y: delta, text: `target δ = ${delta.toPrecision(2)}`,
+        anchor: 'left', dy: -7, size: 11.5 }],
+    });
+
+    /* readouts */
+    const Theta = C.thetaM(M);
+    const i1 = I[0], ii1 = II[0];
+    /* On the chiral algebra term I is 2d(pi^2/16)4^M * 4^-N and term II is
+     * (1/6) d Theta_M T * 4^-N: both carry 4^-N, so their ratio is fixed by M, T and the
+     * degrees and the two lines are parallel.  On the full algebra term I carries only
+     * 2^-r, half the slope, so it overtakes term II at a computable N. */
+    const parallel = chiral;
+    const crossN = chiral ? null : Math.log2((Theta * Math.abs(s.T)) / (3 * PI_ * 2 ** M));
+    const meets = (() => {
+      for (let i = 0; i < Ns.length; i++) if (tot[i] <= delta) return Ns[i];
+      return null;
+    })();
+
+    let html = '';
+    if (parallel) {
+      html += `<p class="big">Both terms carry \\(4^{-N}\\) on the chiral algebra, so
+        <strong>they are parallel</strong> and their ratio is fixed by \\(M\\), \\(T\\) and
+        the degrees alone. Here term&nbsp;II / term&nbsp;I =
+        <strong>${(ii1 / i1).toPrecision(4)}</strong>, so
+        ${ii1 > i1 ? 'the dynamics term dominates' : 'the static vacuum term dominates'} at every
+        \\(N\\). \\(\\Theta_{${M}} = ${Theta.toPrecision(7)}\\).</p>`;
+    } else {
+      html += `<p class="big">On the full two-component algebra the static term is only
+        <em>first</em> order, \\(\\tfrac\\pi4 2^{-r}\\), against \\(4^{-N}\\) for the
+        dynamics term: <strong>half the slope</strong>, so the two cross at
+        \\(N \\approx ${crossN.toFixed(2)}\\)${crossN <= Ns[0]
+          ? ' — below the plotted range, so the static term already dominates everywhere here'
+          : crossN >= NMAX
+            ? ' — above the plotted range, so the dynamics term still dominates everywhere here'
+            : ', and the static term dominates beyond it'}.
+        \\(\\Theta_{${M}} = ${Theta.toPrecision(7)}\\).</p>
+        <p>At \\(N = ${Ns[0]}\\): term&nbsp;I = ${i1.toExponential(3)},
+        term&nbsp;II = ${ii1.toExponential(3)}.</p>`;
+    }
+    if (k === 0) {
+      html += meets
+        ? `<p><strong>\\(k=0\\), established.</strong> The bound reaches \\(\\delta =
+           ${delta.toPrecision(2)}\\) at \\(N = ${meets}\\), i.e. \\(n = ${C.sites(meets)}\\)
+           sites and \\(${C.qubits(meets)}\\) qubits, at depth \\(r = ${meets - M}\\). Every
+           constant in that number comes from Theorem&nbsp;S1(i); nothing is fitted and nothing is
+           assembled.</p>`
+        : `<p><strong>\\(k=0\\), established.</strong> The bound does not reach \\(\\delta =
+           ${delta.toPrecision(2)}\\) for any \\(N\\le${NMAX}\\) at this \\(M\\),
+           \\(T\\) and \\(d\\).</p>`;
+      html += `<p class="muted">The prefactor is linear in \\(T\\): \\(\\Lambda_0(T) = T =
+        ${s.T}\\). That linearity is a \\(k=0\\) property and nobody else&rsquo;s &mdash;
+        \\([L_0,H_0]=0\\), so \\(c_0=0\\) and the energy shell is dynamically
+        invariant.</p>`;
+    } else {
+      html += `<p><strong>\\(k=${k}\\), assembled.</strong> The horizon factor is
+        \\(\\Lambda_k(T) = (e^{c_kT}-1)/c_k = ${lam.toPrecision(5)}\\) at
+        \\(c_k = ${ck}\\), against \\(\\Lambda_0(T) = ${s.T}\\) &mdash; a factor
+        ${(lam / s.T).toPrecision(3)}, and it grows exponentially with the horizon. With
+        \\(m = ${s.m}\\) the combinatorial factor is \\(m^2 = ${s.m * s.m}\\).</p>
+        <p class="err"><strong>No lattice size can be read off the dashed curve.</strong> The
+        bound is \\(C_0\\,m^2\\,\\Lambda_k(T)\\,4^{-N}\\) and \\(C_0\\) is not
+        computed in the manuscript; the dashed curve is drawn with \\(C_0=1\\) purely so that
+        its slope and its \\(T\\)-dependence are visible. The solid curves are the
+        \\(k=0\\) bound and do <em>not</em> apply at \\(k=${k}\\).</p>`;
+    }
+    return html;
+  },
+});
+
+/* ------------------------------------------------------------------ the check ------ */
+(async () => {
+  try {
+    const B = await loadJSON('../data/budget.json');
+    const rows = [];
+    for (const M of ['3', '5', '7']) {
+      rows.push({ name: `Θ_M, M = ${M}`, got: C.thetaM(+M), want: B.Theta_M[M], tol: 1e-12 });
+    }
+    for (const r of ['0', '3', '6']) {
+      rows.push({ name: `η, full algebra, r = ${r}`, got: C.etaFull(+r), want: B.eta[r].full, tol: 1e-12 });
+      rows.push({ name: `η, chiral algebra, r = ${r}`, got: C.etaChiral(+r), want: B.eta[r].chiral, tol: 1e-12 });
+    }
+    for (const p of B.theorem_s1_i) {
+      const g = C.budgetK0({ N: p.N, M: p.M, dA: p.dA, dB: p.dB, T: p.T, chiral: p.algebra === 'chiral' });
+      const tag = `N=${p.N}, M=${p.M}, ${p.algebra}, T=${p.T}, d=${p.dA}+${p.dB}`;
+      rows.push({ name: `term I  (${tag})`, got: g.I, want: p.I, tol: 1e-12 });
+      rows.push({ name: `term II (${tag})`, got: g.II, want: p.II, tol: 1e-12 });
+    }
+    for (const L of B.horizon_Lambda) {
+      if (L.T !== 2.0) continue;
+      rows.push({ name: `Λ_k(T), c_k = ${L.c_k}, T = ${L.T}`, got: C.horizon(L.c_k, L.T), want: L.Lambda, tol: 1e-12 });
+    }
+    renderCheck('#checkhost', rows,
+      'Tolerance 1e-12, relative. These are closed-form evaluations, so anything above rounding '
+      + 'noise would mean the browser and make_data.py have parted company.');
+  } catch (e) {
+    document.querySelector('#checkhost').innerHTML =
+      `<p class="badge bad">could not run the check: ${e.message}</p>`;
+  }
+})();
+</script>
+</body>
+</html>

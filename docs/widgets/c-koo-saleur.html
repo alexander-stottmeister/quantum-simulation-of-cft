@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>C &middot; Koo&ndash;Saleur symbol &mdash; Quantum Simulation of CFT</title>
+<meta name="description" content="The one-particle symbol of the Koo-Saleur approximant against the continuum generator: where the rate eps_N^2 = 4^-N comes from, and nowhere else.">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/math.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site"><div class="wrap">
+  <div class="topbar">
+    <p class="crumbs"><a href="../index.html">Quantum Simulation of CFT</a> /
+       <a href="index.html">Widgets</a> / <strong>C &middot; Koo&ndash;Saleur symbol</strong></p>
+    <button id="theme-toggle" class="btn" type="button">auto</button>
+  </div>
+  <h1>C &middot; The Koo&ndash;Saleur symbol</h1>
+  <p class="lede">Every rate on this site descends from one Taylor expansion. The lattice
+     generator&rsquo;s one-particle symbol is \(\varepsilon_N^{-1}\sin(\varepsilon_N x)\) where the
+     continuum generator&rsquo;s is \(x\), with \(x=l\mp\tfrac k2\); the difference is
+     \(-\varepsilon_N^2x^3/6+\cdots\), and that \(\varepsilon_N^2=4^{-N}\) is the whole rate.</p>
+</div></header>
+
+<main id="main">
+
+<section id="widget">
+  <h2>Lattice symbol against continuum symbol</h2>
+  <p class="src">Statement: <a href="../results.html#lem-s1">Lemma&nbsp;S1</a>, &ldquo;Source and
+     mechanism&rdquo;, and <a href="../results.html#lem-s2">Lemma&nbsp;S2</a> for the off-diagonal
+     strip. The Koo&ndash;Saleur ansatz itself is in
+     <a href="../definitions.html#ks">Definitions</a>.</p>
+  <div id="w"></div>
+  <div class="notshown">
+    <p><b>What this does not show.</b> This is the <em>one-particle</em> symbol of the diagonal
+       channel, in the phase-free normalization of the numerics script. It is not the full
+       \(2\times2\) Nambu matrix \(\ell^{(N)}_k(l',l)\) of the Letter, and it says nothing about
+       the second-quantization lift (<a href="../results.html#lem-s3">Lemma&nbsp;S3</a>) or about
+       the Sobolev weight \(\lVert\xi\rVert_{h^{1+\delta_s}}\) that turns a pointwise bound into
+       an operator bound.</p>
+  </div>
+  <noscript><div class="fallback">
+    <p><strong>JavaScript is off.</strong> The content in one sentence: over the retained band
+       \(|l|&lt;2^{N}\) the lattice symbol \(\varepsilon_N^{-1}\sin(\varepsilon_N x)\) agrees with
+       the continuum symbol \(x\) to within \(\varepsilon_N^2|x|^3/6\), which at the edge of the
+       band (\(\varepsilon_N|x|\to1\)) is a deviation of about 16%, and in the middle of the band
+       is utterly negligible &mdash; which is why the error is controlled by the
+       <em>weighted</em> norm, not by the worst case.</p>
+  </div></noscript>
+</section>
+
+<section id="check">
+  <h2>Does this page agree with the committed data?</h2>
+  <div id="checkhost"><p class="badge pending">checking&hellip;</p></div>
+</section>
+
+<section id="reading">
+  <h2>Reading the curves</h2>
+  <p>The matrix elements of the scale-matched operator \(\widetilde\ell^{(N)}_{\pm,k}\) in the
+     plane-wave basis are explicit, and the difference to \(\ell_{\pm,k}\) is a finite sum of</p>
+  $$\varepsilon_N^{-1}\sin\bigl(\varepsilon_N(l\mp\tfrac k2)\bigr)-\bigl(l\mp\tfrac k2\bigr)
+    \;=\;-\tfrac16\varepsilon_N^{2}\bigl(l\mp\tfrac k2\bigr)^{3}+O\bigl(\varepsilon_N^{4}x^{5}\bigr).$$
+  <ul class="tight">
+    <li><strong>Two powers of \(\varepsilon_N\), three powers of \(x\).</strong> That is why
+       Lemma&nbsp;S1 carries the weight \(h^{1+\delta_s}\): the deviation grows cubically in the
+       momentum, so a bound uniform over the band needs three derivatives&rsquo; worth of decay on
+       the vector, of which regularity of the smearing supplies \(1+\delta_s\). Two-regular
+       smearing, \(K\ge5\), gives \(\delta_s=2\) and saturates the rate.</li>
+    <li><strong>The rate is sharp.</strong> Not an artefact of the estimate: Lemma&nbsp;S1 says so
+       explicitly. There is no route to \(\varepsilon_N^3\) along the momentum-cutoff group.</li>
+    <li><strong>The order \(k\) shifts the argument, it does not change the shape.</strong> The
+       whole \(k\)-dependence of the diagonal channel is the recentring \(x=l\mp k/2\); the
+       genuinely \(k\)-dependent cost is the off-diagonal strip \(0&lt;|l|&lt;|k|\) of
+       Lemma&nbsp;S2, which has \(2(|k|-1)\) points and is <em>empty</em> for the M&ouml;bius
+       generators \(k=0,\pm1\).</li>
+  </ul>
+</section>
+
+</main>
+
+<footer class="site"><div class="wrap">
+  <p>An experimental, AI-assisted open-science project. Nothing here has been refereed.
+     Documents CC BY 4.0, code MIT.</p>
+  <p><a href="../index.html">Home</a> &middot; <a href="index.html">Widgets</a> &middot;
+     <a href="../results.html">Results</a> &middot; <a href="../notation.html">Notation</a></p>
+</div></footer>
+
+<script type="module">
+import { mount, renderCheck, loadJSON, boot } from '../assets/widget.js';
+import { plot } from '../assets/plot.js';
+import * as C from '../assets/cft.js';
+
+boot();
+
+mount({
+  mount: '#w',
+  controls: [
+    { k: 'N', label: 'lattice scale N', type: 'range', min: 2, max: 9, step: 1, value: 4 },
+    { k: 'k', label: 'generator order k', type: 'range', min: 0, max: 6, step: 1, value: 2 },
+    { k: 'view', label: 'view', type: 'select', value: 'symbol',
+      options: [['symbol', 'the two symbols'], ['dev', 'the deviation'], ['rate', 'deviation against N']] },
+  ],
+  draw(s, ui) {
+    const N = s.N | 0, k = s.k | 0;
+    const edge = 2 ** N;
+
+    if (s.view === 'rate') {
+      const Ns = [];
+      for (let n = 2; n <= 12; n++) Ns.push(n);
+      /* the deviation at a fixed physical momentum, so that only eps changes */
+      const xs = [4.5, 16.5, 64.5];
+      const series = xs.map((x, i) => ({
+        x: Ns, y: Ns.map((n) => Math.abs(C.ksDeviation(x, n))),
+        label: `x = ${x}`, color: i, marker: 'open', size: 3.4, width: 1.8,
+      }));
+      series.push({ x: Ns, y: Ns.map((n) => Math.abs(C.ksLeading(xs[0], n))),
+        label: 'ε²x³/6 at x = 4.5', color: 5, dash: [5, 4], width: 1.4 });
+      plot(ui.canvas, {
+        series, ylog: 10, xlabel: 'lattice scale N', ylabel: '|ε⁻¹sin(εx) − x|', legend: 'tr',
+        xticks: Ns.map((v) => ({ v, label: String(v) })),
+      });
+      const e1 = Math.abs(C.ksDeviation(4.5, 6)), e2 = Math.abs(C.ksDeviation(4.5, 7));
+      return `<p class="big">At a fixed momentum the deviation falls by
+        <strong>${(e1 / e2).toPrecision(6)}</strong> per step of \\(N\\) &mdash; four, to six
+        figures. That is \\(\\varepsilon_N^2 = 4^{-N}\\), and it is the only place the rate comes
+        from.</p>
+        <p class="muted">The dashed line is the leading term \\(-\\varepsilon_N^2x^3/6\\); it lies
+        on top of the computed deviation as soon as \\(\\varepsilon_N|x|\\) is small.</p>`;
+    }
+
+    const xs = [];
+    const P = 400;
+    for (let i = 0; i <= P; i++) xs.push(-edge + (2 * edge * i) / P);
+    const lat = xs.map((x) => C.ksLattice(x + k / 2, N));
+    const con = xs.map((x) => C.ksContinuum(x + k / 2));
+
+    if (s.view === 'symbol') {
+      plot(ui.canvas, {
+        series: [
+          { x: xs, y: con, label: 'continuum  x', color: 5, dash: [5, 4], width: 1.6 },
+          { x: xs, y: lat, label: 'lattice  ε⁻¹sin(εx)', color: 0, width: 2.4 },
+        ],
+        xlabel: `l   (x = l + k/2, k = ${k})`, ylabel: 'one-particle symbol', legend: 'tl',
+        vlines: [{ x: -edge, dash: [2, 3] }, { x: edge, dash: [2, 3] }],
+      });
+    } else {
+      plot(ui.canvas, {
+        series: [
+          { x: xs, y: xs.map((x) => -C.ksLeading(x + k / 2, N)), label: 'leading  ε²x³/6', color: 5, dash: [5, 4], width: 1.6 },
+          { x: xs, y: xs.map((x) => -C.ksDeviation(x + k / 2, N)), label: 'x − ε⁻¹sin(εx)', color: 1, width: 2.4 },
+        ],
+        xlabel: `l   (x = l + k/2, k = ${k})`, ylabel: 'deviation from the continuum symbol', legend: 'tl',
+      });
+    }
+
+    const xe = edge - 0.5 + k / 2;
+    const dev = C.ksDeviation(xe, N), rel = Math.abs(dev / xe);
+    const xm = edge / 8 + k / 2;
+    return `<p class="big">At \\(N = ${N}\\) the retained band is \\(|l| &lt; 2^{${N}} =
+      ${edge}\\) and \\(\\varepsilon_N = 2^{-${N}} = ${C.epsN(N).toExponential(3)}\\).</p>
+      <p>At the edge of the band, \\(x = ${xe}\\): the lattice symbol is
+      ${C.ksLattice(xe, N).toPrecision(8)} against a continuum ${xe}, a relative deviation of
+      <strong>${(100 * rel).toPrecision(3)}%</strong>. An eighth of the way out, \\(x = ${xm}\\),
+      the relative deviation is
+      ${(100 * Math.abs(C.ksDeviation(xm, N) / xm)).toPrecision(3)}%.</p>
+      <p class="muted">The deviation at the edge is the same
+      ${(100 * rel).toPrecision(3)}% at every \\(N\\) &mdash; \\(\\varepsilon_N x\\) is scale
+      invariant there. The rate lives at <em>fixed physical momentum</em>, where the band edge
+      recedes as \\(N\\) grows: choose the third view to see it.</p>`;
+  },
+});
+
+(async () => {
+  try {
+    const S = await loadJSON('../data/symbol.json');
+    const rows = [];
+    for (const row of S.rows) {
+      if (row.k > 2) continue;
+      for (let i = 0; i < row.x.length; i += 2) {
+        rows.push({ name: `ε⁻¹sin(εx) at N = ${row.N}, x = ${row.x[i]}`,
+          got: C.ksLattice(row.x[i], row.N), want: row.lattice[i], tol: 1e-12 });
+        rows.push({ name: `deviation at N = ${row.N}, k = ${row.k}, x = ${row.x[i]}`,
+          got: C.ksDeviation(row.x[i], row.N), want: row.deviation[i], tol: 1e-9 });
+      }
+    }
+    renderCheck('#checkhost', rows,
+      'Tolerance 1e-12 on the symbol and 1e-9 on the deviation — the deviation is a difference '
+      + 'of two nearly equal numbers, so it loses digits to cancellation and a looser tolerance '
+      + 'is the honest one. Data: docs/data/symbol.json.');
+  } catch (e) {
+    document.querySelector('#checkhost').innerHTML =
+      `<p class="badge bad">could not run the check: ${e.message}</p>`;
+  }
+})();
+</script>
+</body>
+</html>

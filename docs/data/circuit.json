@@ -1,0 +1,115 @@
+{
+ "_": "A concrete radix-2 fermionic-FFT network plus one Bogoliubov rotation per Nambu pair.  The Supplemental Material quotes only the scalings O(n log n) gates, depth O(log^2 n), no ancillas; the exact counts below are this site's arithmetic for that network, not a claim of the manuscript.",
+ "rows": [
+  {
+   "N": 1,
+   "ancillas": 0,
+   "bogoliubov": 4,
+   "butterflies": 12,
+   "ft_depth_bound": 9,
+   "ft_stages": 3,
+   "qubits": 8,
+   "sites": 4,
+   "two_qubit_gates": 16
+  },
+  {
+   "N": 2,
+   "ancillas": 0,
+   "bogoliubov": 8,
+   "butterflies": 32,
+   "ft_depth_bound": 16,
+   "ft_stages": 4,
+   "qubits": 16,
+   "sites": 8,
+   "two_qubit_gates": 40
+  },
+  {
+   "N": 3,
+   "ancillas": 0,
+   "bogoliubov": 16,
+   "butterflies": 80,
+   "ft_depth_bound": 25,
+   "ft_stages": 5,
+   "qubits": 32,
+   "sites": 16,
+   "two_qubit_gates": 96
+  },
+  {
+   "N": 4,
+   "ancillas": 0,
+   "bogoliubov": 32,
+   "butterflies": 192,
+   "ft_depth_bound": 36,
+   "ft_stages": 6,
+   "qubits": 64,
+   "sites": 32,
+   "two_qubit_gates": 224
+  },
+  {
+   "N": 5,
+   "ancillas": 0,
+   "bogoliubov": 64,
+   "butterflies": 448,
+   "ft_depth_bound": 49,
+   "ft_stages": 7,
+   "qubits": 128,
+   "sites": 64,
+   "two_qubit_gates": 512
+  },
+  {
+   "N": 6,
+   "ancillas": 0,
+   "bogoliubov": 128,
+   "butterflies": 1024,
+   "ft_depth_bound": 64,
+   "ft_stages": 8,
+   "qubits": 256,
+   "sites": 128,
+   "two_qubit_gates": 1152
+  },
+  {
+   "N": 7,
+   "ancillas": 0,
+   "bogoliubov": 256,
+   "butterflies": 2304,
+   "ft_depth_bound": 81,
+   "ft_stages": 9,
+   "qubits": 512,
+   "sites": 256,
+   "two_qubit_gates": 2560
+  },
+  {
+   "N": 8,
+   "ancillas": 0,
+   "bogoliubov": 512,
+   "butterflies": 5120,
+   "ft_depth_bound": 100,
+   "ft_stages": 10,
+   "qubits": 1024,
+   "sites": 512,
+   "two_qubit_gates": 5632
+  },
+  {
+   "N": 9,
+   "ancillas": 0,
+   "bogoliubov": 1024,
+   "butterflies": 11264,
+   "ft_depth_bound": 121,
+   "ft_stages": 11,
+   "qubits": 2048,
+   "sites": 1024,
+   "two_qubit_gates": 12288
+  },
+  {
+   "N": 10,
+   "ancillas": 0,
+   "bogoliubov": 2048,
+   "butterflies": 24576,
+   "ft_depth_bound": 144,
+   "ft_stages": 12,
+   "qubits": 4096,
+   "sites": 2048,
+   "two_qubit_gates": 26624
+  }
+ ]
+}

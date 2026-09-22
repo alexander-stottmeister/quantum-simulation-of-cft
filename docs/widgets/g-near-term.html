@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>G &middot; The near-term point &mdash; Quantum Simulation of CFT</title>
+<meta name="description" content="128 sites, 256 qubits, N = 6, certified at observation scale M = 3 - and the localization constraint that is not met there.">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/math.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site"><div class="wrap">
+  <div class="topbar">
+    <p class="crumbs"><a href="../index.html">Quantum Simulation of CFT</a> /
+       <a href="index.html">Widgets</a> / <strong>G &middot; The near-term point</strong></p>
+    <button id="theme-toggle" class="btn" type="button">auto</button>
+  </div>
+  <h1>G &middot; The near-term point</h1>
+  <p class="lede">The Letter&rsquo;s claim of near-term applicability rests on one point: a D10
+     wavelet reaching accuracy \(\delta=\tfrac12\) on 128 sites, i.e. \(N=6\) and 256 qubits,
+     certified at observation scale \(M=3\). Two conditions sit behind it. One of them is
+     satisfied exactly at D10. The other is <strong>not satisfied at all</strong>, and the
+     supplement says so.</p>
+</div></header>
+
+<main id="main">
+
+<section id="widget">
+  <h2>The register, and the two conditions</h2>
+  <p class="src">Statement: the supplement&rsquo;s &sect;<em>The near-term figure</em> and
+     &sect;<em>Reconciliation with the Letter</em>; Letter, <em>Error analysis</em> and abstract.
+     Regularity thresholds from <a href="../notation.html#wavelets">Notation</a>.</p>
+  <div id="w"></div>
+  <div class="notshown">
+    <p><b>What this does not show.</b> It does not recompute the \(\approx0.4\). That number is
+       read off Fig.&nbsp;S2 of the supplement, whose generating code is not in this repository
+       &mdash; see <a href="j-one-particle.html">widget&nbsp;J</a>. Everything else on this page
+       is arithmetic; the one number that matters most is a value taken on trust from a 2021
+       PDF.</p>
+  </div>
+  <noscript><div class="fallback">
+    <p><strong>JavaScript is off.</strong> At \(N=6\): \(n=2^{7}=128\) sites,
+       \(2n=2^{8}=256\) qubits, \(r=N-M=3\) renormalization steps at \(M=3\). The D10 scaling
+       function has Sobolev exponent \(\sigma_{10}=3.406&gt;3\), so it is 3-regular and the
+       wavelet route gives \(\varepsilon_N^2\) at \(k=0\) &mdash; D10 is the first order that
+       does (\(K\ge9\)). The localization constraint \(2^M\gtrsim2K-1\) reads \(8\ge19\) at
+       \(M=3\), \(K=10\) and <strong>fails</strong>: those observables are wavelet details
+       wrapped around the circle rather than strictly localized fields. The register size is
+       unaffected.</p>
+  </div></noscript>
+</section>
+
+<section id="check">
+  <h2>Does this page agree with the committed data?</h2>
+  <div id="checkhost"><p class="badge pending">checking&hellip;</p></div>
+</section>
+
+<section id="reading">
+  <h2>The two conditions, separately</h2>
+  <h3>Regularity &mdash; met, and only just</h3>
+  <p>The near-term figure is a <em>wavelet-route</em>, \(k=0\), one-particle statement. Along the
+     wavelet route the quadratic rate \(\varepsilon_N^2\) at \(k=0\) requires the scaling function
+     to be 3-regular, \(\sigma_K&gt;3\), which first happens at \(K=9\)
+     (\(\sigma_9=3.165\)). D10, with \(\sigma_{10}=3.406\), is comfortably over. D8, with
+     \(\sigma_8=2.917\), is not &mdash; so the choice of D10 is doing real work, not decoration.</p>
+  <h3>Localization &mdash; not met</h3>
+  <p>A Daubechies scaling function of order \(K\) has support of width \(2K-1\); for the smeared
+     observable to be localized inside one cell of the observation lattice one needs
+     \(2^M\gtrsim2K-1\). At \(M=3\), \(K=10\) that is \(8\ge19\), which is false. The supplement
+     draws the consequence rather than hiding it: the observables of that estimate
+     <em>&ldquo;are wavelet details wrapped around the circle rather than strictly localized
+     fields; the register size of the estimate is unaffected.&rdquo;</em></p>
+  <p class="src">So the near-term claim survives as a statement about <em>register size</em>, which
+     is what the abstract actually says, and it does not survive as a statement about localized
+     observables at scale 3. Fixing the localization means raising \(M\) &mdash; and the
+     supplement notes that scale-5 observables would need \(N\approx10\) at the same accuracy,
+     which is 2048 sites and 4096 qubits, no longer near term.</p>
+</section>
+
+</main>
+
+<footer class="site"><div class="wrap">
+  <p>An experimental, AI-assisted open-science project. Nothing here has been refereed.
+     Documents CC BY 4.0, code MIT.</p>
+  <p><a href="../index.html">Home</a> &middot; <a href="index.html">Widgets</a> &middot;
+     <a href="../results.html">Results</a> &middot; <a href="../notation.html">Notation</a></p>
+</div></footer>
+
+<script type="module">
+import { mount, renderCheck, loadJSON, boot } from '../assets/widget.js';
+import { scene } from '../assets/plot.js';
+import * as C from '../assets/cft.js';
+
+boot();
+
+/* Sobolev exponents sigma_K for K = 2..10, quoted from the supplement (not computed here).
+ * The companion repository computes them from the filter taps. */
+const SIGMA = { 2: 1.000, 3: 1.415, 4: 1.776, 5: 2.098, 6: 2.390, 7: 2.661, 8: 2.917, 9: 3.165, 10: 3.406 };
+
+mount({
+  mount: '#w',
+  controls: [
+    { k: 'N', label: 'scale N', type: 'range', min: 4, max: 10, step: 1, value: 6 },
+    { k: 'M', label: 'observation scale M', type: 'range', min: 1, max: 7, step: 1, value: 3 },
+    { k: 'K', label: 'Daubechies order K', type: 'range', min: 2, max: 12, step: 1, value: 10 },
+  ],
+  draw(s, ui) {
+    const N = s.N | 0, M = Math.min(s.M | 0, N - 1), K = s.K | 0;
+    const n = C.sites(N), q = C.qubits(N);
+    const lhs = 2 ** M, rhs = 2 * K - 1, holds = lhs >= rhs;
+    const sig = SIGMA[K];
+    const threeReg = sig !== undefined && sig > 3;
+    const twoReg = sig !== undefined && sig > 2;
+
+    scene(ui.canvas, (g, W, H, T, FONT) => {
+      const pad = 14;
+      g.textBaseline = 'middle';
+      /* --- the register: q dots in a grid, paired two per site --- */
+      const cols = Math.min(32, Math.max(8, Math.round(Math.sqrt(q * 2.4))));
+      const rowsN = Math.ceil(q / cols);
+      const boxW = Math.min(W - 2 * pad - 130, 360);
+      const cell = Math.min(boxW / cols, (H - 84) / Math.max(rowsN, 1), 15);
+      const gx = pad + 8, gy = 40;
+      g.fillStyle = T.ink; g.font = FONT(12); g.textAlign = 'left';
+      g.fillText(`the register: ${q} qubits, ${n} sites`, gx, gy - 16);
+      for (let i = 0; i < q; i++) {
+        const cx = gx + (i % cols) * cell + cell / 2;
+        const cy = gy + Math.floor(i / cols) * cell + cell / 2;
+        g.fillStyle = i % 2 === 0 ? T.series[0] : T.series[1];
+        g.globalAlpha = 0.9;
+        g.beginPath(); g.arc(cx, cy, Math.max(1.6, cell * 0.3), 0, 7); g.fill();
+        g.globalAlpha = 1;
+      }
+      const gh = rowsN * cell;
+      g.fillStyle = T.mute; g.font = FONT(10.5);
+      g.fillText('two qubits per staggered site', gx, gy + gh + 14);
+
+      /* --- the localization bar --- */
+      const bx = gx + boxW + 34, bw = Math.max(90, W - bx - pad - 10);
+      let by = 46;
+      g.fillStyle = T.ink; g.font = FONT(12); g.textAlign = 'left';
+      g.fillText('localization: 2^M  vs  2K−1', bx, by - 16);
+      const scale = bw / Math.max(lhs, rhs, 1);
+      const bar = (y, v, col, txt) => {
+        g.fillStyle = col; g.globalAlpha = 0.8;
+        g.fillRect(bx, y, Math.max(2, v * scale), 15);
+        g.globalAlpha = 1;
+        g.fillStyle = T.ink; g.font = FONT(11); g.textAlign = 'left';
+        g.fillText(txt, bx + 5, y + 8);
+      };
+      bar(by, lhs, T.series[0], `2^${M} = ${lhs}`);
+      bar(by + 22, rhs, T.series[1], `2·${K}−1 = ${rhs}`);
+      g.fillStyle = holds ? T.series[2] : T.series[1];
+      g.font = FONT(12); g.textAlign = 'left';
+      g.fillText(holds ? 'constraint holds' : 'constraint FAILS', bx, by + 54);
+
+      /* --- the regularity ladder --- */
+      by += 84;
+      g.fillStyle = T.ink; g.font = FONT(12);
+      g.fillText('regularity: σ_K', bx, by - 6);
+      const smax = 3.8;
+      for (const lvl of [2, 3]) {
+        const X = bx + (lvl / smax) * bw;
+        g.strokeStyle = T.mute; g.setLineDash([3, 3]); g.lineWidth = 1;
+        g.beginPath(); g.moveTo(X, by + 4); g.lineTo(X, by + 30); g.stroke(); g.setLineDash([]);
+        g.fillStyle = T.mute; g.font = FONT(10); g.textAlign = 'center';
+        g.fillText(`${lvl}`, X, by + 40);
+      }
+      if (sig !== undefined) {
+        g.fillStyle = threeReg ? T.series[2] : (twoReg ? T.series[3] : T.series[1]);
+        g.globalAlpha = 0.8;
+        g.fillRect(bx, by + 8, (sig / smax) * bw, 15);
+        g.globalAlpha = 1;
+        g.fillStyle = T.ink; g.font = FONT(11); g.textAlign = 'left';
+        g.fillText(`σ_${K} = ${sig.toFixed(3)}`, bx + 5, by + 16);
+      } else {
+        g.fillStyle = T.mute; g.font = FONT(11); g.textAlign = 'left';
+        g.fillText(`σ_${K} not tabulated in the supplement`, bx, by + 16);
+      }
+      g.textBaseline = 'alphabetic';
+    });
+
+    const isPoint = N === 6 && M === 3 && K === 10;
+    let html = `<p class="big">\\(N = ${N}\\), \\(M = ${M}\\), D${K}: \\(n = ${n}\\) sites,
+      <strong>${q} qubits</strong>, depth \\(r = ${N - M}\\).
+      ${isPoint ? 'This <strong>is</strong> the near-term point of the Letter.' : ''}</p>`;
+    html += `<p><strong>Localization:</strong> \\(2^{M} = ${lhs}\\) against \\(2K-1 = ${rhs}\\)
+      &mdash; ${holds
+        ? 'the constraint holds, so the smeared observable fits inside one observation cell.'
+        : `<span class="err">the constraint fails by a factor ${(rhs / lhs).toPrecision(3)}</span>.
+           The observables are then wavelet details wrapped around the circle rather than strictly
+           localized fields. The register size is unaffected.`}</p>`;
+    html += sig === undefined
+      ? `<p><strong>Regularity:</strong> \\(\\sigma_{${K}}\\) is not in the supplement&rsquo;s
+         table (it lists \\(K = 2\\ldots10\\)), so this page will not guess it.</p>`
+      : `<p><strong>Regularity:</strong> \\(\\sigma_{${K}} = ${sig.toFixed(3)}\\), so D${K} is
+         ${threeReg ? '3-regular' : twoReg ? '2-regular but not 3-regular' : 'not even 2-regular'}.
+         ${threeReg
+           ? 'Along the wavelet route at \\(k=0\\) the rate is therefore \\(\\varepsilon_N^2\\), which is what the near-term estimate needs. D9 is the first order that qualifies.'
+           : 'The wavelet route at \\(k=0\\) then does <em>not</em> give \\(\\varepsilon_N^2\\): that needs 3-regularity, \\(K\\ge9\\).'}</p>`;
+    if (isPoint) {
+      html += `<p class="muted">At this point the supplement reports the one-particle D10 bound on
+        scale-3 observables as \\(\\approx0.4\\le\\tfrac12\\). Scale-5 observables would require
+        \\(N\\approx10\\) at the same accuracy &mdash; ${C.sites(10)} sites and ${C.qubits(10)}
+        qubits.</p>`;
+    }
+    return html;
+  },
+});
+
+(async () => {
+  try {
+    const R = await loadJSON('../data/resources.json');
+    const NT = R.nearterm;
+    const rows = [
+      { name: 'near-term sites n at N = 6', got: C.sites(NT.N), want: NT.sites, tol: 0 },
+      { name: 'near-term qubits 2n at N = 6', got: C.qubits(NT.N), want: NT.qubits, tol: 0 },
+      { name: 'renormalization depth r = N − M', got: NT.N - NT.M, want: NT.r, tol: 0 },
+      { name: 'calibration δ₀ used by widget F', got: C.DELTA0, want: NT.delta_bound, tol: 1e-15 },
+    ];
+    for (const L of NT.localization) {
+      rows.push({ name: `2^M at M = ${L.M}`, got: 2 ** L.M, want: L.lhs, tol: 0 });
+      rows.push({ name: `2K−1 at K = ${L.K}`, got: 2 * L.K - 1, want: L.rhs, tol: 0 });
+    }
+    for (const K of Object.keys(NT.sobolev)) {
+      rows.push({ name: `σ_K transcribed, K = ${K}`, got: SIGMA[K], want: NT.sobolev[K], tol: 1e-15 });
+    }
+    renderCheck('#checkhost', rows,
+      'Tolerance 0 for the integers. The σ_K rows are a transcription check, not a computation: '
+      + 'both sides quote the supplement, so agreement here means the page copied the table '
+      + 'correctly and nothing more. The companion repository computes σ_K from the filter taps.');
+  } catch (e) {
+    document.querySelector('#checkhost').innerHTML =
+      `<p class="badge bad">could not run the check: ${e.message}</p>`;
+  }
+})();
+</script>
+</body>
+</html>

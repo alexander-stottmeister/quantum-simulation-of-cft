@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>J &middot; One-particle convergence &mdash; Quantum Simulation of CFT</title>
+<meta name="description" content="Why this widget is a pointer and not a widget: the generating code for Figures S2 to S6 does not exist in this repository, and the mathematics belongs to the companion.">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/katex/katex.min.css">
+<script defer src="../assets/katex/katex.min.js"></script>
+<script defer src="../assets/katex/auto-render.min.js"></script>
+<script defer src="../assets/math.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site"><div class="wrap">
+  <div class="topbar">
+    <p class="crumbs"><a href="../index.html">Quantum Simulation of CFT</a> /
+       <a href="index.html">Widgets</a> / <strong>J &middot; One-particle convergence</strong></p>
+    <button id="theme-toggle" class="btn" type="button">auto</button>
+  </div>
+  <h1>J &middot; One-particle convergence</h1>
+  <p class="lede">This one was planned and is not built. Two reasons, and both of them are worth
+     more to a reader than a widget would have been.</p>
+</div></header>
+
+<main id="main">
+
+<section id="why">
+  <h2>Why there is no widget here</h2>
+
+  <h3>1. The figures it would rebuild have no generating code</h3>
+  <div class="panel">
+    <p>Figures&nbsp;S2&ndash;S6 of the Supplemental Material &mdash; the wavelet-route
+       \(L^2\) error at \(c=0\), the momentum-cutoff \(L^2\) error at \(c=\tfrac12,1\), and the
+       off-diagonal Hilbert&ndash;Schmidt error &mdash; arrive as PDFs produced in 2021. There is
+       <strong>no script in this repository that regenerates them</strong>.</p>
+    <p>Until there is, this repository is not reproducible end to end, and a widget that
+       <em>looked</em> like those figures would be a new computation dressed up as a
+       reproduction. The honest move is to say so, leave the gap visible, and close it by
+       writing the generator and <em>comparing the new curves against the 2021 PDFs before
+       replacing them</em> &mdash; because if they differ, that is a finding and it belongs in the
+       supplement, not in a footnote.</p>
+    <p class="src">Tracked in <a href="../status.html#open">Status &rarr; Open</a>. The one number
+       the site actually uses from these figures is the \(\approx0.4\) of the near-term point, and
+       <a href="g-near-term.html">widget&nbsp;G</a> marks it as taken on trust.</p>
+  </div>
+
+  <h3>2. The mathematics belongs to the companion repository</h3>
+  <p>The quantities plotted in Figs.&nbsp;S2&ndash;S6 are one-particle objects: operator norms
+     and Hilbert&ndash;Schmidt norms of the difference between a Koo&ndash;Saleur approximant and
+     a Virasoro generator, along two renormalization routes, as functions of the Sobolev
+     regularity of a Daubechies scaling function. That is the subject of the companion paper, and
+     its own site already computes exactly these &mdash; <code>momentum_cutoff_opnorm</code>,
+     <code>momentum_cutoff_hs</code>, <code>wavelet_route_opnorm</code>,
+     <code>sobolev_sigma</code> &mdash; live in the browser, from the filter taps.</p>
+  <p>Two independent implementations of the same generator is how two projects drift apart
+     without either noticing. So this site links across rather than duplicating:</p>
+  <p class="panel"><a href="https://github.com/alexander-stottmeister/lattice_cft">github.com/alexander-stottmeister/lattice_cft</a>
+     &mdash; <em>Conformal field theory from lattice fermions</em>: the regularity thresholds, the
+     sharp one-particle rates, the two routes, the energy bounds, the multiplicity criterion.
+     <span class="muted">(That repository must be public before this link resolves; it is also the
+     target of the citation <code>[v5]</code> throughout this site.)</span></p>
+</section>
+
+<section id="division">
+  <h2>Which site owns what</h2>
+  <div class="tablewrap"><table class="data">
+    <thead><tr><th>Question</th><th>Where it is answered</th></tr></thead>
+    <tbody>
+      <tr><td>How fast does \(\ell^{(N)}_k\) converge to \(\ell_k\), and is the rate sharp?</td>
+        <td>companion site</td></tr>
+      <tr><td>Which Daubechies order is 2- or 3-regular, and how is \(\sigma_K\) measured?</td>
+        <td>companion site</td></tr>
+      <tr><td>What is the off-diagonal Hilbert&ndash;Schmidt cost, and where does it vanish?</td>
+        <td>companion site</td></tr>
+      <tr><td>What do the two renormalization routes cost, against each other?</td>
+        <td>companion site for the rates;
+            <a href="f-resource-scaling.html">widget&nbsp;F</a> for the resource consequence</td></tr>
+      <tr><td>How does that one-particle rate become a correlator bound?</td>
+        <td><a href="e-error-budget.html">widget&nbsp;E</a>, this site</td></tr>
+      <tr><td>What does the algorithm cost in gates and qubits?</td>
+        <td><a href="f-resource-scaling.html">widget&nbsp;F</a>,
+            <a href="d-ground-state.html">widget&nbsp;D</a>, this site</td></tr>
+      <tr><td>Does the correlator actually converge at the claimed rate?</td>
+        <td><a href="h-correlator.html">widget&nbsp;H</a>, this site &mdash; measured, not
+            bounded</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="partial">
+  <h2>What this site does compute from the same expansion</h2>
+  <p>The mechanism behind all of Figs.&nbsp;S2&ndash;S6 is one expansion, and that one <em>is</em>
+     recomputed here, because it is the hinge of the error budget rather than a result of the
+     companion paper: <a href="c-koo-saleur.html">widget&nbsp;C</a> draws
+     \(\varepsilon_N^{-1}\sin(\varepsilon_Nx)-x=-\tfrac16\varepsilon_N^2x^3+\cdots\) and measures
+     its decay rate as \(4.000\) per step of \(N\). What it does <em>not</em> do is evaluate the
+     weighted operator norms of Lemma&nbsp;S1 or the Hilbert&ndash;Schmidt sums of
+     Lemma&nbsp;S2.</p>
+  <p class="notshown"><b>What this page does not show.</b> Anything at all. There is no
+     computation on it, and therefore no check badge: a badge here would be decoration.</p>
+</section>
+
+</main>
+
+<footer class="site"><div class="wrap">
+  <p>An experimental, AI-assisted open-science project. Nothing here has been refereed.
+     Documents CC BY 4.0, code MIT.</p>
+  <p><a href="../index.html">Home</a> &middot; <a href="index.html">Widgets</a> &middot;
+     <a href="../results.html">Results</a> &middot; <a href="../status.html">Status</a></p>
+</div></footer>
+
+<script type="module">
+  import { boot } from '../assets/widget.js';
+  boot();
+</script>
+</body>
+</html>
