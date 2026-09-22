@@ -24,7 +24,7 @@
   <p class="lede">Every rate on this site descends from one Taylor expansion. The lattice
      generator&rsquo;s one-particle symbol is \(\varepsilon_N^{-1}\sin(\varepsilon_N x)\) where the
      continuum generator&rsquo;s is \(x\), with \(x=l\mp\tfrac k2\); the difference is
-     \(-\varepsilon_N^2x^3/6+\cdots\), and that \(\varepsilon_N^2=4^{-N}\) is the whole rate.</p>
+     \(-\varepsilon_N^2x^3/6+\cdots\), and that \(\varepsilon^2=4^{-N}\) at \(L=1\) is the whole rate.</p>
 </div></header>
 
 <main id="main">
@@ -127,7 +127,7 @@ mount({
       const e1 = Math.abs(C.ksDeviation(4.5, 6)), e2 = Math.abs(C.ksDeviation(4.5, 7));
       return `<p class="big">At a fixed momentum the deviation falls by
         <strong>${(e1 / e2).toPrecision(6)}</strong> per step of \\(N\\) &mdash; four, to six
-        figures. That is \\(\\varepsilon_N^2 = 4^{-N}\\), and it is the only place the rate comes
+        figures. That is \\(\\varepsilon^2 = 4^{-N}\\) at \\(L=1\\), and it is the only place the rate comes
         from.</p>
         <p class="muted">The dashed line is the leading term \\(-\\varepsilon_N^2x^3/6\\); it lies
         on top of the computed deviation as soon as \\(\\varepsilon_N|x|\\) is small.</p>`;
@@ -162,7 +162,8 @@ mount({
     const dev = C.ksDeviation(xe, N), rel = Math.abs(dev / xe);
     const xm = edge / 8 + k / 2;
     return `<p class="big">At \\(N = ${N}\\) the retained band is \\(|l| &lt; 2^{${N}} =
-      ${edge}\\) and \\(\\varepsilon_N = 2^{-${N}} = ${C.epsN(N).toExponential(3)}\\).</p>
+      ${edge}\\) and \\(\\varepsilon = 2^{-${N}} = ${C.epsN(N).toExponential(3)}\\), the
+      \\(L=1\\) spacing this reproduction uses.</p>
       <p>At the edge of the band, \\(x = ${xe}\\): the lattice symbol is
       ${C.ksLattice(xe, N).toPrecision(8)} against a continuum ${xe}, a relative deviation of
       <strong>${(100 * rel).toPrecision(3)}%</strong>. An eighth of the way out, \\(x = ${xm}\\),

@@ -56,7 +56,7 @@
   <div class="tablewrap"><table class="data">
     <thead><tr><th>Symbol</th><th>Meaning</th><th>Value</th></tr></thead>
     <tbody>
-      <tr><td>\(\varepsilon_N\)</td><td>lattice spacing at scale \(N\)</td><td>\(2^{-N}\)</td></tr>
+      <tr><td>\(\varepsilon_N\)</td><td>lattice spacing at scale \(N\)</td><td>\(L\,2^{-N}\)</td></tr>
       <tr><td>\(n\)</td><td>lattice sites at scale \(N\)</td><td>\(2^{N+1}\)</td></tr>
       <tr><td>\(2n\)</td><td>system qubits: two per site under Jordan&ndash;Wigner</td><td>\(2^{N+2}\)</td></tr>
       <tr><td>\(\Lambda_N\)</td><td>the staggered lattice, \(\varepsilon_N\{-L_N,\dots,L_N-1\}\) with \(\varepsilon_NL_N=L\)</td><td></td></tr>
@@ -145,20 +145,27 @@
   <h2>Two conventions this site has to fix</h2>
   <div class="panel">
     <h3>The mode set \(\Gamma_N\)</h3>
-    <p>The supplement writes \(\Gamma_M\) in \(\Theta_M\) and in \(\eta_M(N)\) without spelling
-       out the normalization. This site uses the convention of the manuscript&rsquo;s own
-       numerics script, <code>numerics_correlator.py</code>:</p>
+    <p>The retained momentum set is the same everywhere:</p>
     $$\Gamma_N=\{\,l\in\mathbb Z+\tfrac12\ :\ |l|&lt;2^{N}\,\},\qquad
-      |\Gamma_N| = 2^{N+1}=n,\qquad \varepsilon_N=2^{-N},$$
-    <p>i.e. half-integer (Neveu&ndash;Schwarz) modes, one per lattice site. This makes
-       \(\varepsilon_N^2=4^{-N}\), which is what the supplement writes. <strong>The
-       <em>absolute</em> value of \(\Theta_M\) depends on this choice</strong> &mdash; it is a sum
-       over \(\Gamma_M\) of \(|l|^6\) &mdash; so the number that
-       <a href="widgets/e-error-budget.html">widget&nbsp;E</a> prints for \(\Theta_M\) is
-       convention-dependent even though the \(4^{-N}\) rate is not. The widget says so.</p>
-    <p class="src">A different convention is in use in the companion repository, where
-       \(\varepsilon=\pi 2^{-N}\) and \(|l|&lt;\pi/\varepsilon\). The rates agree; the constants
-       do not. Do not carry a constant across without converting.</p>
+      |\Gamma_N| = 2^{N+1}=n,$$
+    <p>i.e. half-integer (Neveu&ndash;Schwarz) modes, one per lattice site. <strong>The spacing is
+       not.</strong> Two appear in the source material and they are not interchangeable:</p>
+    <ul>
+      <li>the Koo&ndash;Saleur symbol and the correlator reproduce
+          <code>numerics_correlator.py</code>, which sets \(\varepsilon=2^{-N}\), that is
+          \(L=1\);</li>
+      <li>Theorem&nbsp;S1(i) is evaluated at \(\varepsilon_N=L\,2^{-N}\) with \(L=\pi\),
+          because its constant \(\Theta_M\) is a sum of \(|l|^6\) over the momenta
+          <em>themselves</em>, and the quoted \(\Theta_3=539.885\) is the \(L=\pi\) value
+          &mdash; the one the supplement gives and the one
+          <code>one_particle_errors.py</code> uses.</li>
+    </ul>
+    <p><strong>Pairing \(\Theta_M\) at \(L=\pi\) with \(\varepsilon_N^2\) at \(L=1\)
+       understates the dynamics term by \(\pi^2\).</strong> This site made that mistake and
+       corrected it; so did the supplement. The \(4^{-N}\) <em>rate</em> is free of the choice,
+       the constants are not, and at \(L=1\) the momenta would be \(\pi l\) rather than
+       \(l\), giving \(\Theta_3=\pi^3\cdot539.885\). Do not carry a constant across
+       without converting.</p>
 
     <h3>The two renormalization routes</h3>
     <p>&ldquo;Momentum-cutoff&rdquo; and &ldquo;wavelet&rdquo; are two renormalization groups, not

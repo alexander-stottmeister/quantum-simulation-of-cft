@@ -12,7 +12,9 @@ two ever disagree, one of them is wrong and the badge says so.
 
 Requires numpy and the standard library.  matplotlib is deliberately not used.
 
-Conventions (docs/notation.html): eps_N = 2^{-N}; the retained momentum set at scale N is
+Conventions (docs/notation.html): two spacings, eps = 2^{-N} for the symbol and the
+correlator (L = 1, as numerics_correlator.py) and eps_N = pi 2^{-N} for Theorem S1(i)
+(L = pi, the value Theta_M is quoted at); the retained momentum set at scale N is
 Gamma_N = { l in Z + 1/2 : |l| < 2^N } (Neveu-Schwarz half-integers), so |Gamma_N| =
 2^{N+1} = n and eps_N^2 = 4^{-N}.  This is the convention of
 ``resubmission/numerics_correlator.py``, which is the reference implementation for the
@@ -138,6 +140,20 @@ def correlator_data():
 
 # --------------------------------------------------------------- error budget (widget E)
 
+L_CIRC = PI            # circumference parameter of the paper; the scripts use L = pi
+
+
+def eps_phys(N):
+    """eps_N = L 2^{-N}, the spacing Theorem S1(i) is stated in.
+
+    Distinct from the 2^{-N} of numerics_correlator.py, which the symbol and the
+    correlator reproduce.  Theta_M is a sum over momenta and its quoted value is the
+    L = pi one, so pairing it with a L = 1 spacing understates the dynamics term by
+    pi^2.
+    """
+    return L_CIRC * 2.0 ** -N
+
+
 def theta_M(M):
     ll = modes(2 ** M)
     return float(np.sqrt(np.sum(ll[ll > 0] ** 6)))
@@ -164,7 +180,7 @@ def budget_data():
         r = N - M
         eta = eta_chiral(r) if chiral else eta_full(r)
         I = (dA + dB) * eta
-        II = (1.0 / 6.0) * dB * theta_M(M) * abs(T) * 4.0 ** -N
+        II = (1.0 / 6.0) * dB * theta_M(M) * abs(T) * eps_phys(N) ** 2
         pts.append({"N": N, "M": M, "dA": dA, "dB": dB, "T": T,
                     "algebra": "chiral" if chiral else "full",
                     "I": I, "II": II, "total": I + II})
@@ -302,7 +318,7 @@ def anchors_data():
              "text": "system qubits: two per site under the Jordan-Wigner map",
              "source": "supp, Sec. 'Resource accounting and state preparation', opening para.; "
                        "main, 'Complexity'"},
-            {"id": "rate", "value": "eps_N^2 = 4^{-N}",
+            {"id": "rate", "value": "eps_N^2 propto 4^{-N}",
              "text": "the one-particle rate every leaf of the error budget carries along the "
                      "momentum-cutoff route",
              "source": "supp, caption of Fig. S1 (the error budget)"},

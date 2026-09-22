@@ -23,7 +23,7 @@
    "id": "rate",
    "source": "supp, caption of Fig. S1 (the error budget)",
    "text": "the one-particle rate every leaf of the error budget carries along the momentum-cutoff route",
-   "value": "eps_N^2 = 4^{-N}"
+   "value": "eps_N^2 propto 4^{-N}"
   },
   {
    "id": "eta_full",

@@ -3,11 +3,18 @@
  * browser and under `node tools/check_js.mjs`, which is how the agreement with
  * tools/make_data.py is verified outside a browser.
  *
- * Conventions (see docs/notation.html).  eps_N = 2^{-N}; the momentum set retained at
- * scale N is Gamma_N = { l in Z + 1/2 : |l| < 2^N } (Neveu-Schwarz, half-integer modes),
- * so |Gamma_N| = 2^{N+1} = n and eps_N^2 = 4^{-N}.  This is the convention of
- * resubmission/numerics_correlator.py, and the one the supplement uses when it writes
- * eps_N^2 = 4^{-N}.
+ * Conventions (see docs/notation.html).  The momentum set retained at scale N is
+ * Gamma_N = { l in Z + 1/2 : |l| < 2^N } (Neveu-Schwarz, half-integer modes), so
+ * |Gamma_N| = 2^{N+1} = n.  Two spacings appear, and they are not interchangeable:
+ *
+ *   - the Koo-Saleur symbol and the correlator reproduce numerics_correlator.py, which
+ *     sets eps = 2^{-N}, i.e. the circumference parameter L = 1;
+ *   - Theorem S1(i) is evaluated at eps_N = L 2^{-N} with L = pi, because its constant
+ *     Theta_M is a sum over the momenta themselves and Theta_3 = 539.885 is the L = pi
+ *     value, the one the supplement quotes and the one one_particle_errors.py uses.
+ *
+ * Evaluating the theorem with Theta_M at L = pi and eps_N^2 at L = 1 would understate its
+ * dynamics term by a factor pi^2; that mixture is the defect this comment exists to stop.
  */
 
 export const PI = Math.PI;
@@ -17,7 +24,9 @@ export const PI = Math.PI;
 export const sites = (N) => 2 ** (N + 1);            // n = 2^{N+1}            [supp, "Throughout, n = 2^{N+1}"]
 export const qubits = (N) => 2 ** (N + 2);           // 2n = 2^{N+2}           [supp, Sec. "Resource accounting"]
 export const depth = (N, M) => N - M;                // r = N - M              [supp, Lemma S4 "Source and mechanism"]
-export const epsN = (N) => 2 ** -N;
+export const epsN = (N) => 2 ** -N;          /* L = 1: symbol and correlator */
+export const L_CIRC = Math.PI;               /* circumference parameter of the paper */
+export const epsPhys = (N) => L_CIRC * 2 ** -N;  /* L = pi: Theorem S1(i) */
 
 /* Lattice-vacuum rate eta_M(N) of Lemma S4, a function of the depth r = N - M alone. */
 export const etaFull = (r) => (PI / 4) * 2 ** -r;          // full two-component algebra
@@ -49,12 +58,13 @@ export function thetaM(M) {
 }
 
 /* Theorem S1(i), the established k = 0 bound, term by term.
- *   |C^(N)_t - C_t| <= (dA + dB) eta_M(N)  +  (1/6) dB Theta_M |t| eps_N^2         */
+ *   |C^(N)_t - C_t| <= (dA + dB) eta_M(N)  +  (1/6) dB Theta_M |t| eps_N^2,
+ * with eps_N = pi 2^{-N}; see the note on the two spacings above.       */
 export function budgetK0({ N, M, dA, dB, T, chiral = true }) {
   const r = N - M;
   const eta = chiral ? etaChiral(r) : etaFull(r);
   const I = (dA + dB) * eta;
-  const II = (1 / 6) * dB * thetaM(M) * Math.abs(T) * 4 ** -N;
+  const II = (1 / 6) * dB * thetaM(M) * Math.abs(T) * epsPhys(N) ** 2;
   return { I, II, total: I + II, eta, theta: thetaM(M), r };
 }
 
@@ -67,7 +77,7 @@ export function horizon(cK, T) {
   return (Math.exp(cK * T) - 1) / cK;
 }
 export function budgetKnonzero({ N, m, cK, T }) {
-  return { shape: m * m * horizon(cK, T) * 4 ** -N, lambda: horizon(cK, T) };
+  return { shape: m * m * horizon(cK, T) * epsPhys(N) ** 2, lambda: horizon(cK, T) };
 }
 
 /* Inversion of the rate, Eq. (S..) "Reconciliation": C eps_N^2 <= delta  <=>

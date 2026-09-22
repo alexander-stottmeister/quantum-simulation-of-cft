@@ -68,7 +68,8 @@
         <td>Heisenberg-limited phase estimation: \(O(1/\delta)\) controlled-evolution calls to the
             per-run circuit, with \(O(\log\tfrac1\delta)\) readout ancillas.</td></tr>
       <tr><td>discretization</td><td class="num">\(\delta^{-1/2}\)</td>
-        <td>\(C\varepsilon_N^2=C4^{-N}\le\delta\) gives \(N\ge\tfrac12\log_2(C/\delta)\), hence
+        <td>\(C\varepsilon_N^2\le\delta\), i.e. \(C4^{-N}\le\delta\) once the fixed factor
+            \(L^2\) is absorbed into \(C\), gives \(N\ge\tfrac12\log_2(C/\delta)\), hence
             \(n=2^{N+1}\lesssim2C^{1/2}\delta^{-1/2}\). The per-run cost \((nT)^{1+o(1)}\) is
             linear in \(n\).</td></tr>
       <tr><td><strong>product</strong></td><td class="num"><strong>\(\delta^{-3/2}\)</strong></td>
