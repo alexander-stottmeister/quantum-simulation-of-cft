@@ -5,50 +5,70 @@
 # commit, so this hook refuses the staged paths that must never enter this history.
 # It is deliberately blunt: a false refusal costs a minute, a false pass is permanent.
 #
-# The patterns below are written with a character class on the last letter, as in
+# Every staged file is judged by its name and, for images, by its bytes too, since a
+# name can lie: a raster saved as .dat passes every name pattern but not the signature
+# test.  Names are read with git's quoting off.  Under the default core.quotePath=true a
+# name with a non-ASCII byte arrives quoted and escaped, "paper/Gl\303\274ck.png", and no
+# pattern matches it; with quoting off git still quotes a name holding a control
+# character, a double quote or a backslash, and such a name is refused outright.
+#
+# The patterns are written with a character class on the last letter, as in
 # 'Claude-Sessio[n]', so that this file does not itself contain the strings it forbids;
 # the export verifier scans every file, this one included, and would otherwise flag it.
 #
-# core.hooksPath is per-clone LOCAL config.  Run this once on every machine:
-#
-#     git config core.hooksPath .githooks
+# core.hooksPath is per-clone LOCAL config.  The update procedure in the private
+# repository's tools/export_public.py sets it in the throwaway clone it pushes from.
 #
 set -eu
+export LC_ALL=C
 fail() { echo "pre-commit: REFUSED: $1" >&2; exit 1; }
 
-staged=$(git diff --cached --name-only --diff-filter=ACMR)
-[ -n "$staged" ] || exit 0
+list=$(mktemp) || exit 1
+trap 'rm -f "$list"' EXIT
+git -c core.quotePath=false diff --cached --name-only --diff-filter=ACMR > "$list"
+[ -s "$list" ] || exit 0
 
-printf '%s\n' "$staged" | while IFS= read -r f; do
-  [ -n "$f" ] || continue
-  case "$f" in
-    *report[s].rtf|*CoverLette[r]*|*respons[e]*.tex|*corresponden[c]e*|*refere[e]*)
-      fail "$f looks like journal correspondence" ;;
-    *.rtf|*.doc|*.docx|*.pages)
-      fail "$f is a word-processor document; this repository tracks sources" ;;
-    *.png|*.jpg|*.jpeg|*.tif|*.tiff|*.bmp|*.gif)
-      fail "$f is a raster image; figures here are vector and regenerable" ;;
+# the raster signatures, as the hex of a file's first bytes
+is_raster() {
+  h=$(git cat-file -p ":$1" 2>/dev/null | head -c 16 | od -An -tx1 | tr -d ' \n')
+  case "$h" in
+    89504e47*|ffd8ff*|47494638*|424d*|49492a00*|4d4d002a*) return 0 ;;   # PNG JPEG GIF BMP TIFF
+    52494646????????57454250*) return 0 ;;                              # WebP
+    ????????6674797061766966*|????????6674797068656963*) return 0 ;;    # AVIF, HEIC
+    ????????667479706865696[6-9x]*|????????66747970617669*) return 0 ;; # HEIF, AVIS
+    ff0a*|0000000c4a584c20*|0000000c6a5020*) return 0 ;;                # JPEG XL, JPEG 2000
   esac
-  # a PDF is allowed only as a figure, never as a compiled document
-  case "$f" in
+  return 1
+}
+
+while IFS= read -r f; do
+  [ -n "$f" ] || continue
+  case "$f" in \"*) fail "$f: a name git must still quote; rename it" ;; esac
+  lf=$(printf '%s' "$f" | tr 'A-Z' 'a-z')
+  case "$lf" in
+    *report[s].rtf|*coverlette[r]*|*respons[e]*.tex|*corresponden[c]e*|*refere[e]*)
+      fail "$f looks like journal correspondence" ;;
+    *.rtf|*.doc|*.docx|*.pages|*.odt)
+      fail "$f is a word-processor document; this repository tracks sources" ;;
+    *.png|*.jpg|*.jpeg|*.tif|*.tiff|*.bmp|*.gif|*.webp|*.avif|*.heic|*.heif|*.jxl|*.jp2)
+      fail "$f is a raster image; figures here are vector and regenerable" ;;
     *.pdf)
       case "$f" in
         paper/figure*.pdf|paper/2022-submitted/figure*.pdf) : ;;
         *) fail "$f is a PDF that is not a figure; documents are built, not committed" ;;
       esac ;;
   esac
-done
-
-# content tripwires over the staged blobs, not the working tree
-for f in $staged; do
-  case "$f" in *.pdf|*.png|*.jpg|*.woff*|*.ttf) continue ;; esac
-  blob=$(git show ":$f" 2>/dev/null || true)
+  case "$lf" in
+    *.pdf|*.woff|*.woff2|*.ttf) continue ;;
+  esac
+  is_raster "$f" && fail "$f is a raster image under another name"
+  blob=$(git cat-file -p ":$f" 2>/dev/null || true)
   [ -n "$blob" ] || continue
   printf '%s' "$blob" | grep -q -E 'LQ ?[0-9]{5}' && fail "$f contains the manuscript number"
   printf '%s' "$blob" | grep -q -E '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}' \
     && fail "$f contains an email address"
   printf '%s' "$blob" | grep -qE 'Claude-Sessio[n]' && fail "$f contains a session URL"
   printf '%s' "$blob" | grep -qE '/User[s]/' && fail "$f contains an absolute local path"
-done
+done < "$list"
 
 exit 0
