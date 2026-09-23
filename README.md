@@ -131,8 +131,10 @@ The error analysis rests on a companion paper, and on its revision:
   Commun. Math. Phys. **398** (2023) 219–289,
   [doi:10.1007/s00220-022-04521-8](https://doi.org/10.1007/s00220-022-04521-8),
   [arXiv:2107.13834](https://arxiv.org/abs/2107.13834), open access under CC BY 4.0.
-- The revised and expanded version of it, with a critical re-reading of the published proofs, in
-  [its own repository](https://github.com/alexander-stottmeister/lattice_cft). The Supplemental
+- The revised and expanded version of it, with a critical re-reading of the published proofs:
+  [the manuscript](https://alexander-stottmeister.github.io/lattice_cft/pdf/free_fermion_cft_v5.pdf),
+  its [interactive companion](https://alexander-stottmeister.github.io/lattice_cft/) and
+  [the repository](https://github.com/alexander-stottmeister/lattice_cft). The Supplemental
   Material cites it by statement number, and takes its quantitative inputs from it rather than
   from the published version, because several of the published proofs do not establish what they
   claim. That repository says which, and repairs them.
