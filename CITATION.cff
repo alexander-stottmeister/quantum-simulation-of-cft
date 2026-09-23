@@ -1,9 +1,11 @@
 cff-version: 1.2.0
 message: >-
-  If you refer to this work, please cite the arXiv version (arXiv:2109.14214), which is the
-  citable form of this manuscript, and say that it has not been refereed. Cite this repository
-  by URL and commit for anything that exists only here: the numerics, the figures and their
-  generators, or the interactive presentation of a result.
+  If you refer to this work, please cite the arXiv preprint (arXiv:2109.14214) for the
+  manuscript, bearing in mind that its version 1 predates the revision here and will be
+  replaced once human review of the revision is finished. Cite this repository by URL and
+  commit for the revision and for anything else that exists only here: the numerics, the
+  figures and their generators, or the interactive presentation of a result. None of it has
+  been refereed.
 title: >-
   Quantum simulation of conformal field theory: the revised Letter, its Supplemental
   Material, and the numerics behind every figure

@@ -379,6 +379,26 @@ FILES = {
 }
 
 
+RTOL, ATOL = 1e-9, 1e-12   # the tolerance the site's own badges state
+
+
+def _close(a, b):
+    """Structural equality, with floats compared to RTOL/ATOL rather than bit for bit.
+
+    Byte-exact comparison fails across platforms: the correlator values come out of an
+    eigen-decomposition whose last digit differs between numpy on Linux and on macOS.
+    That is not a reproducibility failure, so --check compares numbers as numbers.
+    """
+    if isinstance(a, dict) and isinstance(b, dict):
+        return a.keys() == b.keys() and all(_close(a[k], b[k]) for k in a)
+    if isinstance(a, list) and isinstance(b, list):
+        return len(a) == len(b) and all(_close(x, y) for x, y in zip(a, b))
+    num = (int, float)
+    if isinstance(a, num) and isinstance(b, num) and not isinstance(a, bool) and not isinstance(b, bool):
+        return abs(a - b) <= ATOL + RTOL * abs(b)
+    return a == b
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--check", action="store_true",
@@ -392,9 +412,13 @@ def main():
         path = os.path.join(OUT, name)
         if args.check:
             old = open(path).read() if os.path.exists(path) else ""
-            same = old == text
-            print(f"{'ok  ' if same else 'DIFF'} {name}")
-            bad += 0 if same else 1
+            if old == text:
+                print(f"ok   {name}")
+            elif old and _close(json.loads(old), payload):
+                print(f"ok   {name}  (equal within rtol {RTOL:g}, atol {ATOL:g}; last digits differ)")
+            else:
+                print(f"DIFF {name}")
+                bad += 1
         else:
             with open(path, "w") as fh:
                 fh.write(text)

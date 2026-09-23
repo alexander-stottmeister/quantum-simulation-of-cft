@@ -47,9 +47,11 @@ the repository's own workflow on every push.
 | Supplemental Material | 15 pp. The discretization error analysis, the resource accounting and the ground-state circuit, and the numerical convergence data. | [PDF](https://alexander-stottmeister.github.io/quantum-simulation-of-cft/pdf/qscft_supp.pdf) · [source](paper/qscft_supp.tex) |
 | the 2022 submitted version | 7 + 3 pp, for provenance: what the revision changed is visible against it. | [source](paper/2022-submitted/) |
 
-The citable form of this manuscript is the arXiv version, [arXiv:2109.14214](https://arxiv.org/abs/2109.14214).
-Cite this repository by URL and commit for anything that exists only here, and say that it has
-not been refereed.
+The public preprint is [arXiv:2109.14214](https://arxiv.org/abs/2109.14214), version 1 of
+September 2021. It predates this revision and still carries the qubit count and the complexity
+exponent corrected here; it will be replaced once the human review of the revision is finished.
+Until then, cite the preprint for the manuscript and this repository, by URL and commit, for the
+revision and anything else that exists only here, and say that it has not been refereed.
 
 ## What is established, and what is assembled
 
@@ -186,5 +188,6 @@ No third-party copyrighted material is contained in this repository or in its hi
 ## Citing
 
 `CITATION.cff` carries the metadata. Cite [arXiv:2109.14214](https://arxiv.org/abs/2109.14214)
-for the manuscript, the companion paper for the results it contains, and this repository by URL
-and commit for the numerics, the figures and anything else that exists only here.
+for the manuscript, bearing in mind that version 1 predates this revision; the companion paper
+for the results it contains; and this repository by URL and commit for the revision, the numerics,
+the figures and anything else that exists only here.

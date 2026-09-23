@@ -33,16 +33,17 @@ jobs:
         with:
           node-version: "22"
 
-      - name: Regenerate data and figures
+      - name: Committed data must be reproducible, within the stated tolerance
+        run: python3 tools/make_data.py --check
+
+      - name: Committed figures must regenerate exactly from the committed data
         run: |
           set -eux
-          [ -f tools/make_data.py ]    && python3 tools/make_data.py
-          [ -f tools/make_figures.py ] && python3 tools/make_figures.py
-          [ -f tools/make_docs.py ]    && python3 tools/make_docs.py
-          python3 numerics/one_particle_errors.py --selftest
+          python3 tools/make_figures.py
+          git diff --exit-code -- docs/figures
 
-      - name: Committed data and figures must be reproducible
-        run: git diff --exit-code
+      - name: The figure generator's self-test
+        run: python3 numerics/one_particle_errors.py --selftest
 
       - name: The widgets must agree with the Python, and every page must load
         run: |
